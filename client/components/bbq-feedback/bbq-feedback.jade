@@ -1,0 +1,25 @@
+
+
+.title
+  .title-container
+    h1 What do you want to let us know?
+
+.container
+
+  form(ng-if='! successful' name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback)' novalidate)
+    md-input-container
+      label Feedback
+      textarea(name='feedback' ng-model='feedback.feedback' require='true' autocomplete='off')
+    md-input-container
+      label Name (Optional)
+      input(name='name' ng-model='feedback.name' autocomplete='off')
+    md-input-container
+      label Contact (Optional)
+      input(name='contact' ng-model='feedback.contact' autocomplete='off')
+    md-button(type='submit') Submit
+
+
+  form(ng-if='successful', novalidate)
+    h3 Feedback sent!
+
+    md-button(ng-click='resetFeedback()', type='button') New feedback

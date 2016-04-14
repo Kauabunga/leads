@@ -13,6 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -20,6 +21,12 @@
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
+
+    <style>
+      div, span, button, input, textarea, li, h1, h2, h3, h4, h5, h6 {
+        font-family: sans-serif;
+      }
+    </style>
   </head>
   <body ng-app="bbqApp">
     <!--[if lt IE 7]>
@@ -51,6 +58,10 @@
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+      <script src="bower_components/angular-messages/angular-messages.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-aria/angular-aria.js"></script>
+      <script src="bower_components/angular-material/angular-material.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js(.tmp) app/app.js -->
@@ -58,14 +69,15 @@
       <!-- injector:js -->
       <script src="components/auth/auth.module.js"></script>
       <script src="components/util/util.module.js"></script>
-      <script src="components/auth/router.decorator.js"></script>
+      <script src="components/auth/user.service.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
       <script src="app/account/account.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/interceptor.service.js"></script>
+      <script src="components/auth/router.decorator.js"></script>
       <script src="app/account/settings/settings.controller.js"></script>
-      <script src="components/auth/user.service.js"></script>
+      <script src="components/bbq-feedback/bbq-feedback.directive.js"></script>
       <script src="components/bbq-login/bbq-login.directive.js"></script>
       <script src="components/footer/footer.directive.js"></script>
       <script src="components/mongoose-error/mongoose-error.directive.js"></script>

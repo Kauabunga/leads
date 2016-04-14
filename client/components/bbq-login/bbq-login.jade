@@ -1,19 +1,56 @@
 
 
-h1 Register
 
-form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, user)' novalidate)
-  input(ng-model='user.email', required='true' type='email'
-  placeholder='Enter your work email address')
+.title.login-title
+  .title-container.login-title-container
+    h1 Register
 
-  button(type='submit') Submit Email
-
+.container.login-container
 
 
-form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, user)', novalidate
-      ng-if='emailSent')
-  input(ng-model='user.registerToken', required='true', type='number')
 
-  button(type='submit') Submit Token
+  form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate=''
+      ng-if='! successfulTokenSent', autocomplete='off')
 
 
+    md-input-container
+      label Enter your work email address
+      input(name='email' ng-model='email', required='true' type='email', autocomplete='off')
+
+      div(ng-show='emailRegisterForm.$submitted || emailRegisterForm.email.$touched'
+      ng-messages="emailRegisterForm.email.$error" md-auto-hide="true")
+        div(ng-message='email') That email doesn't look quite right
+        div(ng-message='required') We need your email address
+
+
+    div
+      md-button(type='submit') Next
+
+
+
+  form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate,
+  ng-if='successfulTokenSent', autocomplete='off')
+
+
+    label Great! Enter the code you see in your inbox for
+    b &nbsp;{{email}}
+
+
+    md-input-container
+      label Enter the 5 digit code
+      input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
+        ng-minlength='5' ng-maxlength='5' maxlength='5')
+
+      div(ng-show='tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched'
+      ng-messages="tokenRegisterForm.registerToken.$error" md-auto-hide="true")
+        div(ng-message='required') You need to enter the code we sent you.
+        div(ng-message='minlength') You haven't quite entered 5 digits
+        div(ng-message='maxlength') You have entered too many digits
+        div(ng-message='token') That token did not match the one we sent
+
+
+    div
+      md-button(type='submit') Login
+
+
+  h2(ng-if='authenticated === false') INVALID TOKEN

@@ -4,12 +4,7 @@
 
 class MainController {
 
-  constructor($http) {
-    this.$http = $http;
-
-    this.submitFeedback = (form, feedback) => {
-
-    }
+  constructor() {
 
   }
 

@@ -14,34 +14,47 @@ angular.module('bbqApp')
           scope.submitEmail = submitEmail;
         }
 
-        function submitToken(form, user = {}){
-          if( ! user.email || ! user.registerToken || form.$invalid ){
+        function submitToken(form, registerToken){
+          if( ! scope.email || ! registerToken || form.$invalid ){
 
           }
-          else {
-            return Auth.login(user)
-              .then(response => {
-                $log.debug('Successfully authenticated');
-                $state.go('main');
-              })
-              .catch(err => {
-                scope.authenticated = false;
-              });
+          else if(! scope.submitting) {
+            scope.submitting = true;
+
+            return Auth.login({email: scope.email, registerToken})
+            .then(response => {
+              $log.debug('Successfully authenticated');
+              $state.go('main');
+            })
+            .catch(err => {
+              scope.authenticated = false;
+              form.registerToken.$error.token = true;
+            })
+            .finally(() => {
+              scope.submitting = false;
+            });
           }
         }
 
-        function submitEmail(form, user = {}){
-          if( ! user.email || form.$invalid ){
+        function submitEmail(form, email){
+
+          if( ! email || form.$invalid ){
 
           }
-          else {
-            return Auth.sendTokenEmail(user)
+          else if(! scope.submitting ){
+            scope.submitting = true;
+            return Auth.sendTokenEmail({email})
               .then(response => {
                 $log.debug('response ', response, scope.emailRegisterForm);
-                scope.emailSent = true;
+                scope.successfulTokenSent = true;
+                scope.email = email;
+              })
+              .finally(() => {
+                scope.submitting = false;
               });
           }
         }
+
       }
     };
   });

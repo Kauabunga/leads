@@ -14,7 +14,6 @@ module.exports = function (grunt) {
     express: 'grunt-express-server',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     buildcontrol: 'grunt-build-control',
     istanbul_check_coverage: 'grunt-mocha-istanbul',
@@ -360,12 +359,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/<%= yeoman.client %>/*.html']
-      }
-    },
 
     // Copies remaining files to places other tasks can use
     copy: {
@@ -833,7 +826,6 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'babel:server',
-    'cdnify',
     'cssmin',
     'uglify',
     'filerev',

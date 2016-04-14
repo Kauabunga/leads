@@ -2,7 +2,7 @@
 
 (function() {
 
-function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User) {
   var safeCb = Util.safeCb;
   var currentUser = {};
   var userRoles = appConfig.userRoles || [];
@@ -13,8 +13,15 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
 
   var Auth = {
 
-    sendTokenEmail({ email }) {
-      return $http.post('/api/users', { email })
+    sendTokenEmail({ email = '' }) {
+
+      if(email.split('@').length !== 2){
+        return $q.reject();
+      }
+
+      let emailParsed = `${email.split('@')[0]}@${email.split('@')[1].toLowerCase()}`;
+
+      return $http.post('/api/users', { email: emailParsed })
         .then(res => {
           return res;
         });
@@ -27,9 +34,20 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function} callback - optional, function(error, user)
      * @return {Promise}
      */
-    login({email, registerToken}, callback) {
+    login({email = '', registerToken}, callback) {
+
+
+      if(email.split('@').length !== 2){
+        return $q.reject();
+      }
+
+      let emailParsed = `${email.split('@')[0]}@${email.split('@')[1].toLowerCase()}`;
+
+      $log.debug('parsed email', emailParsed);
+
+
       return $http.post('/auth/local', {
-        email: email,
+        email: emailParsed,
         password: registerToken.toString()
       })
         .then(res => {

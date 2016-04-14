@@ -29,6 +29,32 @@ export function sendTokenEmail({email, token}) {
   });
 }
 
+export function sendFeedbackEmail({email, feedback, contact, name}) {
+
+  return new Promise((success, failure) => {
+
+    console.log(`Sending feedback email ${email} ${feedback}`);
+
+    let mailOptions = {
+      from: 'bbq@feedback.com', // sender address
+      to: email, // list of receivers
+      subject: 'BBQ Feedback Received', // Subject line
+      //html: ''
+      text: `
+      Name: ${name}
+      Contact: ${contact}
+      Feedback: ${feedback}
+      ` // plaintext body
+    };
+
+    // send mail with defined transport object
+    return transporter.sendMail(mailOptions, function(error, info){
+      return error ? failure(error) : success(info);
+    });
+
+  });
+}
+
 
 
 /**

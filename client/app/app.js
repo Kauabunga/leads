@@ -7,7 +7,11 @@ angular.module('bbqApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
-  'validation.match'
+  'validation.match',
+
+  'ngMaterial',
+  'ngMessages',
+  'ngAnimate'
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
