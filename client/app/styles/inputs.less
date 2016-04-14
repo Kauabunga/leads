@@ -7,7 +7,26 @@ label, input, textarea {
 
 md-input-container {
   margin: 26px 0 18px;
+
+  &:not(.md-input-invalid),
+  &:not(.md-input-invalid).md-input-focused, {
+    label {
+      color: @deep-blue;
+    }
+    .md-input {
+      border-color: @deep-blue;
+    }
+  }
 }
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 
 input {
   border-radius: 0;
@@ -22,9 +41,6 @@ input {
   &:focus {
     outline: none;
   }
-
-
-
 }
 
 textarea {

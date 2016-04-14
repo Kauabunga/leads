@@ -6,6 +6,8 @@ html, body {
   width: 100%;
   overflow-x: hidden;
   height: 100%;
+
+  background-color: @light-green-yellow;
 }
 
 
@@ -28,10 +30,12 @@ html, body {
 }
 
 /* inject:less */
+@import 'styles/animations.less';
 @import 'styles/buttons.less';
 @import 'styles/colors.less';
 @import 'styles/inputs.less';
 @import 'styles/layout.less';
+@import 'styles/progress.less';
 @import '../components/bbq-feedback/bbq-feedback.less';
 @import '../components/bbq-login/bbq-login.less';
 /* endinject */

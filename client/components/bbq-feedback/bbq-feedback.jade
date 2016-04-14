@@ -28,7 +28,10 @@
         label Contact (Optional)
         input(name='contact' ng-model='contact' autocomplete='off')
 
-      md-button(type='submit') Submit
+      md-button(type='submit')
+        span(ng-hide='submitting') Submit
+        md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+
 
 
 .container(ng-if='successful')

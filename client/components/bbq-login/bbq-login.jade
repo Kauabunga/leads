@@ -26,7 +26,10 @@
           div(ng-message='required') We need your email address
 
 
-      md-button(type='submit') Next
+      md-button(type='submit')
+        span(ng-hide='submitting') Next
+        md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+
 
 
 .container.login-container(ng-if='successfulTokenSent')
@@ -43,7 +46,7 @@
 
       md-input-container
         label Enter the 5 digit code
-        input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
+        input.token-input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
           ng-minlength='5' ng-maxlength='5' maxlength='5',
           ng-focus='isRegisterTokenFocused = true', ng-blur='isRegisterTokenFocused = false')
 
@@ -54,11 +57,17 @@
           div(ng-message='maxlength') You have entered too many digits
           div(ng-message='token') That token did not match the one we sent
 
-      md-button(type='submit') Login
+      md-button(type='submit')
+        span(ng-hide='submitting') Login
+        md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+
 
 
       md-content(ng-if='tokenTimedout')
-        md-button.link-button(type='button', ng-click='resendTokenEmail(email)') I did not get an email
+        md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(email)')
+          span(ng-hide='submitting') I did not get an email
+          md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+
 
       md-content(ng-if='successfulResentToken')
         label.deep-blue.second-token-sent Another email has been sent
