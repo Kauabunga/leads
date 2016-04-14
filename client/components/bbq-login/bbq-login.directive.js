@@ -52,7 +52,10 @@ angular.module('bbqApp')
                 $log.debug('response ', response, scope.emailRegisterForm);
                 scope.successfulTokenSent = true;
                 scope.email = email;
-                $timeout(() => scope.tokenTimedout = true, TOKEN_TIMEOUT);
+                $timeout(() => {
+                  scope.tokenTimedout = true;
+                  scope.successfulResentToken = false;
+                }, TOKEN_TIMEOUT);
               })
               .finally(() => {
                 scope.submitting = false;
@@ -67,6 +70,8 @@ angular.module('bbqApp')
               .then(response => {
                 $log.debug('response ', response, scope.emailRegisterForm);
                 scope.successfulResentToken = true;
+                scope.tokenTimedout = false;
+                $timeout(() => scope.tokenTimedout = true, TOKEN_TIMEOUT);
               })
               .finally(() => {
                 scope.submitting = false;

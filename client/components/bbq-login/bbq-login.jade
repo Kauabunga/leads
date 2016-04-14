@@ -32,8 +32,9 @@
 
 
     md-content.code-introduction
-      label Great! Enter the code you see in your inbox for
-      b &nbsp;{{email}}
+      p.first We have sent you an email. Enter the code you see in your inbox for:
+      p.second
+       b {{email}}
 
 
     md-input-container
@@ -54,5 +55,5 @@
     md-content(ng-if='tokenTimedout')
       md-button.link-button(type='button', ng-click='resendTokenEmail(email)') I did not get an email
 
-      md-content(ng-if='successfulResentToken')
-        label.deep-blue.second-token-sent Another token has been sent
+    md-content(ng-if='successfulResentToken')
+      label.deep-blue.second-token-sent Another email has been sent
