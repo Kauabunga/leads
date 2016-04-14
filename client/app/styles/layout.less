@@ -3,8 +3,8 @@
 
 .bbq-container {
   margin: 0 auto;
-  max-width: 400px;
-  min-width: 100%;
+  max-width: 600px;
+  width: 100%;
 }
 
 
@@ -31,7 +31,6 @@ form {
 
   > div {
     &:extend(.bbq-container);
-    max-width: 400px;
   }
 
   h1 {
@@ -42,14 +41,21 @@ form {
 
 
 .container {
-  &:extend(.bbq-container);
-  position: absolute;
+
+
+  min-width: 100%;
+  .inner-container {
+
+    &:extend(.bbq-container);
+
+  }
 }
 
 
 .container.ng-enter,
 .container.ng-leave
 {
+  position: absolute;
   transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
 
