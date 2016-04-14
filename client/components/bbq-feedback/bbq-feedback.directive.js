@@ -14,16 +14,19 @@ angular.module('bbqApp')
           scope.resetFeedback = resetFeedback;
         }
 
-        function submitFeedback (form, feedback) {
-          if(form.$valid && ! scope.submitting){
+        function submitFeedback (form, feedback, contact = 'empty', name = 'empty') {
+
+          if(form.$valid && ! scope.submitting && feedback){
+
             scope.submitting = true;
             $log.debug('submitting feedback', feedback);
-            return $http.post('/api/feedbacks', feedback)
+            return $http.post('/api/feedbacks', {feedback, contact, name})
               .then(() => {
                 scope.successful = true;
               })
               .finally(() => {
                 scope.submitting = false;
+                form.registerToken.$error.feedback = true;
               });
           }
 
@@ -31,7 +34,9 @@ angular.module('bbqApp')
 
 
         function resetFeedback (){
-          scope.feedback = {};
+          scope.feedback = '';
+          scope.contact = '';
+          scope.name = '';
           scope.successful = false;
         }
       }

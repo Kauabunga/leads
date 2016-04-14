@@ -1,18 +1,27 @@
 
 
 
-
 .bbq-container {
-  max-width: 600px;
   margin: 0 auto;
+  max-width: 400px;
+  min-width: 100%;
 }
 
 
 form {
 
-  margin: 40px 20px 20px;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #fff;
+
+
+  input, button {
+    margin: 6px 0;
+    width: 100%;
+  }
 
 }
+
 
 .title {
 
@@ -21,7 +30,7 @@ form {
   width: 100%;
 
   > div {
-    &:extend(.container);
+    &:extend(.bbq-container);
     max-width: 400px;
   }
 
@@ -31,7 +40,28 @@ form {
   }
 }
 
+
 .container {
   &:extend(.bbq-container);
-  max-width: 400px;
+  position: absolute;
 }
+
+
+.container.ng-enter,
+.container.ng-leave
+{
+  transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.container.ng-enter,
+.container.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.container.ng-leave,
+.container.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+
+

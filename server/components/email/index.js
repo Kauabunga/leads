@@ -29,7 +29,7 @@ export function sendTokenEmail({email, token}) {
   });
 }
 
-export function sendFeedbackEmail({email, feedback, contact, name}) {
+export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'empty'}) {
 
   return new Promise((success, failure) => {
 

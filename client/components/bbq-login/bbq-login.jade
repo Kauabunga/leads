@@ -5,12 +5,13 @@
   .title-container.login-title-container
     h1 Register
 
-.container.login-container
 
 
+
+.container.login-container(ng-if='! successfulTokenSent')
 
   form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate=''
-      ng-if='! successfulTokenSent', autocomplete='off')
+      autocomplete='off')
 
 
     md-input-container
@@ -23,17 +24,16 @@
         div(ng-message='required') We need your email address
 
 
-    div
-      md-button(type='submit') Next
+    md-button(type='submit') Next
 
 
+.container.login-container(ng-if='successfulTokenSent')
+  form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate, autocomplete='off')
 
-  form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate,
-  ng-if='successfulTokenSent', autocomplete='off')
 
-
-    label Great! Enter the code you see in your inbox for
-    b &nbsp;{{email}}
+    md-content.code-introduction
+      label Great! Enter the code you see in your inbox for
+      b &nbsp;{{email}}
 
 
     md-input-container
@@ -48,9 +48,11 @@
         div(ng-message='maxlength') You have entered too many digits
         div(ng-message='token') That token did not match the one we sent
 
-
-    div
-      md-button(type='submit') Login
+    md-button(type='submit') Login
 
 
-  h2(ng-if='authenticated === false') INVALID TOKEN
+    md-content(ng-if='tokenTimedout')
+      md-button.link-button(type='button', ng-click='resendTokenEmail(email)') I did not get an email
+
+      md-content(ng-if='successfulResentToken')
+        label.deep-blue.second-token-sent Another token has been sent
