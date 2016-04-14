@@ -1,0 +1,21 @@
+
+
+
+form(name='feedbackForm', ng-submit='submitFeedback(feedbackForm, feedback)' novalidate)
+
+  h1 What do you want to tell us?
+
+  div
+    label Feedback
+    textarea(ng-model='feedback.feedback' placeholder='Please enter the feedback')
+
+  div
+    label Name (Optional)
+    input(ng-model='feedback.name' placeholder='Please enter the persons name')
+
+  div
+    label Contact (Optional)
+    input(ng-model='feedback.contact' placeholder='Please enter the persons email or phone number')
+
+  button(type='submit') Submit
+

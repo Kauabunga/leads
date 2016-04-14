@@ -1,0 +1,19 @@
+
+
+h1 Register
+
+form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, user)' novalidate)
+  input(ng-model='user.email', required='true' type='email'
+  placeholder='Enter your work email address')
+
+  button(type='submit') Submit Email
+
+
+
+form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, user)', novalidate
+      ng-if='emailSent')
+  input(ng-model='user.registerToken', required='true', type='number')
+
+  button(type='submit') Submit Token
+
+
