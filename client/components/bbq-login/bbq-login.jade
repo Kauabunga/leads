@@ -15,12 +15,12 @@
     form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate=''
         autocomplete='off')
 
-
       md-input-container
         label Enter your work email address
-        input(name='email' ng-model='email', required='true' type='email', autocomplete='off')
+        input(name='email' ng-model='email', required='true' type='email', autocomplete='off',
+        ng-focus='isEmailFocused = true', ng-blur='isEmailFocused = false')
 
-        div(ng-show='emailRegisterForm.$submitted || emailRegisterForm.email.$touched'
+        div(ng-if='(emailRegisterForm.$submitted || emailRegisterForm.email.$touched) && ! isEmailFocused'
         ng-messages="emailRegisterForm.email.$error" md-auto-hide="true")
           div(ng-message='email') That email doesn't look quite right
           div(ng-message='required') We need your email address
@@ -44,9 +44,10 @@
       md-input-container
         label Enter the 5 digit code
         input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
-          ng-minlength='5' ng-maxlength='5' maxlength='5')
+          ng-minlength='5' ng-maxlength='5' maxlength='5',
+          ng-focus='isRegisterTokenFocused = true', ng-blur='isRegisterTokenFocused = false')
 
-        div(ng-show='tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched'
+        div(ng-if='(tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched) && ! isRegisterTokenFocused'
         ng-messages="tokenRegisterForm.registerToken.$error" md-auto-hide="true")
           div(ng-message='required') You need to enter the code we sent you.
           div(ng-message='minlength') You haven't quite entered 5 digits

@@ -12,9 +12,10 @@
 
       md-input-container
         label Feedback
-        textarea(name='feedbackName' ng-model='feedback' required='true' autocomplete='off')
+        textarea(name='feedbackName' ng-model='feedback' required='true' autocomplete='off',
+        ng-focus='isFeedbackFocused = true', ng-blur='isFeedbackFocused = false')
 
-        div(ng-show='feedbackForm.$submitted || feedbackForm.feedbackName.$touched'
+        div(ng-if='(feedbackForm.$submitted || feedbackForm.feedbackName.$touched) && ! isFeedbackFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
           div(ng-message='required') You need to enter some feedback
           div(ng-message='feedback') Looks like something went wrong trying to submit your feedback. Try again.
