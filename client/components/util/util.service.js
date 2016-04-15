@@ -40,6 +40,13 @@ function UtilService($window, appConfig) {
       return a;
     },
 
+    isHerokuOrigin(url){
+
+      let herokuHost = appConfig.baseApiUrl.replace('https://', '').replace('http://', '');
+
+      return url.indexOf(herokuHost) !== -1;
+    },
+
     /**
      * Test whether or not a given url is same origin
      *

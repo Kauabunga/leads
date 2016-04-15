@@ -5,7 +5,7 @@ angular.module('bbqApp')
     $stateProvider
       .state('main', {
         url: '/',
-        template: '<main></main>',
+        template: '<bbq-feedback></bbq-feedback>',
         authenticate: true
       });
   });

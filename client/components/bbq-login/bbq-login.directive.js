@@ -16,6 +16,7 @@ angular.module('bbqApp')
           scope.submitToken = _.throttle(submitToken, 2000, true);
           scope.submitEmail = submitEmail;
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
+          scope.reset = reset;
         }
 
         function submitToken(form, registerToken){
@@ -24,6 +25,7 @@ angular.module('bbqApp')
           }
           else if(! scope.submitting) {
             scope.submitting = true;
+            scope.submittingFirstToken = true;
 
             return Auth.login({email: scope.email, registerToken})
             .then(response => {
@@ -36,6 +38,7 @@ angular.module('bbqApp')
             })
             .finally(() => {
               scope.submitting = false;
+                scope.submittingFirstToken = false;
             });
           }
         }
@@ -66,6 +69,7 @@ angular.module('bbqApp')
         function resendTokenEmail(email){
           if(! scope.submitting && ! scope.successfulResentToken){
             scope.submitting = true;
+            scope.submittingSecondToken = true;
             return Auth.sendTokenEmail({email})
               .then(response => {
                 $log.debug('response ', response, scope.emailRegisterForm);
@@ -75,6 +79,7 @@ angular.module('bbqApp')
               })
               .finally(() => {
                 scope.submitting = false;
+                scope.submittingSecondToken = false;
               });
           }
         }

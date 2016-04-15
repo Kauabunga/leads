@@ -11,7 +11,8 @@ angular.module('bbqApp', [
 
   'ngMaterial',
   'ngMessages',
-  'ngAnimate'
+  'ngAnimate',
+  'ngStorage'
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');

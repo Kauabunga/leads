@@ -58,15 +58,15 @@
           div(ng-message='token') That token did not match the one we sent
 
       md-button(type='submit')
-        span(ng-hide='submitting') Login
-        md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+        span(ng-hide='submittingFirstToken') Login
+        md-progress-circular(ng-show='submittingFirstToken' md-mode='indeterminate')
 
 
 
       md-content(ng-if='tokenTimedout')
         md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(email)')
-          span(ng-hide='submitting') I did not get an email
-          md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+          span(ng-hide='submittingSecondToken') I did not get an email
+          md-progress-circular(ng-show='submittingSecondToken' md-mode='indeterminate')
 
 
       md-content(ng-if='successfulResentToken')

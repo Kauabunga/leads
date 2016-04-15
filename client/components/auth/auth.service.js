@@ -2,7 +2,7 @@
 
 (function() {
 
-function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User) {
+function AuthService($location, $http, $log, $q, appConfig, Util, User, $localStorage) {
   var safeCb = Util.safeCb;
   var currentUser = {};
   var userRoles = appConfig.userRoles || [];
@@ -10,7 +10,7 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
   const USERS_API = `${Util.getBaseApiUrl()}api/users`;
   const AUTH_API = `${Util.getBaseApiUrl()}auth/local`;
 
-  if ($cookies.get('token') && $location.path() !== '/logout') {
+  if ($localStorage.token && $location.path() !== '/logout') {
     currentUser = User.get();
   }
 
@@ -54,7 +54,8 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
         password: registerToken.toString()
       })
         .then(res => {
-          $cookies.put('token', res.data.token);
+          $localStorage.token = res.data.token;
+
           currentUser = User.get();
           return currentUser.$promise;
         })
@@ -73,29 +74,10 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
      * Delete access token and user info
      */
     logout() {
-      $cookies.remove('token');
+      $localStorage.token = undefined;
       currentUser = {};
     },
 
-    /**
-     * Create a new user
-     *
-     * @param  {Object}   user     - user info
-     * @param  {Function} callback - optional, function(error, user)
-     * @return {Promise}
-     */
-    createUser(user, callback) {
-      return User.save(user,
-        function(data) {
-          $cookies.put('token', data.token);
-          currentUser = User.get();
-          return safeCb(callback)(null, user);
-        },
-        function(err) {
-          Auth.logout();
-          return safeCb(callback)(err);
-        }).$promise;
-    },
 
     /**
      * Change password
@@ -204,7 +186,7 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
      * @return {String} - a token string used for authenticating
      */
     getToken() {
-      return $cookies.get('token');
+      return $localStorage.token;
     }
   };
 
