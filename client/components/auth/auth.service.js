@@ -7,6 +7,9 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
   var currentUser = {};
   var userRoles = appConfig.userRoles || [];
 
+  const USERS_API = `${Util.getBaseApiUrl()}api/users`;
+  const AUTH_API = `${Util.getBaseApiUrl()}auth/local`;
+
   if ($cookies.get('token') && $location.path() !== '/logout') {
     currentUser = User.get();
   }
@@ -21,7 +24,7 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
 
       let emailParsed = `${email.split('@')[0]}@${email.split('@')[1].toLowerCase()}`;
 
-      return $http.post('/api/users', { email: emailParsed })
+      return $http.post(USERS_API, { email: emailParsed })
         .then(res => {
           return res;
         });
@@ -46,7 +49,7 @@ function AuthService($location, $http, $cookies, $log, $q, appConfig, Util, User
       $log.debug('parsed email', emailParsed);
 
 
-      return $http.post('/auth/local', {
+      return $http.post(AUTH_API, {
         email: emailParsed,
         password: registerToken.toString()
       })

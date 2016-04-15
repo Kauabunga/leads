@@ -171,6 +171,14 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      www: {
+        files: [{
+          dot: true,
+          src: [
+            'www/**/*'
+          ]
+        }]
+      },
       server: '.tmp'
     },
 
@@ -391,8 +399,18 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      www: {
+        dot: true,
+        expand: true,
+        cwd: '<%= yeoman.dist %>/<%= yeoman.client %>',
+        dest: 'www/',
+        src: [
+          '**/*'
+        ]
+      },
       styles: {
         expand: true,
+        dot: true,
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
@@ -815,6 +833,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'clean:www',
     'concurrent:pre',
     'concurrent:dist',
     'injector',
@@ -829,7 +848,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'filerev',
-    'usemin'
+    'usemin',
+    'copy:www',
   ]);
 
   grunt.registerTask('default', [

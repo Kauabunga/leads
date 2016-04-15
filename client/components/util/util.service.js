@@ -5,7 +5,7 @@
 /**
  * The Util service is for thin, globally reusable, utility functions
  */
-function UtilService($window) {
+function UtilService($window, appConfig) {
   var Util = {
     /**
      * Return a callback or noop function
@@ -15,6 +15,11 @@ function UtilService($window) {
      */
     safeCb(cb) {
       return (angular.isFunction(cb)) ? cb : angular.noop;
+    },
+
+
+    getBaseApiUrl(){
+      return $window.location.hostname === 'localhost' ? '/' : appConfig.baseApiUrl;
     },
 
     /**

@@ -3,7 +3,7 @@
 
 angular.module('bbqApp.constants', [])
 
-.constant('appConfig', {userRoles:['guest','user','admin']})
+.constant('appConfig', {userRoles:['guest','user','admin'],baseApiUrl:'https://acc-bbq.herokuapp.com/'})
 
 ;
 })(angular);

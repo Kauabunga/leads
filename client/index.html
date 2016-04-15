@@ -6,8 +6,16 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <base href="/">
-    <title></title>
+
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://acc-bbq.herokuapp.com data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://acc-bbq.herokuapp.com">-->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://ssl.gstatic.com https://acc-bbq.herokuapp.com; style-src 'self' 'unsafe-inline';">-->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self';">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <title>Feedback</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -47,6 +55,8 @@
       <!--ga('create', 'UA-XXXXX-X');-->
       <!--ga('send', 'pageview');-->
     <!--</script>-->
+
+    <script type="text/javascript" src="cordova.js"></script>
 
 
     <!-- build:js({client,node_modules}) app/vendor.js -->
