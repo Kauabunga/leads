@@ -19,6 +19,10 @@ angular.module('bbqApp')
           scope.reset = reset;
         }
 
+        function reset(){
+          //TODO
+        }
+
         function submitToken(form, registerToken){
           if( ! scope.email || ! registerToken || form.$invalid ){
 
