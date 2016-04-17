@@ -12,7 +12,8 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
   const AUTH_API = `${Util.getBaseApiUrl()}auth/local`;
 
   if ($localStorage.token && $location.path() !== '/logout') {
-    currentUser = $localStorage.currentUser;
+    //Note: calling User.get should send the user to the login screen
+    currentUser = $localStorage.currentUser ? $localStorage.currentUser : User.get();
   }
 
   let Auth = {

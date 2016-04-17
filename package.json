@@ -107,6 +107,8 @@
   "scripts": {
     "start": "node server",
     "heroku": "grunt build --force && grunt buildcontrol:heroku",
+    "android-dev": "grunt build && cordova run android",
+    "ios-dev": "grunt build && cordova run ios",
     "test": "echo grunt test --force",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
