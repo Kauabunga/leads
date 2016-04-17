@@ -19,8 +19,10 @@ angular.module('bbqApp')
           if(form.$valid && ! scope.submitting && feedback){
 
             scope.submitting = true;
+            let feedbackObject = {feedback, contact, name};
             $log.debug('submitting feedback', feedback);
-            return feedbackService.sendFeedback({feedback, contact, name})
+
+            return feedbackService.sendFeedback(feedbackObject)
               .then(() => {
                 scope.successful = true;
                 scope.feedbackSuccessTitle = 'Feedback sent!';
@@ -29,7 +31,7 @@ angular.module('bbqApp')
                 //TODO only catch OFFLINE errors
                 scope.successful = true;
                 scope.feedbackSuccessTitle = 'Feedback will be sent next time you are online';
-                return feedbackService.storeFeedback({feedback, contact, name});
+                return feedbackService.storeFeedback(feedbackObject);
               })
               .finally(() => {
                 scope.submitting = false;

@@ -14,7 +14,8 @@ angular.module('bbqApp')
     });
 
     this.sendFeedback = ({ feedback, contact, name }) => {
-      return $http.post(FEEDBACK_API, { feedback, contact, name });
+      let feedbackObject = { feedback, contact, name };
+      return $http.post(FEEDBACK_API, feedbackObject);
     };
 
     this.storeFeedback = (feedback) => {
