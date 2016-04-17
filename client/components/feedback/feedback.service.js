@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .service('feedback', function ($http, $log, $q, $timeout, $localStorage, Util) {
+  .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     const FEEDBACK_API = `${Util.getBaseApiUrl()}api/feedbacks`;
@@ -12,11 +12,10 @@ angular.module('bbqApp')
       document.addEventListener('resume', this.sync, false);
     });
 
-
     this.sendFeedback = ({ feedback, contact, name }) => {
       return $http.post(FEEDBACK_API, { feedback, contact, name });
     };
-
+    
     this.storeFeedback = (feedback) => {
       let uuid = Util.uuid();
 
@@ -35,7 +34,6 @@ angular.module('bbqApp')
       return $q.all(_(feedbackStore).map((feedback, id) => {
         return this.sendFeedback(feedback)
           .then(() => {
-
             return feedbackStore[id] = undefined;
           });
       }).value())

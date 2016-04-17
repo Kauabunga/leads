@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.google-analytics.com localhost:35729 'unsafe-inline' 'unsafe-eval'">
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -93,6 +93,7 @@
       <script src="components/auth/user.service.js"></script>
       <script src="components/bbq-feedback/bbq-feedback.directive.js"></script>
       <script src="components/bbq-login/bbq-login.directive.js"></script>
+      <script src="components/feedback/feedback.service.js"></script>
       <script src="components/mongoose-error/mongoose-error.directive.js"></script>
       <script src="app/app.constant.js"></script>
       <script src="components/util/util.service.js"></script>

@@ -12,7 +12,7 @@ describe('Service: feedback', function () {
   }));
 
   it('should do something', function () {
-    !!feedback.should.be.true;
+
   });
 
 });

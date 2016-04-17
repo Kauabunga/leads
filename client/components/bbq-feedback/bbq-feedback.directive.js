@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedback) {
+  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService) {
     return {
       templateUrl: 'components/bbq-feedback/bbq-feedback.html',
       restrict: 'EA',
@@ -20,7 +20,7 @@ angular.module('bbqApp')
 
             scope.submitting = true;
             $log.debug('submitting feedback', feedback);
-            return feedback.sendFeedback({feedback, contact, name})
+            return feedbackService.sendFeedback({feedback, contact, name})
               .then(() => {
                 scope.successful = true;
                 scope.feedbackSuccessTitle = 'Feedback sent!';
@@ -29,7 +29,7 @@ angular.module('bbqApp')
                 //TODO only catch OFFLINE errors
                 scope.successful = true;
                 scope.feedbackSuccessTitle = 'Feedback will be sent next time you are online';
-                return feedback.storeFeedback({feedback, contact, name});
+                return feedbackService.storeFeedback({feedback, contact, name});
               })
               .finally(() => {
                 scope.submitting = false;
