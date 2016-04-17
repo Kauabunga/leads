@@ -2,10 +2,16 @@
   "name": "ACC BBQ",
   "icons": [
     {
-      "src": "launcher-icon-0-75x.png",
-      "sizes": "36x36",
+      "src": "assets/icons/android/hdpi.png",
+      "sizes": "72x72",
       "type": "image/png",
-      "density": 0.75
+      "density": 1.5
+    },
+    {
+      "src": "assets/icons/android/xhdpi.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "density": 2.0
     }
   ],
   "start_url": "index.html",

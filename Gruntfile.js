@@ -383,6 +383,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'assets/images/{,*/}*.{webp}',
+            'assets/icons/{,*/}*.{webp}',
+            'assets/svg/{,*/}*.{webp}',
             'assets/fonts/**/*',
             'manifest.json',
             'index.html'
