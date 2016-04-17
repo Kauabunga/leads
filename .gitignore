@@ -19,6 +19,7 @@ coverage
 # Cordova - ignore everything?
 platforms/android
 platforms/ios
+!platforms/platforms.json
 plugins/
 
 

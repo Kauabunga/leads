@@ -15,7 +15,7 @@ angular.module('bbqApp')
     this.sendFeedback = ({ feedback, contact, name }) => {
       return $http.post(FEEDBACK_API, { feedback, contact, name });
     };
-    
+
     this.storeFeedback = (feedback) => {
       let uuid = Util.uuid();
 
