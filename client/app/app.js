@@ -18,4 +18,27 @@ angular.module('bbqApp', [
     $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(false);
+
+  })
+  .run(function(toastService, $log){
+
+    let moo = 'askjdsahjkdsa';
+
+
+    if(moo){
+      console.log('akjdhsdhsajkadshjkdashjk');
+    }
+
+    if(window._isServiceWorkerContentUpdated){
+      $log.debug('On init app is ready for update');
+      toastService.updateToast();
+    }
+    else {
+      $log.debug('Listening for possible app update');
+      window._isServiceWorkerContentUpdated = toastService.updateToast;
+    }
+
   });
+
+
+
