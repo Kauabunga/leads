@@ -11,7 +11,7 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
   const AUTH_API = `${Util.getBaseApiUrl()}auth/local`;
 
   if ($localStorage.token && $location.path() !== '/logout') {
-    currentUser = User.get();
+    //currentUser = User.get();
   }
 
   var Auth = {
@@ -56,8 +56,9 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
         .then(res => {
           $localStorage.token = res.data.token;
 
-          currentUser = User.get();
-          return currentUser.$promise;
+          //currentUser = User.get();
+          currentUser = res.data.user;
+          return currentUser;
         })
         .then(user => {
           safeCb(callback)(null, user);
