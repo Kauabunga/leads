@@ -22,13 +22,6 @@ angular.module('bbqApp', [
   })
   .run(function(toastService, $log){
 
-    let moo = 'askjdsahjkdsa';
-
-
-    if(moo){
-      console.log('akjdhsdhsajkadshjkdashjk');
-    }
-
     if(window._isServiceWorkerContentUpdated){
       $log.debug('On init app is ready for update');
       toastService.updateToast();
