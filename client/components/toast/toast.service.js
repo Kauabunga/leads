@@ -17,6 +17,11 @@ angular.module('bbqApp')
     };
 
 
+    this.errorToast = (errorMessage) => {
+      return this.showSimpleToast({
+        message: errorMessage
+      });
+    };
 
     this.showActionToast = ({content, action}) => {
 
@@ -30,10 +35,10 @@ angular.module('bbqApp')
       return $mdToast.show(toast);
     };
 
-    this.showSimpleToast = () => {
+    this.showSimpleToast = ({message}) => {
       return $mdToast.show(
         $mdToast.simple()
-          .textContent('Simple Toast!')
+          .textContent(message)
           .position('bottom right')
           .hideDelay(8000)
       );

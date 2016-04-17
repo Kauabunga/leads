@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqLogin', function (Auth, $state, $log, $timeout) {
+  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService) {
     return {
       templateUrl: 'components/bbq-login/bbq-login.html',
       restrict: 'EA',
@@ -37,6 +37,7 @@ angular.module('bbqApp')
               $state.go('main');
             })
             .catch(err => {
+              handleErrorResponse(err);
               scope.authenticated = false;
               form.registerToken.$error.token = true;
             })
@@ -64,6 +65,7 @@ angular.module('bbqApp')
                   scope.successfulResentToken = false;
                 }, TOKEN_TIMEOUT);
               })
+              .catch(handleErrorResponse)
               .finally(() => {
                 scope.submitting = false;
               });
@@ -81,11 +83,25 @@ angular.module('bbqApp')
                 scope.tokenTimedout = false;
                 $timeout(() => scope.tokenTimedout = true, TOKEN_TIMEOUT);
               })
+              .catch(handleErrorResponse)
               .finally(() => {
                 scope.submitting = false;
                 scope.submittingSecondToken = false;
               });
           }
+        }
+
+        function handleErrorResponse(response){
+
+          $log.debug('Login error response', response);
+
+          if(response && response.status <= 0){
+            toastService.errorToast('You need to be online to login');
+          }
+          else {
+            toastService.errorToast('There was a problem trying to connect. Please try again.');
+          }
+
         }
 
       }

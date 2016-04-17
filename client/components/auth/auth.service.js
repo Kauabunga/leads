@@ -65,8 +65,8 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
         })
         .catch(err => {
           Auth.logout();
-          safeCb(callback)(err.data);
-          return $q.reject(err.data);
+          safeCb(callback)(err);
+          return $q.reject(err);
         });
     },
 
