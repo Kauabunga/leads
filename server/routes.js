@@ -14,6 +14,11 @@ export default function(app) {
 
   app.use('/auth', require('./auth').default);
 
+  app.get('/cordova.js', (req, res, next) => {
+    res.header('content-type', 'text/javascript; charset=UTF-8');
+    res.status(200).send('window.isNotCordovaInstance = true;');
+  });
+
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
