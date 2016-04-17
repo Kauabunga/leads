@@ -10,8 +10,29 @@ angular.module('bbqApp')
     $timeout(() => {
       document.addEventListener('online', this.sync, false);
       document.addEventListener('resume', this.sync, false);
+
       this.sync();
+
+      if (window.addEventListener) {
+        /*
+         Works well in Firefox and Opera with the
+         Work Offline option in the File menu.
+         Pulling the ethernet cable doesn't seem to trigger it.
+         Later Google Chrome and Safari seem to trigger it well
+         */
+        window.addEventListener('online', this.sync, false);
+        //window.addEventListener("offline', isOffline, false);
+      }
+      else {
+        /*
+         Works in IE with the Work Offline option in the
+         File menu and pulling the ethernet cable
+         */
+        document.body.ononline = this.sync;
+        //document.body.onoffline = isOffline;
+      }
     });
+
 
     this.sendFeedback = ({ feedback, contact, name }) => {
       let feedbackObject = { feedback, contact, name };
@@ -34,12 +55,14 @@ angular.module('bbqApp')
     this.sync = () => {
       let feedbackStore = this.getFeedbackStore();
       $log.debug('Sync called');
-      return $q.all(_(feedbackStore).map((feedback, id) => {
-        return this.sendFeedback(feedback)
-          .then(() => {
-            return feedbackStore[id] = undefined;
-          });
-      }).value())
+
+      return this.isSyncing ? this.isSyncing : this.isSyncing = $q.all(_(feedbackStore)
+        .map((feedback, id) => {
+          return this.sendFeedback(feedback)
+            .then(() => {
+              return feedbackStore[id] = undefined;
+            });
+        }).value())
         .then((success) => {
           if(success && success.length > 0){
             $log.debug('Successfully synced feedback', success);
@@ -48,6 +71,9 @@ angular.module('bbqApp')
           else {
             $log.debug('No feedback to sync', success);
           }
+        })
+        .finally(() => {
+          this.isSyncing = undefined;
         });
     };
 
