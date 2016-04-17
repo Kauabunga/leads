@@ -7,7 +7,7 @@ angular.module('bbqApp')
       $log.debug('Update toast');
       return this.showActionToast({
         content: 'An update is ready',
-        action: 'Reload'
+        action: 'Refresh'
       })
         .then(response => {
           if(response === 'ok'){
