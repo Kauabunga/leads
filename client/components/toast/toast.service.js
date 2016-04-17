@@ -23,6 +23,10 @@ angular.module('bbqApp')
       });
     };
 
+    this.toast = (message) => {
+      return this.showSimpleToast({message});
+    };
+
     this.showActionToast = ({content, action}) => {
 
       var toast = $mdToast.simple()

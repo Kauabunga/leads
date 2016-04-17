@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util) {
+  .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util, toastService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     const FEEDBACK_API = `${Util.getBaseApiUrl()}api/feedbacks`;
@@ -10,6 +10,7 @@ angular.module('bbqApp')
     $timeout(() => {
       document.addEventListener('online', this.sync, false);
       document.addEventListener('resume', this.sync, false);
+      this.sync();
     });
 
     this.sendFeedback = ({ feedback, contact, name }) => {
@@ -39,7 +40,7 @@ angular.module('bbqApp')
       }).value())
         .then((success) => {
           $log.debug('Successfully synced feedback', success);
-          //TODO create toast
+          toastService.toast('Synced feedback');
         });
     };
 
