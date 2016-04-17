@@ -383,8 +383,8 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'assets/images/{,*/}*.{webp}',
-            'assets/icons/{,*/}*.{webp}',
-            'assets/svg/{,*/}*.{webp}',
+            'assets/icons/{,*/}*',
+            'assets/svg/{,*/}*',
             'assets/fonts/**/*',
             'manifest.json',
             'index.html'
@@ -896,9 +896,8 @@ module.exports = function (grunt) {
       staticFileGlobs: [
         rootDir + '/app/*.css',
         rootDir + '/app/*.js',
-        rootDir + '/assets/**.*',
         rootDir + '/assets/**/*.woff',
-        rootDir + '/assets/**/*.png',
+        rootDir + '/assets/icons/favicon-192x192.png',
         rootDir + '/index.html'
       ],
       importScripts: [
