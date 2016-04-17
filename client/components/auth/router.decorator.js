@@ -33,6 +33,16 @@ angular.module('bbqApp.auth')
         });
       }
     });
+
+    // Do not allow the user to get to the login screen if they are already logged in
+    $rootScope.$on('$stateChangeStart', function(event, next) {
+      if(Auth.isLoggedIn() && next.name === 'login'){
+        event.preventDefault();
+        $state.go('main');
+      }
+    });
+
+
   });
 
 })();

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util, toastService) {
+  .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util, toastService, $interval) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     const FEEDBACK_API = `${Util.getBaseApiUrl()}api/feedbacks`;
@@ -12,6 +12,8 @@ angular.module('bbqApp')
       document.addEventListener('resume', this.sync, false);
 
       this.sync();
+
+      $interval(this.sync, 10000);
 
       if (window.addEventListener) {
         /*
@@ -31,6 +33,8 @@ angular.module('bbqApp')
         document.body.ononline = this.sync;
         //document.body.onoffline = isOffline;
       }
+
+
     });
 
 
@@ -51,6 +55,10 @@ angular.module('bbqApp')
     this.sendEncryptedFeedback = () => {};
 
     this.encryptFeedback = (feedback) => {};
+
+    this.ensureSync = () => {
+      return this.sync().then(this.sync);
+    };
 
     this.sync = () => {
       let feedbackStore = this.getFeedbackStore();
