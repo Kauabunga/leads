@@ -7,7 +7,7 @@ angular.module('bbqApp')
       restrict: 'EA',
       link: function (scope, element, attrs) {
 
-        const TOKEN_TIMEOUT = 30000;
+        const TOKEN_TIMEOUT = 60000;
 
 
         return init();

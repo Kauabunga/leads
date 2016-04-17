@@ -33,6 +33,7 @@ angular.module('bbqApp')
 
     this.sync = () => {
       let feedbackStore = this.getFeedbackStore();
+      $log.debug('Sync called');
       return $q.all(_(feedbackStore).map((feedback, id) => {
         return this.sendFeedback(feedback)
           .then(() => {
@@ -40,8 +41,13 @@ angular.module('bbqApp')
           });
       }).value())
         .then((success) => {
-          $log.debug('Successfully synced feedback', success);
-          toastService.toast('Synced feedback');
+          if(success && success.length > 0){
+            $log.debug('Successfully synced feedback', success);
+            toastService.toast('Synced feedback');
+          }
+          else {
+            $log.debug('No feedback to sync', success);
+          }
         });
     };
 
