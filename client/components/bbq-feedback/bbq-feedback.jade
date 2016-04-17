@@ -37,6 +37,6 @@
 .container(ng-if='successful')
   .inner-container
     form(novalidate)
-      h2.deep-blue.feedback-success Feedback sent!
+      h2.deep-blue.feedback-success {{feedbackSuccessTitle}}
 
       md-button(ng-click='resetFeedback()', type='button') New feedback
