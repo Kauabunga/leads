@@ -3,18 +3,19 @@
 (function() {
 
 function AuthService($location, $http, $log, $q, appConfig, Util, User, $localStorage) {
-  var safeCb = Util.safeCb;
-  var currentUser = {};
-  var userRoles = appConfig.userRoles || [];
+
+  let safeCb = Util.safeCb;
+  let currentUser = {};
+  let userRoles = appConfig.userRoles || [];
 
   const USERS_API = `${Util.getBaseApiUrl()}api/users`;
   const AUTH_API = `${Util.getBaseApiUrl()}auth/local`;
 
   if ($localStorage.token && $location.path() !== '/logout') {
-    //currentUser = User.get();
+    currentUser = $localStorage.currentUser;
   }
 
-  var Auth = {
+  let Auth = {
 
     sendTokenEmail({ email = '' }) {
 
@@ -57,7 +58,7 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
           $localStorage.token = res.data.token;
 
           //currentUser = User.get();
-          currentUser = res.data.user;
+          currentUser = $localStorage.currentUser = res.data.user;
           return currentUser;
         })
         .then(user => {
@@ -76,7 +77,8 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
      */
     logout() {
       $localStorage.token = undefined;
-      currentUser = {};
+      currentUser = $localStorage.currentUser = {};
+
     },
 
 
