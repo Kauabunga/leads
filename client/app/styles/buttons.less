@@ -15,7 +15,7 @@ button {
 button.md-button {
   border-radius: 0;
   font-size: 1em;
-  height: 50px;
+  height: 54px;
 
 
   span {
@@ -32,10 +32,20 @@ button.md-button {
   font-weight: 700;
 
   color: @deep-blue;
-  &.grey-button {
-    color: @deep-blue;
-  }
 
+  &.bold-button {
+    color: #fff;
+    background-color: @deep-blue;
+    border-color: @deep-blue;
+    svg polygon {
+      fill: #fff !important;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: @blue;
+    }
+  }
 
   right-arrow-svg {
     height: 20px;

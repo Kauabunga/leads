@@ -1,20 +1,56 @@
 
 @progress-color: @deep-blue;
 
-md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle {
-  border-left-color: @progress-color;
-}
-md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
-  border-right-color: @progress-color;
-}
-
-md-progress-circular.md-default-theme .md-inner .md-gap, md-progress-circular .md-inner .md-gap {
-  border-top-color: @progress-color;
-  border-bottom-color: @progress-color;
-}
 
 
-md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
-  border-top-color: @progress-color;
+md-progress-circular,
+md-progress-circular.md-default-theme {
+
+  &.white-progress {
+
+    .md-inner {
+
+      .md-left .md-half-circle {
+        border-left-color: #fff !important;
+      }
+
+      .md-right .md-half-circle {
+        border-right-color: #fff !important;
+      }
+
+      .md-gap {
+        border-top-color: #fff !important;
+        border-bottom-color: #fff !important;
+      }
+      .md-left .md-half-circle,
+      .md-right .md-half-circle {
+        border-top-color: #fff !important;
+      }
+
+    }
+  }
+
+  .md-inner {
+
+    .md-left .md-half-circle {
+      border-left-color: @progress-color !important;
+    }
+
+    .md-right .md-half-circle {
+      border-right-color: @progress-color !important;
+    }
+
+    .md-gap {
+      border-top-color: @progress-color !important;
+      border-bottom-color: @progress-color !important;
+    }
+    .md-left .md-half-circle,
+    .md-right .md-half-circle {
+      border-top-color: @progress-color !important;
+    }
+
+  }
+
+
 }
 

@@ -31,6 +31,7 @@ function authInterceptor($rootScope, $q, $localStorage, $injector, Util, $log) {
       if (response.status === 401) {
         (state || (state = $injector.get('$state'))).go('login');
         // remove any stale tokens
+        $localStorage.currentUser = undefined;
         $localStorage.token = undefined;
       }
       return $q.reject(response);

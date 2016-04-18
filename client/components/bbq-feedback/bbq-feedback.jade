@@ -37,10 +37,10 @@ navbar
         input(name='contact' ng-model='contact' autocomplete='off',
         placeholder='Contact (Optional)')
 
-      md-button(type='submit')
+      md-button.bold-button(type='submit')
         span(ng-hide='submitting') Submit
           right-arrow-svg
-        md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+        md-progress-circular.white-progress(ng-show='submitting' md-mode='indeterminate')
 
 
 
