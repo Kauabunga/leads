@@ -20,9 +20,7 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
 
     sendTokenEmail({ email = '' }) {
 
-      if(email.split('@').length !== 2){
-        return $q.reject();
-      }
+      if(email.split('@').length !== 2){ return $q.reject(); }
 
       let emailParsed = `${email.split('@')[0]}@${email.split('@')[1].toLowerCase()}`;
 
@@ -42,14 +40,9 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
     login({email = '', registerToken}, callback) {
 
 
-      if(email.split('@').length !== 2){
-        return $q.reject();
-      }
+      if(email.split('@').length !== 2){ return $q.reject(); }
 
       let emailParsed = `${email.split('@')[0]}@${email.split('@')[1].toLowerCase()}`;
-
-      $log.debug('parsed email', emailParsed);
-
 
       return $http.post(AUTH_API, {
         email: emailParsed,

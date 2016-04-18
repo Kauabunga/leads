@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService) {
+  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService) {
     return {
       templateUrl: 'components/bbq-login/bbq-login.html',
       restrict: 'EA',
@@ -35,6 +35,7 @@ angular.module('bbqApp')
             .then(response => {
               $log.debug('Successfully authenticated');
               $state.go('main');
+              $timeout(() => {feedbackService.sync();});
             })
             .catch(err => {
               handleErrorResponse(err);
@@ -43,7 +44,7 @@ angular.module('bbqApp')
             })
             .finally(() => {
               scope.submitting = false;
-                scope.submittingFirstToken = false;
+              scope.submittingFirstToken = false;
             });
           }
         }
