@@ -16,9 +16,27 @@
   height: 50px;
 }
 
+
+md-menu-item > .md-button {
+  display: flex;
+  align-items: center;
+  color: @dark-grey;
+  svg {
+    margin-right: 10px;
+    fill: @dark-grey;
+  }
+}
+
 navbar {
   min-height: 80px;
   display: block;
+
+  .menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+  }
 
   .beta {
     position: absolute;

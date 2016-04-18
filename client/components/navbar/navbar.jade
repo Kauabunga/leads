@@ -8,3 +8,22 @@
 
     .logo-container
       include ../../assets/svg/logo.svg
+
+
+    .menu
+      md-menu(md-position-mode='target-right target', ng-if='isLoggedIn()')
+        md-button.md-icon-button(aria-label='Open menu', ng-click='$mdOpenMenu($event)')
+          menu-svg
+        md-menu-content(width='3')
+          md-menu-item
+            md-button.menu-button(ng-click='reload()')
+              refresh-svg
+              | Reset
+          md-menu-item(ng-if='hasRole("admin")')
+            md-button.menu-button(ng-click='admin()')
+              settings-svg
+              | Admin
+          md-menu-item
+            md-button.menu-button(ng-click='logout()')
+              logout-svg
+              | Logout

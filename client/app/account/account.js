@@ -20,12 +20,10 @@ angular.module('bbqApp')
           $state.go(referrer);
         }
       })
-      .state('settings', {
-        url: '/settings',
-        templateUrl: 'app/account/settings/settings.html',
-        controller: 'SettingsController',
-        controllerAs: 'vm',
-        authenticate: true
+      .state('admin', {
+        url: '/admin',
+        template: '<bbq-admin></bbq-admin>',
+        authenticate: 'admin'
       });
   })
   .run(function($rootScope) {

@@ -21,5 +21,11 @@ module.exports = {
           process.env.OPENSHIFT_MONGODB_DB_URL +
           process.env.OPENSHIFT_APP_NAME ||
           'mongodb://localhost/bbq'
-  }
+  },
+
+  defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAILS
 };
+
+
+console.log(`Comma delimited default admin emails:`);
+console.log(`DEFAULT_ADMIN_EMAIL=${process.env.DEFAULT_ADMIN_EMAILS}`);
