@@ -149,22 +149,17 @@ UserSchema.methods = {
   },
 
 
+  //TODO we need to throttle this so it only attempts to send 1 email every 1min
   sendEmailToken() {
     return this.model('User').findOne({ email: this.email }).exec()
       .then(user => {
 
-        if( ! user ){
-          return Promise.reject();
-        }
-
+        if( ! user ){ return Promise.reject(); }
         let registrationToken = _.random(10000, 99999).toString();
         user.password = registrationToken;
 
         return user.save()
           .then(savedUser => {
-
-            console.log('IS VALID ',user.authenticate(registrationToken + ''))
-
             return emailService.sendTokenEmail({
               email: savedUser.email,
               token: registrationToken

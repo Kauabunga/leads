@@ -5,6 +5,8 @@ import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
+import uuid from 'uuid';
+
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;
@@ -39,21 +41,27 @@ export function create(req, res, next) {
 
   let email = req.body.email;
 
-  if( ! email){
-    return res.status(400).send();
-  }
+  if( ! email){ return res.status(400).send(); }
 
   var newUser = new User({ email });
 
   newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.password = 'Blaaaaaaahahahaha' + _.random(1000000, 9999999999);
+  newUser.role = isDefaultAdminEmail(email) ? 'admin' : 'user';
+  newUser.password = `random-${uuid.v4()}`;
 
-  return newUser.save()
+  return User.findOne({ email }).exec()
+    .then(user => {
+      if(user){
+        user.password = newUser.password;
+        user.role = newUser.role;
+        user.provider = newUser.provider;
+        return user.save();
+      }
+      else { return newUser.save(); }
+    })
     .finally(() => {
       return User.findOne({ email }).exec()
-      .then(user => {
-
+        .then(user => {
           if(user){
             console.log(`Got user ${user.email}`);
             return user.sendEmailToken()
@@ -72,6 +80,18 @@ export function create(req, res, next) {
 
         });
     });
+}
+
+function isDefaultAdminEmail(email){
+
+  let adminEmails = _(config.defaultAdminEmail.split(','))
+    .map(email => email.trim())
+    .filter()
+    .value();
+
+  console.log('Default admin emails', adminEmails);
+
+  return adminEmails.indexOf(email) >= 0;
 }
 
 /**

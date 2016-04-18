@@ -11,6 +11,8 @@ module.exports = {
 
   SEND_GRID_API_KEY: '',
 
+  DEFAULT_ADMIN_EMAILS: '',
+
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

@@ -35,7 +35,7 @@ var all = {
   sendgridApiKey: process.env.SEND_GRID_API_KEY,
 
 
-  defaultAdminEmail: 'hello@carson.kiwi, test@test.com',
+  defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAILS,
 
 
   // MongoDB connection options
