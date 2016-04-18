@@ -22,20 +22,27 @@ angular.module('bbqApp')
             let feedbackObject = {feedback, contact, name};
             $log.debug('submitting feedback', feedback);
 
-            return feedbackService.sendFeedback(feedbackObject)
+            //return feedbackService.sendFeedback(feedbackObject)
+            return feedbackService.encryptAndSendFeedback(feedbackObject)
               .then(() => {
                 scope.successful = true;
                 scope.feedbackSuccessTitle = 'Feedback sent!';
               })
-              .catch(() => {
-                //TODO only catch OFFLINE errors
-                scope.successful = true;
-                scope.feedbackSuccessTitle = 'Feedback will be sent next time you are online';
-                return feedbackService.storeFeedback(feedbackObject);
+              .catch((response) => {
+
+                // Only catch OFFLINE errors
+                if(response && response.status <= 0){
+                  scope.successful = true;
+                  scope.feedbackSuccessTitle = 'Feedback will be sent next time you are online';
+                  return feedbackService.storeFeedback(feedbackObject);
+                }
+                else {
+                  form.registerToken.$error.feedback = true;
+                }
+
               })
               .finally(() => {
                 scope.submitting = false;
-                form.registerToken.$error.feedback = true;
               });
           }
         }
@@ -45,6 +52,7 @@ angular.module('bbqApp')
           scope.contact = '';
           scope.name = '';
           scope.successful = false;
+
         }
       }
     };

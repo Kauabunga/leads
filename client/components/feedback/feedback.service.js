@@ -2,74 +2,111 @@
 
 angular.module('bbqApp')
   .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util, toastService, $interval) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+
 
     const FEEDBACK_API = `${Util.getBaseApiUrl()}api/feedbacks`;
+    const FEEDBACK_ENCRYPTED_API = `${Util.getBaseApiUrl()}api/feedbacks/encrypted`;
+    const FEEDBACK_PUBLIC_KEY_API = `${Util.getBaseApiUrl()}api/feedbacks/public`;
     const FEEDBACK_STORE_KEY = 'feedbackStore';
+    const FEEDBACK_PUBLIC_KEY_KEY = 'feedbackPublicKey';
 
     $timeout(() => {
       document.addEventListener('online', this.sync, false);
       document.addEventListener('resume', this.sync, false);
 
       this.sync();
+      this.getPublicKey();
 
       $interval(this.sync, 10000);
 
       if (window.addEventListener) {
-        /*
-         Works well in Firefox and Opera with the
-         Work Offline option in the File menu.
-         Pulling the ethernet cable doesn't seem to trigger it.
-         Later Google Chrome and Safari seem to trigger it well
-         */
         window.addEventListener('online', this.sync, false);
-        //window.addEventListener("offline', isOffline, false);
       }
       else {
-        /*
-         Works in IE with the Work Offline option in the
-         File menu and pulling the ethernet cable
-         */
         document.body.ononline = this.sync;
-        //document.body.onoffline = isOffline;
       }
-
 
     });
 
+
+    this.encryptAndSendFeedback = ({ feedback, contact, name }) => {
+      let feedbackObject = { feedback, contact, name };
+      return this.encryptFeedback(feedbackObject)
+        .then(encryptedFeedback => {
+
+          return this.sendEncryptedFeedback(encryptedFeedback)
+        });
+    };
 
     this.sendFeedback = ({ feedback, contact, name }) => {
       let feedbackObject = { feedback, contact, name };
       return $http.post(FEEDBACK_API, feedbackObject);
     };
 
-    this.storeFeedback = (feedback) => {
+    this.storeFeedback = (feedbackObject) => {
       let uuid = Util.uuid();
 
-      //TODO encrypt
-      this.getFeedbackStore()[uuid] = feedback;
-
-      return $q.when(feedback);
+      return this.encryptFeedback(feedbackObject)
+        .then(encryptedFeedback => {
+          this.getFeedbackStore()[uuid] = encryptedFeedback;
+          return $q.when(feedbackObject);
+        })
+        .catch(err => {
+          $log.debug('Error trying to encrypt feedback', err);
+          this.getFeedbackStore()[uuid] = feedbackObject;
+          return $q.when(feedbackObject);
+        });
     };
 
-    this.sendEncryptedFeedback = () => {};
+    this.sendEncryptedFeedback = ({ encrypted }) => {
+      let encryptedFeedbackObject = { encrypted };
+      return $http.post(FEEDBACK_ENCRYPTED_API, encryptedFeedbackObject);
+    };
 
-    this.encryptFeedback = (feedback) => {};
+    this.encryptFeedback = (feedback) => {
+      return this.getPublicKey()
+        .then(publicKey => {
+          let encryptedFeedback = { encrypted: cryptico.encrypt(JSON.stringify(feedback), publicKey).cipher };
+          $log.debug('encryptedFeedback', encryptedFeedback);
+          return encryptedFeedback;
+        });
+    };
 
     this.ensureSync = () => {
       return this.sync().then(this.sync);
     };
 
+    this.getPublicKey = () => {
+      return $localStorage[FEEDBACK_PUBLIC_KEY_KEY] ? $q.when($localStorage[FEEDBACK_PUBLIC_KEY_KEY]) :
+        $http.get(FEEDBACK_PUBLIC_KEY_API)
+          .then(response => {
+            return $localStorage[FEEDBACK_PUBLIC_KEY_KEY] = response.data.publicKey;
+          });
+    };
+
     this.sync = () => {
       let feedbackStore = this.getFeedbackStore();
+
       $log.debug('Sync called');
 
       return this.isSyncing ? this.isSyncing : this.isSyncing = $q.all(_(feedbackStore)
         .map((feedback, id) => {
-          return this.sendFeedback(feedback)
-            .then(() => {
-              return feedbackStore[id] = undefined;
-            });
+
+          if(feedback.encrypted){
+            $log.debug('Found encrypted feedback', feedback);
+            return this.sendEncryptedFeedback(feedback)
+              .then(() => {
+                return feedbackStore[id] = undefined;
+              });
+          }
+          else {
+            $log.debug('Found unencrypted feedback');
+            return this.sendFeedback(feedback)
+              .then(() => {
+                return feedbackStore[id] = undefined;
+              });
+          }
+
         }).value())
         .then((success) => {
           if(success && success.length > 0){
@@ -88,6 +125,7 @@ angular.module('bbqApp')
 
     this.getFeedbackStore = () => {
       return $localStorage[FEEDBACK_STORE_KEY] = $localStorage[FEEDBACK_STORE_KEY] || {};
-    }
+    };
+
 
   });

@@ -10,17 +10,34 @@
 'use strict';
 
 import _ from 'lodash';
-import * as emailService from '../../components/email';
+import * as feedbackService from '../../components/feedback';
 
 
-// Creates a new Feedback in the DB
-export function create(req, res) {
+export function sendFeedback(req, res) {
 
   let email = req.user.email;
 
-  return emailService.sendFeedbackEmail(_.merge(req.body, {email}))
+  return feedbackService.sendFeedback(_.merge(req.body, { email }))
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
+}
+
+export function sendEncryptedFeedback(req, res){
+
+  let encrypted = req.body.encrypted;
+  let email = req.user.email;
+
+  return feedbackService.sendEncryptedFeedback({ email, encrypted })
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+
+export function getFeedbackPublicKey(req, res){
+
+  return feedbackService.getFeedbackPublicKey()
+    .then(respondWithResult(res, 200))
+    .catch(handleError(res));
+
 }
 
 
