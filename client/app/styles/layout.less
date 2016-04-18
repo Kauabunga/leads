@@ -3,7 +3,7 @@
 
 .bbq-container {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
 }
 
@@ -11,7 +11,7 @@
 form {
 
   padding: 20px;
-  margin: 20px 0;
+  margin: 0;
   background-color: #fff;
 
 
@@ -25,29 +25,48 @@ form {
 
 .title {
 
-  background-color: @green-yellow;
   display: inline-block;
   width: 100%;
+
 
   > div {
     &:extend(.bbq-container);
   }
 
   h1 {
-    margin: 20px;
-    color: #fff;
+    margin: 40px 20px 0;
+    font-size: 1.78em;
+    color: @deep-blue;
   }
+
+  &.login-title,
+  &.grey-title {
+    h1 {
+      color: @medium-grey;
+    }
+  }
+
+  &.login-title,
+  &.small-title {
+    h1 {
+      font-size: 1.3em;
+    }
+  }
+
+  &.small-margin {
+    h1 {
+      margin: 10px 20px 0;
+    }
+  }
+
 }
 
 
 .container {
 
-
   min-width: 100%;
   .inner-container {
-
     &:extend(.bbq-container);
-
   }
 }
 
@@ -55,7 +74,9 @@ form {
 
 
 #main-ui-view {
-
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
   &.ng-enter         { animation: scaleUp 0.5s both ease-in; }
   &.ng-leave         { display: none; }
 }
@@ -66,7 +87,6 @@ form {
 .container.ng-enter,
 //.container.ng-leave
 {
-//  position: absolute;
   transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
 

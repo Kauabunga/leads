@@ -1,19 +1,26 @@
 
 
-.title
-  .title-container
-    h1 What do you want to let us know?
+navbar
+
+
+
 
 
 .container(ng-if='! successful')
   .inner-container
+
+    .title.small-title
+      .title-container
+        h1 What do you want to let us know?
+
     form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback, contact, name)' novalidate)
 
 
       md-input-container
-        label Feedback
+        label
         textarea(name='feedbackName' ng-model='feedback' required='true' autocomplete='off',
-        ng-focus='isFeedbackFocused = true', ng-blur='isFeedbackFocused = false')
+        ng-focus='isFeedbackFocused = true', ng-blur='isFeedbackFocused = false'
+        placeholder='Feedback')
 
         div(ng-if='(feedbackForm.$submitted || feedbackForm.feedbackName.$touched) && ! isFeedbackFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
@@ -21,12 +28,14 @@
           div(ng-message='feedback') Looks like something went wrong trying to submit your feedback. Try again.
 
       md-input-container
-        label Name (Optional)
-        input(name='name' ng-model='name' autocomplete='off')
+        label
+        input(name='name' ng-model='name' autocomplete='off',
+        placeholder='Name (Optional)')
 
       md-input-container
-        label Contact (Optional)
-        input(name='contact' ng-model='contact' autocomplete='off')
+        label
+        input(name='contact' ng-model='contact' autocomplete='off',
+        placeholder='Contact (Optional)')
 
       md-button(type='submit')
         span(ng-hide='submitting') Submit
@@ -36,7 +45,16 @@
 
 .container(ng-if='successful')
   .inner-container
-    form(novalidate)
-      h2.deep-blue.feedback-success {{feedbackSuccessTitle}}
 
+    .title.small-title
+      .title-container
+        h1 Thank you!
+
+    .title.small-title.small-margin
+      .title-container
+        h1 {{feedbackSuccessTitle}}
+
+
+
+    form(novalidate)
       md-button(ng-click='resetFeedback()', type='button') New feedback

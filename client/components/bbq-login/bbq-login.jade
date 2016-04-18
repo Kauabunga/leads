@@ -1,10 +1,6 @@
 
 
-
-.title.login-title
-  .title-container.login-title-container
-    h1 Login
-
+navbar
 
 
 
@@ -12,13 +8,19 @@
 
   .inner-container
 
+    .title.login-title
+      .title-container.login-title-container
+        h1 Feedback Login
+
+
     form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate=''
         autocomplete='off')
 
       md-input-container
-        label Enter your work email address
+        label
         input(name='email' ng-model='email', required='true' type='email', autocomplete='off',
-        ng-focus='isEmailFocused = true', ng-blur='isEmailFocused = false')
+        ng-focus='isEmailFocused = true', ng-blur='isEmailFocused = false',
+        placeholder='Enter your work email address')
 
         div(ng-if='(emailRegisterForm.$submitted || emailRegisterForm.email.$touched) && ! isEmailFocused'
         ng-messages="emailRegisterForm.email.$error" md-auto-hide="true")
@@ -36,19 +38,25 @@
 
   .inner-container
 
-    form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate, autocomplete='off')
+    .title.login-title
+      .title-container.login-title-container
+        h1 We have sent you an email.
+          br
+          | Enter the code you see in your inbox for:
+    .title.small-title.small-margin
+      .title-container
+        h1 {{email}}
 
-      md-content.code-introduction
-        p.first We have sent you an email. Enter the code you see in your inbox for:
-        p.second
-         b {{email}}
+
+    form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate, autocomplete='off')
 
 
       md-input-container
-        label Enter the 5 digit code
+        label
         input.token-input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
           ng-minlength='5' ng-maxlength='5' maxlength='5',
-          ng-focus='isRegisterTokenFocused = true', ng-blur='isRegisterTokenFocused = false')
+          ng-focus='isRegisterTokenFocused = true', ng-blur='isRegisterTokenFocused = false',
+          placeholder='Enter the 5 digit code')
 
         div(ng-if='(tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched) && ! isRegisterTokenFocused'
         ng-messages="tokenRegisterForm.registerToken.$error" md-auto-hide="true")
