@@ -1,7 +1,10 @@
 
 
 
+button.md-button:not(.md-icon-button):not(.menu-button) {
+  border-style: solid;
 
+}
 
 button.md-button:not(.md-icon-button):not(.menu-button) {
 
@@ -63,6 +66,8 @@ button.md-button:not(.md-icon-button):not(.menu-button) {
 
 
 
-md-toast button.md-button {
+md-toast button.md-button,
+md-toast button.md-button:not(.md-icon-button):not(.menu-button) {
+  color: @light-grey;
   height: auto;
 }
