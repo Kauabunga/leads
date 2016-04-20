@@ -84,8 +84,10 @@ export function create(req, res, next) {
 
 function isDefaultAdminEmail(email){
 
-  let adminEmails = _(config.defaultAdminEmail.split(','))
-    .map(email => email.trim())
+  let defaultAdminEmails = config.defaultAdminEmail || '';
+
+  let adminEmails = _(defaultAdminEmails.split(','))
+    .map((email = '') => email.trim())
     .filter()
     .value();
 
