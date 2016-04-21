@@ -22,13 +22,15 @@ md-input-container {
     }
   }
 
+
+
   input,
   input.md-input {
     border-radius: 0;
 
     padding-left: 0;
     padding-right: 0;
-    
+
     background-color: transparent;
 
     &:focus {
@@ -41,6 +43,27 @@ md-input-container {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
+  }
+
+
+  &.bold {
+    &.md-input-focused {
+      .md-input {
+        border-width: 0 0 3px 0;
+      }
+    }
+    .md-input {
+      border-width: 0 0 2px 0;
+    }
+  }
+
+  &.optional {
+    &:not(.md-input-invalid),
+    &:not(.md-input-invalid).md-input-focused, {
+      .md-input {
+        border-color: @grey;
+      }
+    }
   }
 
 

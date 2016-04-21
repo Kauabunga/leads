@@ -45,7 +45,7 @@ angular.module('bbqApp', [
 
     function deviceIsReady(){
       hideSplashScreen();
-      angular.element(document.getElementById('main-ui-view')).toggleClass('fade-in', true);
+      angular.element(document.body).toggleClass('fade-in', true);
     }
 
     function hideSplashScreen(){

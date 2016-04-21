@@ -16,23 +16,23 @@ navbar
     form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback, contact, name)' novalidate)
 
 
-      md-input-container
+      md-input-container.bold
         label
         textarea(name='feedbackName' ng-model='feedback' required='true' autocomplete='off',
         ng-focus='feedbackForm.isFeedbackFocused = true', ng-blur='feedbackForm.isFeedbackFocused = false'
-        placeholder='Feedback')
+        placeholder='Enter feedback here')
 
-        div(ng-if='(feedbackForm.$submitted || feedbackForm.feedbackName.$touched) && ! feedbackForm.isFeedbackFocused'
+        div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isFeedbackFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
           div(ng-message='required') You need to enter some feedback
           div(ng-message='feedback') Looks like something went wrong trying to submit your feedback. Try again.
 
-      md-input-container
+      md-input-container.optional
         label
         input(name='name' ng-model='name' autocomplete='off',
         placeholder='Name (Optional)')
 
-      md-input-container
+      md-input-container.optional
         label
         input(name='contact' ng-model='contact' autocomplete='off',
         placeholder='Contact (Optional)')

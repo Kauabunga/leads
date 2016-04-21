@@ -10,23 +10,12 @@ html, body {
   background-color: @light-grey;
 }
 
-
-/**
- * App-wide Styles
- */
-
-.browserupgrade {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+body {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    &.fade-in {
+      opacity: 1;
+    }
 }
 
 /* inject:less */
