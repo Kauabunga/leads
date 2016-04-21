@@ -5,8 +5,12 @@ label, input, textarea {
 }
 
 
+
 md-input-container {
   margin: 26px 0 18px;
+
+  padding-left: 0;
+  padding-right: 0;
 
   &:not(.md-input-invalid),
   &:not(.md-input-invalid).md-input-focused, {
@@ -17,6 +21,31 @@ md-input-container {
       border-color: @deep-blue;
     }
   }
+
+  input,
+  input.md-input {
+    border-radius: 0;
+
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+    border-bottom: 2px solid #333;
+
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  textarea,
+  textarea.md-input {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+
 }
 
 
@@ -28,24 +57,6 @@ input::-webkit-inner-spin-button {
 }
 
 
-input {
-  border-radius: 0;
-
-
-  padding: 6px 0;
-  border: none;
-  border-bottom: 2px solid #333;
-
-  background-color: transparent;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-textarea {
-  width: 100%;
-}
 
 
 md-input-container {

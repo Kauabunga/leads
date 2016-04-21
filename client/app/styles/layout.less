@@ -7,20 +7,19 @@
   width: 100%;
 }
 
-
 form {
-
   padding: 20px;
   margin: 0;
   background-color: #fff;
-
 
   input, button {
     margin: 6px 0;
     width: 100%;
   }
-
 }
+
+
+
 
 
 .title {
@@ -28,9 +27,21 @@ form {
   display: inline-block;
   width: 100%;
 
-
   > div {
     &:extend(.bbq-container);
+  }
+
+  .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    .md-button {
+      margin-right: 18px;
+      margin-top: 4px;
+      padding-bottom: 0;
+    }
   }
 
   h1 {
@@ -53,6 +64,12 @@ form {
     }
   }
 
+  &.tiny-title {
+    h1 {
+      font-size: 1em;
+    }
+  }
+
   &.small-margin {
     h1 {
       margin: 10px 20px 0;
@@ -63,7 +80,6 @@ form {
 
 
 .container {
-
   min-width: 100%;
   .inner-container {
     &:extend(.bbq-container);

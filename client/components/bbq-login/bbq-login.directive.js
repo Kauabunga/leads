@@ -9,7 +9,6 @@ angular.module('bbqApp')
 
         const TOKEN_TIMEOUT = 60000;
 
-
         return init();
 
         function init(){
@@ -17,10 +16,30 @@ angular.module('bbqApp')
           scope.submitEmail = submitEmail;
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
           scope.reset = reset;
+          scope.edit =  edit;
+
+          //TODO would this be better for both the app and web platforms if it was two routes?
+          //     email address should ideally not be cached in url / storage
+          document.addEventListener('backbutton', onBackKeyDown, false);
+          scope.$on('$destroy', () => document.removeEventListener('backbutton', onBackKeyDown));
+        }
+
+        function edit(){
+          return reset();
         }
 
         function reset(){
-          //TODO
+          scope.successfulTokenSent = false;
+        }
+
+        function onBackKeyDown(e) {
+          if(scope.successfulTokenSent){
+            e.preventDefault();
+            scope.successfulTokenSent = false;
+          }
+          else {
+            e.preventDefault();
+          }
         }
 
         function submitToken(form, registerToken){

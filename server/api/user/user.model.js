@@ -5,7 +5,12 @@ import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
 import _ from 'lodash';
+import moment from 'moment';
 import * as emailService from '../../components/email';
+
+
+const TOKEN_CREATE_THROTTLE = 1000 * 60;    // 1 min
+
 
 var UserSchema = new Schema({
   name: String,
@@ -19,7 +24,9 @@ var UserSchema = new Schema({
   },
   password: String,
   provider: String,
-  salt: String
+  salt: String,
+
+  lastTokenCreatedDate: Date
 });
 
 /**
@@ -131,6 +138,10 @@ UserSchema.methods = {
    * @api public
    */
   authenticate(password, callback) {
+
+    //TODO limit this to 20 incorrect attempts every 10mins
+
+
     if (!callback) {
       return this.password === this.encryptPassword(password);
     }
@@ -149,12 +160,20 @@ UserSchema.methods = {
   },
 
 
-  //TODO we need to throttle this so it only attempts to send 1 email every 1min
   sendEmailToken() {
     return this.model('User').findOne({ email: this.email }).exec()
       .then(user => {
 
         if( ! user ){ return Promise.reject(); }
+
+        //Throttle sending tokens to 1 every minute
+        if(user.isThrottledToken()) {
+          return Promise.resolve(user);
+        }
+        else {
+          user.lastTokenCreatedDate = new Date();
+        }
+
         let registrationToken = _.random(10000, 99999).toString();
         user.password = registrationToken;
 
@@ -166,6 +185,10 @@ UserSchema.methods = {
             });
           });
       });
+  },
+
+  isThrottledToken(){
+    return this.lastTokenCreatedDate && Math.abs(moment(this.lastTokenCreatedDate).diff(Date.now())) < TOKEN_CREATE_THROTTLE;
   },
 
   /**

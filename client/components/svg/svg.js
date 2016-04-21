@@ -29,6 +29,11 @@
       return {
         templateUrl: 'components/svg/settings.svg.html', restrict: 'E', replace: true
       };
+    })
+    .directive('editSvg', function () {
+      return {
+        templateUrl: 'components/svg/edit.svg.html', restrict: 'E', replace: true
+      };
     });
 
 })();

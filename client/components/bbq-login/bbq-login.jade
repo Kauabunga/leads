@@ -20,7 +20,7 @@ navbar
         label
         input(name='email' ng-model='email', required='true' type='email', autocomplete='off',
         ng-focus='isEmailFocused = true', ng-blur='isEmailFocused = false',
-        placeholder='Enter your work email address')
+        placeholder='Enter your acc email')
 
         div(ng-if='(emailRegisterForm.$submitted || emailRegisterForm.email.$touched) && ! isEmailFocused'
         ng-messages="emailRegisterForm.email.$error" md-auto-hide="true")
@@ -39,14 +39,16 @@ navbar
 
   .inner-container
 
-    .title.login-title
+    .title.login-title.tiny-title
       .title-container.login-title-container
         h1 We have sent you an email.
           br
           | Enter the code you see in your inbox for:
-    .title.small-title.small-margin
+    .title.email-title.small-title.small-margin
       .title-container
         h1 {{email}}
+        md-button.md-icon-button(ng-click='edit()')
+          edit-svg
 
 
     form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate, autocomplete='off')
@@ -75,7 +77,7 @@ navbar
 
       md-content(ng-if='tokenTimedout')
         md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(email)')
-          span(ng-hide='submittingSecondToken') I did not get an email
+          span(ng-hide='submittingSecondToken') Please send me another email
           md-progress-circular(ng-show='submittingSecondToken' md-mode='indeterminate')
 
 

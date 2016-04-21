@@ -1,32 +1,54 @@
 import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
+import uuid from 'uuid';
+import moment from 'moment';
+
+const TOKEN_LIFETIME = 1000 * 60 * 60 * 2;  // 2 hours
 
 function localAuthenticate(User, email, password, done) {
-  User.findOne({
+
+  return User.findOne({
     email: email.toLowerCase()
   }).exec()
     .then(user => {
       if (!user) {
-        return done(null, false, {
-          message: 'This email is not registered.'
-        });
+        return done(null, false, { message: 'The email and token do not match' });
       }
-      user.authenticate(password, function(authError, authenticated) {
+
+      // limit the token lifetime to ~2hours
+      if(isExpiredUserToken(user)){
+        return done(null, false, { message: 'The email and token do not match' });
+      }
+
+      return user.authenticate(password, function(authError, authenticated) {
         if (authError) {
           return done(authError);
         }
         if (!authenticated) {
-          return done(null, false, { message: 'This password is not correct.' });
-        } else {
-          return done(null, user);
+          return done(null, false, { message: 'The email and token do not match' });
+        }
+        else {
+
+          // Remove token password on successful authentication
+          user.password = uuid.v4();
+
+          return user.save()
+          .then(updatedUser => {
+              return done(null, updatedUser);
+            });
         }
       });
     })
     .catch(err => done(err));
+
+}
+
+function isExpiredUserToken(user){
+  return Math.abs(moment(user.lastTokenCreatedDate).diff(Date.now())) > TOKEN_LIFETIME;
 }
 
 export function setup(User, config) {
-  passport.use(new LocalStrategy({
+  return passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password' // this is the virtual field on the model
   }, function(email, password, done) {

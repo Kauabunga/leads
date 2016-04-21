@@ -49,10 +49,10 @@ export function create(req, res, next) {
   newUser.role = isDefaultAdminEmail(email) ? 'admin' : 'user';
   newUser.password = `random-${uuid.v4()}`;
 
-  return User.findOne({ email }).exec()
+  return User.findOne({ email })
+    .exec()
     .then(user => {
       if(user){
-        user.password = newUser.password;
         user.role = newUser.role;
         user.provider = newUser.provider;
         return user.save();
