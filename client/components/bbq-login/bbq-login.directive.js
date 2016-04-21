@@ -37,9 +37,6 @@ angular.module('bbqApp')
             e.preventDefault();
             scope.successfulTokenSent = false;
           }
-          else {
-            e.preventDefault();
-          }
         }
 
         function submitToken(form, registerToken){

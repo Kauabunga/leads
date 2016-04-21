@@ -55,6 +55,31 @@
         font-family: sans-serif;
       }
 
+      @font-face {
+        font-family: 'museo';
+        src: url('/assets/fonts/museo_sans_family_web/MuseoSans_300Web.eot'),
+        url('/assets/fonts/museo_sans_family_web/MuseoSans_300Web.woff') format('woff');
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'museo';
+        src: url('/assets/fonts/museo_sans_family_web/MuseoSans_500Web.eot'),
+        url('/assets/fonts/museo_sans_family_web/MuseoSans_500Web.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'museo';
+        src: url('/assets/fonts/museo_sans_family_web/MuseoSans_700Web.eot'),
+        url('/assets/fonts/museo_sans_family_web/MuseoSans_700Web.woff') format('woff');
+        font-weight: 700;
+        font-style: normal;
+      }
+
+
       html, body {
         background-color: #dce1e2;
       }
@@ -62,13 +87,13 @@
     </style>
 
   </head>
-  <body ng-app="bbqApp">
+  <body ng-app="bbqApp" ng-class="{'fade-in': isReady}">
     <!--[if lt IE 7]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
 
-    <div id="main-ui-view" ui-view=""></div>
+    <div id="main-ui-view"  ui-view=""></div>
 
 
     <script>

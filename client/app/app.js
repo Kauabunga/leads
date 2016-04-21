@@ -23,6 +23,7 @@ angular.module('bbqApp', [
   .run(function(toastService, $log, $timeout){
 
 
+
     return init();
 
     function init(){
@@ -54,7 +55,7 @@ angular.module('bbqApp', [
     }
 
     function getFadeTimeout(){
-      return isCordovaSplashScreen() ? 100 : 17;
+      return isCordovaSplashScreen() ? 250 : 17;
     }
 
     function isCordovaSplashScreen() {
