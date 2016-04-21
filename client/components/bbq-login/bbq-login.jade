@@ -19,10 +19,10 @@ navbar
       md-input-container
         label
         input(name='email' ng-model='email', required='true' type='email', autocomplete='off',
-        ng-focus='isEmailFocused = true', ng-blur='isEmailFocused = false',
+        ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
         placeholder='Enter your acc email')
 
-        div(ng-if='(emailRegisterForm.$submitted || emailRegisterForm.email.$touched) && ! isEmailFocused'
+        div(ng-if='(emailRegisterForm.$submitted || emailRegisterForm.email.$touched) && ! emailRegisterForm.isEmailFocused'
         ng-messages="emailRegisterForm.email.$error" md-auto-hide="true")
           div(ng-message='email') That email doesn't look quite right
           div(ng-message='required') We need your email address
@@ -58,10 +58,10 @@ navbar
         label
         input.token-input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
           ng-minlength='5' ng-maxlength='5' maxlength='5',
-          ng-focus='isRegisterTokenFocused = true', ng-blur='isRegisterTokenFocused = false',
+          ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')
 
-        div(ng-if='(tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched) && ! isRegisterTokenFocused'
+        div(ng-if='(tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched) && ! tokenRegisterForm.isRegisterTokenFocused'
         ng-messages="tokenRegisterForm.registerToken.$error" md-auto-hide="true")
           div(ng-message='required') You need to enter the code we sent you.
           div(ng-message='minlength') You haven't quite entered 5 digits

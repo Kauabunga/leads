@@ -16,7 +16,10 @@ angular.module('bbqApp')
 
         function submitFeedback (form, feedback, contact = 'empty', name = 'empty') {
 
-          if(form.$valid && ! scope.submitting && feedback){
+          if(form.$invalid){
+            form.isFeedbackFocused = false;
+          }
+          else if(form.$valid && ! scope.submitting && feedback){
 
             scope.submitting = true;
             let feedbackObject = {feedback, contact, name};

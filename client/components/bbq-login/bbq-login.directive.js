@@ -44,7 +44,7 @@ angular.module('bbqApp')
 
         function submitToken(form, registerToken){
           if( ! scope.email || ! registerToken || form.$invalid ){
-
+            form.isRegisterTokenFocused = false;
           }
           else if(! scope.submitting) {
             scope.submitting = true;
@@ -71,7 +71,7 @@ angular.module('bbqApp')
         function submitEmail(form, email){
 
           if( ! email || form.$invalid ){
-
+            form.isEmailFocused = false;
           }
           else if(! scope.submitting ){
             scope.submitting = true;
