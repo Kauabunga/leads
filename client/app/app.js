@@ -46,7 +46,9 @@ angular.module('bbqApp', [
     }
 
     function handleStateChangeSuccess(){
-      $rootScope.currentRoute = $state.current.name;
+      $timeout(() => {
+        $rootScope.currentRoute = $state.current.name;
+      });
     }
 
     function deviceIsReady(){

@@ -38,17 +38,6 @@
     <meta name="theme-color" content="#1a414f">
 
 
-    <!-- build:css(client) app/vendor.css -->
-      <!-- bower:css -->
-      <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-      <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css({.tmp,client}) app/app.css -->
-      <link rel="stylesheet" href="app/app.css">
-      <!-- injector:css -->
-      <!-- endinjector -->
-    <!-- endbuild -->
-
     <style>
 
       @font-face {
@@ -65,16 +54,27 @@
         font-style: normal;
       }
 
-
       div, span, button, input, textarea, li, h1, h2, h3, h4, h5, h6 {
         font-family: 'PT-Sans';
       }
 
       html, body {
-        background-color: #dce1e2;
+        background: #dce1e2 !important;
       }
 
     </style>
+
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+      <link rel="stylesheet" href="app/app.css">
+      <!-- injector:css -->
+      <!-- endinjector -->
+    <!-- endbuild -->
+
 
   </head>
   <body ng-app="bbqApp" class="{{currentRoute}}">
@@ -84,9 +84,8 @@
     <![endif]-->
 
     <navbar></navbar>
-    <md-content>
-      <div id="main-ui-view"  ui-view=""></div>
-    </md-content>
+    <div id="main-ui-view"  ui-view=""></div>
+
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

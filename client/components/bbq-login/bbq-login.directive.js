@@ -52,8 +52,11 @@ angular.module('bbqApp')
             return Auth.login({email: scope.email, registerToken})
             .then(response => {
               $log.debug('Successfully authenticated');
-              $state.go('main');
-              $timeout(() => {feedbackService.sync();});
+
+              $timeout(() => {
+                feedbackService.sync();
+                $timeout(() => $state.go('main'));
+              });
             })
             .catch(err => {
               handleErrorResponse(err);

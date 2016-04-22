@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('navbar', function (Auth, $state, $log, $http, User, Util, feedbackService, $window) {
+  .directive('navbar', function (Auth, $state, $log, $http, User, Util, feedbackService, $window, $timeout) {
     return {
       templateUrl: 'components/navbar/navbar.html',
       restrict: 'EA',
@@ -44,7 +44,8 @@ angular.module('bbqApp')
         }
 
         function logout(){
-          $state.go('logout');
+          Auth.logout();
+          scope.$evalAsync(() => $state.go('login'));
         }
 
       }

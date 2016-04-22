@@ -37,7 +37,7 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
      * @param  {Function} callback - optional, function(error, user)
      * @return {Promise}
      */
-    login({email = '', registerToken}, callback) {
+    login({email, registerToken} = {email: ''}, callback) {
 
 
       if(email.split('@').length !== 2){ return $q.reject(); }
@@ -51,7 +51,6 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
         .then(res => {
           $localStorage.token = res.data.token;
 
-          //currentUser = User.get();
           currentUser = $localStorage.currentUser = res.data.user;
           return currentUser;
         })
@@ -72,7 +71,6 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
     logout() {
       $localStorage.token = undefined;
       currentUser = $localStorage.currentUser = {};
-
     },
 
 

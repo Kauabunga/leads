@@ -24,9 +24,7 @@ angular.module('bbqApp.auth')
         });
       } else {
         Auth.isLoggedIn(_.noop).then(is => {
-          if (is) {
-            return;
-          }
+          if (is) { return; }
 
           event.preventDefault();
           $state.go('login');
@@ -37,8 +35,8 @@ angular.module('bbqApp.auth')
     // Do not allow the user to get to the login screen if they are already logged in
     $rootScope.$on('$stateChangeStart', function(event, next) {
       if(Auth.isLoggedIn() && next.name === 'login'){
-        event.preventDefault();
-        $state.go('main');
+        //event.preventDefault();
+        //$state.go('main');
       }
     });
 
