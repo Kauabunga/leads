@@ -1,11 +1,19 @@
 
 
 
+
 bbq-login {
 
   display: block;
   width: 100%;
   height: 100%;
+
+  .test-button {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+  }
+
 
 
   .container .inner-container {
@@ -17,12 +25,22 @@ bbq-login {
     display: block;
   }
 
+  form {
+    padding-top: 0;
+  }
+
   input {
     font-weight: bold;
   }
 
   .email-title {
     word-break: break-all;
+    opacity: 0.78;
+    .md-button {
+      svg {
+        color: @dark-grey;
+      }
+    }
   }
 
   .code-introduction {

@@ -22,7 +22,12 @@ angular.module('bbqApp', [
   })
   .run(function(toastService, $log, $timeout, $rootScope, $state){
 
-
+    let addBodyClass = _.once(() => angular.element(document.body).toggleClass('fade-in', true));
+    let hideSplashScreen = _.once(() => isCordovaSplashScreen() ? navigator.splashscreen.hide() : undefined);
+    let deviceIsReady = _.once(() => {
+      hideSplashScreen();
+      $timeout(addBodyClass);
+    });
 
     return init();
 
@@ -34,6 +39,7 @@ angular.module('bbqApp', [
 
       $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
       handleStateChangeSuccess();
+
 
       if(window._isServiceWorkerContentUpdated){
         $log.debug('On init app is ready for update');
@@ -51,19 +57,8 @@ angular.module('bbqApp', [
       });
     }
 
-    function deviceIsReady(){
-      hideSplashScreen();
-      angular.element(document.body).toggleClass('fade-in', true);
-    }
-
-    function hideSplashScreen(){
-      if(isCordovaSplashScreen()) {
-        navigator.splashscreen.hide();
-      }
-    }
-
     function getFadeTimeout(){
-      return isCordovaSplashScreen() ? 250 : 50;
+      return isCordovaSplashScreen() ? 50 : 50;
     }
 
     function isCordovaSplashScreen() {

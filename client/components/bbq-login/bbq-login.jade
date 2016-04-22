@@ -40,7 +40,7 @@
         h1 We have sent you an email.
           br
           | Enter the code you see in your inbox for:
-    .title.email-title.small-title.small-margin
+    .title.email-title.small-title.small-margin.dark-grey-title
       .title-container
         h1 {{email}}
         md-button.md-icon-button(aria-label='Edit email' ng-click='edit()')
@@ -80,3 +80,7 @@
 
       md-content(ng-if='successfulResentToken')
         label.deep-blue.second-token-sent Another email has been sent
+
+
+
+//button.test-button(ng-click='successfulTokenSent = ! successfulTokenSent') Switch views

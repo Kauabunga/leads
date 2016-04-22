@@ -84,7 +84,7 @@
 
 
     <platform name="browser">
-      <preference name="SplashScreenBackgroundColor" value="red" />
+      <preference name="SplashScreenBackgroundColor" value="#0f272f" />
     </platform>
 
 

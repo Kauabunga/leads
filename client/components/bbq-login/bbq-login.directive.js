@@ -60,11 +60,12 @@ angular.module('bbqApp')
             })
             .catch(err => {
               handleErrorResponse(err);
+              scope.submitting = false;
               scope.authenticated = false;
               form.registerToken.$error.token = true;
             })
             .finally(() => {
-              scope.submitting = false;
+
               scope.submittingFirstToken = false;
             });
           }
@@ -120,7 +121,7 @@ angular.module('bbqApp')
           if(response && response.status <= 0){
             toastService.errorToast('You need to be online to login');
           }
-          else {
+          else if(response.status !== 401) {
             toastService.errorToast('There was a problem trying to connect. Please try again.');
           }
 
