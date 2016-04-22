@@ -114,7 +114,7 @@ angular.module('bbqApp')
           }
         }
 
-        
+
         function handleErrorResponse(response){
 
           $log.debug('Login error response', response);
