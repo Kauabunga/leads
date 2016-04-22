@@ -20,7 +20,7 @@ angular.module('bbqApp', [
     $locationProvider.html5Mode(false);
 
   })
-  .run(function(toastService, $log, $timeout){
+  .run(function(toastService, $log, $timeout, $rootScope, $state){
 
 
 
@@ -32,6 +32,8 @@ angular.module('bbqApp', [
       document.addEventListener('resume', hideSplashScreen, false);
       $timeout(deviceIsReady, getFadeTimeout());
 
+      $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
+      handleStateChangeSuccess();
 
       if(window._isServiceWorkerContentUpdated){
         $log.debug('On init app is ready for update');
@@ -41,6 +43,10 @@ angular.module('bbqApp', [
         $log.debug('Listening for possible app update');
         window._isServiceWorkerContentUpdated = toastService.updateToast;
       }
+    }
+
+    function handleStateChangeSuccess(){
+      $rootScope.currentRoute = $state.current.name;
     }
 
     function deviceIsReady(){
@@ -55,7 +61,7 @@ angular.module('bbqApp', [
     }
 
     function getFadeTimeout(){
-      return isCordovaSplashScreen() ? 250 : 17;
+      return isCordovaSplashScreen() ? 250 : 50;
     }
 
     function isCordovaSplashScreen() {

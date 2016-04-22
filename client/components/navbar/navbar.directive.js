@@ -14,6 +14,10 @@ angular.module('bbqApp')
           scope.hasRole = Auth.hasRole;
           scope.isLoggedIn = Auth.isLoggedIn;
 
+          scope.showMain = _.debounce(showMain, 50);
+          scope.showAdmin = _.debounce(showAdmin, 50);
+
+          scope.main = main;
           scope.reload = reload;
           scope.admin = admin;
           scope.logout = logout;
@@ -23,8 +27,20 @@ angular.module('bbqApp')
           $window.location.reload();
         }
 
+        function showAdmin(){
+          return Auth.hasRole('admin') && $state.current.name !== 'admin';
+        }
+
+        function showMain(){
+          return Auth.hasRole('admin') && $state.current.name !== 'main';
+        }
+
         function admin(){
           $state.go('admin');
+        }
+
+        function main(){
+          $state.go('main');
         }
 
         function logout(){

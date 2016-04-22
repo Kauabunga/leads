@@ -1,0 +1,35 @@
+
+
+.md-open-menu-container {
+  box-shadow: none;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100%;
+
+  background-color: @dark-blue;
+}
+
+md-menu-content {
+  flex-direction: row;
+  justify-content: center;
+  background-color: @dark-blue;
+
+  .md-button {
+    color: #fff;
+  }
+}
+
+.md-menu-backdrop {
+  background-color: @dark-grey;
+  opacity: 0.5;
+}
+
+md-menu-item > .md-button {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  svg {
+    margin-right: 10px;
+    fill: #fff;
+  }
+}

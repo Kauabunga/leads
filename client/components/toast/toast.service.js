@@ -7,7 +7,7 @@ angular.module('bbqApp')
       $log.debug('Update toast');
       return this.showActionToast({
         content: 'An update is ready',
-        action: 'Refresh'
+        action: 'Update now'
       })
         .then(response => {
           if(response === 'ok'){
@@ -27,23 +27,28 @@ angular.module('bbqApp')
       return this.showSimpleToast({message});
     };
 
-    this.showActionToast = ({content, action}) => {
+    this.showActionToast = ({content, action, position}  = {position: 'bottom right'}) => {
+
+      console.log(position)
+      console.log(position)
+      console.log(position)
+      console.log(position)
 
       var toast = $mdToast.simple()
         .textContent(content)
         .action(action)
         //.highlightAction(true)
         //.highlightClass('md-accent')
-        .position('bottom right')
+        .position(position)
         .hideDelay(false);
       return $mdToast.show(toast);
     };
 
-    this.showSimpleToast = ({message}) => {
+    this.showSimpleToast = ({message, position} = {position: 'bottom right'}) => {
       return $mdToast.show(
         $mdToast.simple()
           .textContent(message)
-          .position('bottom right')
+          .position(position)
           .hideDelay(8000)
       );
     };

@@ -19,10 +19,14 @@
             md-button.menu-button(ng-click='reload()')
               refresh-svg
               | Reset
-          md-menu-item(ng-if='hasRole("admin")')
+          md-menu-item(ng-if='showAdmin()')
             md-button.menu-button(ng-click='admin()')
               settings-svg
               | Admin
+          md-menu-item(ng-if='showMain()')
+            md-button.menu-button(ng-click='main()')
+              settings-svg
+              | Home
           md-menu-item
             md-button.menu-button(ng-click='logout()')
               logout-svg

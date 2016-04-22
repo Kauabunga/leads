@@ -32,6 +32,11 @@ function localAuthenticate(User, email, password, done) {
           // Remove token password on successful authentication
           user.password = uuid.v4();
 
+          //change the last created token date to the past so the user can go and create a new token if they logout
+          user.lastTokenCreatedDate = new Date();
+          user.lastTokenCreatedDate.setDate(user.lastTokenCreatedDate.getDate() - 1);
+
+
           return user.save()
           .then(updatedUser => {
               return done(null, updatedUser);

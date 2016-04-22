@@ -18,6 +18,8 @@ angular.module('bbqApp')
           scope.reset = reset;
           scope.edit =  edit;
 
+          scope.emailPattern = /^(.+)@(.+)$/;
+
           //TODO would this be better for both the app and web platforms if it was two routes?
           //     email address should ideally not be cached in url / storage
           document.addEventListener('backbutton', onBackKeyDown, false);

@@ -1,9 +1,5 @@
 
 
-navbar
-
-
-
 .container.login-container(ng-if='! successfulTokenSent')
 
   .inner-container
@@ -13,8 +9,7 @@ navbar
         h1 Feedback Login
 
 
-    form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate=''
-        autocomplete='off')
+    form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate='' autocomplete='off')
 
       md-input-container
         label
@@ -29,10 +24,10 @@ navbar
           div(ng-message='required') We need your email address
 
 
-      md-button(type='submit')
+      md-button(type='submit', ng-class='{"bold-button": ! emailRegisterForm.email.$error.required}')
         span(ng-hide='submitting') Next
           right-arrow-svg
-        md-progress-circular(ng-show='submitting' md-mode='indeterminate')
+        md-progress-circular(ng-show='submitting' ng-class='{"white-progress": ! emailRegisterForm.email.$error.required}' md-mode='indeterminate')
 
 
 
@@ -48,7 +43,7 @@ navbar
     .title.email-title.small-title.small-margin
       .title-container
         h1 {{email}}
-        md-button.md-icon-button(ng-click='edit()')
+        md-button.md-icon-button(aria-label='Edit email' ng-click='edit()')
           edit-svg
 
 
@@ -70,10 +65,10 @@ navbar
           div(ng-message='maxlength') You have entered too many digits
           div(ng-message='token') That token did not match the one we sent
 
-      md-button(type='submit')
+      md-button(type='submit', ng-class='{"bold-button": (registerToken + "").length === 5}')
         span(ng-hide='submittingFirstToken') Login
           right-arrow-svg
-        md-progress-circular(ng-show='submittingFirstToken' md-mode='indeterminate')
+        md-progress-circular(ng-show='submittingFirstToken' ng-class='{"white-progress": (registerToken + "").length === 5}' md-mode='indeterminate')
 
 
 

@@ -1,11 +1,5 @@
 
 
-navbar
-
-
-
-
-
 .container(ng-if='! successful')
   .inner-container
 
@@ -37,7 +31,7 @@ navbar
         input(name='contact' ng-model='contact' autocomplete='off',
         placeholder='Contact (Optional)')
 
-      md-button.bold-button(type='submit')
+      md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')
         span(ng-hide='submitting') Submit
           right-arrow-svg
         md-progress-circular.white-progress(ng-show='submitting' md-mode='indeterminate')
@@ -58,4 +52,4 @@ navbar
 
 
     form(novalidate)
-      md-button(ng-click='resetFeedback()', type='button') New feedback
+      md-button.bold-button(ng-click='resetFeedback()', type='button') New feedback

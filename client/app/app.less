@@ -11,11 +11,25 @@ html, body {
 }
 
 body {
+  &.main,
+  &.admin {
+    background-color: #fff;
+  }
+}
+
+md-content {
+  background-color: inherit;
+}
+
+body {
     opacity: 0;
     transition: opacity 0.4s ease;
     &.fade-in {
       opacity: 1;
     }
+  position: relative !important;
+  width: 100% !important;
+  top: 0 !important;
 }
 
 /* inject:less */
@@ -24,6 +38,7 @@ body {
 @import 'styles/colors.less';
 @import 'styles/inputs.less';
 @import 'styles/layout.less';
+@import 'styles/menu.less';
 @import 'styles/progress.less';
 @import 'styles/toast.less';
 @import '../components/bbq-admin/bbq-admin.less';
