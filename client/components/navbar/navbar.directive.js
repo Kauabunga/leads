@@ -14,13 +14,15 @@ angular.module('bbqApp')
           scope.hasRole = Auth.hasRole;
           scope.isLoggedIn = Auth.isLoggedIn;
 
-          scope.showMain = _.debounce(showMain, 50);
-          scope.showAdmin = _.debounce(showAdmin, 50);
+          scope.showMain = _.debounce(showMain, 200);
+          scope.showAdmin = _.debounce(showAdmin, 200);
 
           scope.main = main;
           scope.reload = reload;
           scope.admin = admin;
           scope.logout = logout;
+
+          $timeout(() => scope.fadeIn = true, 34);
         }
 
         function reload(){

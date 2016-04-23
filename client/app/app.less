@@ -10,10 +10,8 @@ html, body {
 
 
 body {
-  opacity: 0;
-  &.fade-in {
-    opacity: 1;
-  }
+
+
 
   position: relative !important;
   width: 100% !important;
@@ -26,7 +24,18 @@ body {
     background: #fff !important;
   }
 
-  transition: opacity 0.5s ease-in;
+  .body-container {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+  }
+
+  &.fade-in .body-container {
+    opacity: 1;
+  }
+
+//  transition: opacity 0.5s ease-in;
+//  transition: opacity 0.5s ease-in, background 0.5s ease-in;
+//  transition: all 0.5s ease-in;
 }
 
 md-content {

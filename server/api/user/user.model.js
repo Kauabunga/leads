@@ -177,14 +177,16 @@ UserSchema.methods = {
         let registrationToken = _.random(10000, 99999).toString();
         user.password = registrationToken;
 
-        return user.save()
-          .then(savedUser => {
-            return emailService.sendTokenEmail({
-              email: savedUser.email,
-              token: registrationToken
-            });
-          });
+        return emailService.sendTokenEmail({
+          email: user.email,
+          token: registrationToken
+        })
+        .then(() => {
+          //Update user if successful
+          return user.save();
+        });
       });
+
   },
 
   isThrottledToken(){

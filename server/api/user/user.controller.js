@@ -39,7 +39,7 @@ export function index(req, res) {
  */
 export function create(req, res, next) {
 
-  let email = req.body.email;
+  let email = req.body.email.toLowerCase();
 
   if( ! email){ return res.status(400).send(); }
 
@@ -59,27 +59,37 @@ export function create(req, res, next) {
       }
       else { return newUser.save(); }
     })
-    .finally(() => {
-      return User.findOne({ email }).exec()
-        .then(user => {
-          if(user){
-            console.log(`Got user ${user.email}`);
-            return user.sendEmailToken()
-              .then(() => {
-                return res.status(200).send();
-              })
-              .catch(err => {
-                console.error(`ERROR: Could not send user token email`, err);
-                return res.status(500).send();
-              });
-          }
-          else {
-            console.error(`ERROR: Could not find/create user`);
+    .then(user => {
+      if(user){
+        console.log(`Got user ${user.email}`);
+        return user.sendEmailToken()
+          .then(() => {
+            return res.status(200).send();
+          })
+          .catch(err => {
+            console.error(`ERROR: Could not send user token email`, err);
             return res.status(500).send();
-          }
-
-        });
+          });
+      }
+      else {
+        console.error(`ERROR: Could not find/create user`);
+        return res.status(500).send();
+      }
+    })
+    .catch(err => {
+      console.error(`ERROR: Could not find/create user`, err);
+      return res.status(500).send();
     });
+}
+
+function handleCreate(res, email){
+  return function(){
+    return User.findOne({ email }).exec()
+      .then(user => {
+
+
+      });
+  }
 }
 
 function isDefaultAdminEmail(email){
