@@ -24,9 +24,9 @@
     .run(function(toastService, $log, $timeout, $rootScope, $state){
 
       let addBodyClass = _.once(() => angular.element(document.body).toggleClass('fade-in', true));
-      let hideSplashScreen = _.once(() => {
+      let hideSplashScreen = _.throttle(() => {
         isCordovaSplashScreen() ? navigator.splashscreen.hide() : undefined
-      });
+      }, 416, true);
 
 
       return init();
