@@ -27,17 +27,17 @@ angular.module('bbqApp')
       return this.showSimpleToast({message});
     };
 
-    this.showActionToast = ({content, action, position}) => {
-
-      let toast = $mdToast.simple()
-        .textContent(content)
-        .action(action)
-        .position('bottom right')
-        .hideDelay(false);
-      return $mdToast.show(toast);
+    this.showActionToast = ({content, action}) => {
+      return $mdToast.show(
+        $mdToast.simple()
+          .textContent(content)
+          .action(action)
+          .position('bottom right')
+          .hideDelay(false)
+      );
     };
 
-    this.showSimpleToast = ({message, position}) => {
+    this.showSimpleToast = ({message}) => {
       return $mdToast.show(
         $mdToast.simple()
           .textContent(message)
