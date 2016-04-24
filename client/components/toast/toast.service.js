@@ -27,28 +27,21 @@ angular.module('bbqApp')
       return this.showSimpleToast({message});
     };
 
-    this.showActionToast = ({content, action, position}  = {position: 'bottom right'}) => {
+    this.showActionToast = ({content, action, position}) => {
 
-      console.log(position)
-      console.log(position)
-      console.log(position)
-      console.log(position)
-
-      var toast = $mdToast.simple()
+      let toast = $mdToast.simple()
         .textContent(content)
         .action(action)
-        //.highlightAction(true)
-        //.highlightClass('md-accent')
-        .position(position)
+        .position(position || 'bottom right')
         .hideDelay(false);
       return $mdToast.show(toast);
     };
 
-    this.showSimpleToast = ({message, position} = {position: 'bottom right'}) => {
+    this.showSimpleToast = ({message, position}) => {
       return $mdToast.show(
         $mdToast.simple()
           .textContent(message)
-          .position(position)
+          .position(position || 'bottom right')
           .hideDelay(8000)
       );
     };
