@@ -23,11 +23,15 @@ angular.module('bbqApp', [
   .run(function(toastService, $log, $timeout, $rootScope, $state){
 
     let addBodyClass = _.once(() => angular.element(document.body).toggleClass('fade-in', true));
-    let hideSplashScreen = _.once(() => isCordovaSplashScreen() ? navigator.splashscreen.hide() : undefined);
-    let deviceIsReady = _.once(() => {
+    let hideSplashScreen = _.once(() => {
+      for(let i = 0; i < 10; i++){
+        $timeout(() => isCordovaSplashScreen() ? navigator.splashscreen.hide() : undefined, i * 100);
+      }
+    });
+    let deviceIsReady = () => {
       hideSplashScreen();
       $timeout(addBodyClass);
-    });
+    };
 
     return init();
 
