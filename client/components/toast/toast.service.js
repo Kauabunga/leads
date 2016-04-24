@@ -32,7 +32,7 @@ angular.module('bbqApp')
       let toast = $mdToast.simple()
         .textContent(content)
         .action(action)
-        .position(position || 'bottom right')
+        .position('bottom right')
         .hideDelay(false);
       return $mdToast.show(toast);
     };
@@ -41,7 +41,7 @@ angular.module('bbqApp')
       return $mdToast.show(
         $mdToast.simple()
           .textContent(message)
-          .position(position || 'bottom right')
+          .position('bottom right')
           .hideDelay(8000)
       );
     };
