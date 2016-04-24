@@ -28,10 +28,7 @@ angular.module('bbqApp', [
         $timeout(() => isCordovaSplashScreen() ? navigator.splashscreen.hide() : undefined, i * 100);
       }
     });
-    let deviceIsReady = () => {
-      hideSplashScreen();
-      $timeout(addBodyClass);
-    };
+
 
     return init();
 
@@ -53,6 +50,11 @@ angular.module('bbqApp', [
         $log.debug('Listening for possible app update');
         window._isServiceWorkerContentUpdated = toastService.updateToast;
       }
+    }
+
+    function deviceIsReady(){
+      hideSplashScreen();
+      $timeout(addBodyClass);
     }
 
     function handleStateChangeSuccess(){
