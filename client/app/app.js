@@ -62,7 +62,7 @@ angular.module('bbqApp', [
     }
 
     function getFadeTimeout(){
-      return isCordovaSplashScreen() ? 50 : 50;
+      return isCordovaSplashScreen() ? 100 : 34;
     }
 
     function isCordovaSplashScreen() {
