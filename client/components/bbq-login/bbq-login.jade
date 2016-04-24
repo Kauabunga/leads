@@ -13,21 +13,20 @@
 
       md-input-container
         label
-        input(name='email' ng-model='email', required='true' type='email', autocomplete='off',
+        input(name='email' ng-model='email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
         placeholder='Enter your acc email')
 
-        //div(ng-if='(emailRegisterForm.$submitted || emailRegisterForm.email.$touched) && ! emailRegisterForm.isEmailFocused'
-        div(ng-if='(emailRegisterForm.$submitted) && ! emailRegisterForm.isEmailFocused'
-        ng-messages="emailRegisterForm.email.$error" md-auto-hide="true")
+        div(ng-show='(emailRegisterForm.$submitted) && ! emailRegisterForm.isEmailFocused'
+        ng-messages="emailRegisterForm.email.$error")
           div(ng-message='email') That email doesn't look quite right
           div(ng-message='required') We need your email address
 
 
-      md-button(type='submit', ng-class='{"bold-button": ! emailRegisterForm.email.$error.required}')
+      md-button(type='submit', ng-class='{"bold-button": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required}')
         span(ng-hide='submitting') Next
           right-arrow-svg
-        md-progress-circular(ng-show='submitting' ng-class='{"white-progress": ! emailRegisterForm.email.$error.required}' md-mode='indeterminate')
+        md-progress-circular(ng-show='submitting' ng-class='{"white-progress": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required}' md-mode='indeterminate')
 
 
 
@@ -57,9 +56,8 @@
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')
 
-        //div(ng-if='(tokenRegisterForm.$submitted || tokenRegisterForm.registerToken.$touched) && ! tokenRegisterForm.isRegisterTokenFocused'
-        div(ng-if='(tokenRegisterForm.$submitted) && ! tokenRegisterForm.isRegisterTokenFocused'
-        ng-messages="tokenRegisterForm.registerToken.$error" md-auto-hide="true")
+        div(ng-show='(tokenRegisterForm.$submitted) && ! tokenRegisterForm.isRegisterTokenFocused'
+        ng-messages="tokenRegisterForm.registerToken.$error")
           div(ng-message='required') You need to enter the code we sent you.
           div(ng-message='minlength') You haven't quite entered 5 digits
           div(ng-message='maxlength') You have entered too many digits
