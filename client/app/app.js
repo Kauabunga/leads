@@ -1,7 +1,5 @@
 'use strict';
 (() => {
-  let isReady = false;
-  document.addEventListener('deviceready', () => isReady = true, false);
 
   angular.module('bbqApp', [
     'bbqApp.auth',
@@ -35,7 +33,7 @@
 
       function init(){
 
-        isReady ? deviceIsReady() : document.addEventListener('deviceready', deviceIsReady, false);
+        document.addEventListener('deviceready', deviceIsReady, false);
         $timeout(deviceIsReady, getFadeTimeout());
 
         $rootScope.$on('$stateChangeSuccess', handleStateChangeSuccess);
@@ -63,7 +61,7 @@
       }
 
       function getFadeTimeout(){
-        return isCordovaSplashScreen() ? 1000 : 34;
+        return isCordovaSplashScreen() ? 300 : 34;
       }
 
       function isCordovaSplashScreen() {
