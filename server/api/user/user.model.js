@@ -10,6 +10,7 @@ import * as emailService from '../../components/email';
 
 
 const TOKEN_CREATE_THROTTLE = 1000 * 60;    // 1 min
+const TOKEN_EMAIL_SEND_DEBOUNCE = 1000 * 5; // 5 seconds
 
 
 var UserSchema = new Schema({
@@ -95,6 +96,18 @@ var validatePresenceOf = function(value) {
   return value && value.length;
 };
 
+//We cannot completely rely on a database throttling solution as the async read/write time might mean that multiple emails get sent
+let debounceEmailInMemory = (() => {
+  let throttleTokenEmailsMap = {};
+
+  return email => {
+    let lastEmailSent = throttleTokenEmailsMap[email] = throttleTokenEmailsMap[email] || 0;
+    throttleTokenEmailsMap[email] = Date.now();
+    return Math.abs(Date.now() - lastEmailSent) < TOKEN_EMAIL_SEND_DEBOUNCE;
+  };
+})();
+
+
 /**
  * Pre-save hook
  */
@@ -139,10 +152,7 @@ UserSchema.methods = {
    */
   authenticate(password, callback) {
 
-    //TODO limit this to 20 incorrect attempts every 10mins
-
-
-    if (!callback) {
+    if (! callback) {
       return this.password === this.encryptPassword(password);
     }
 
@@ -167,7 +177,8 @@ UserSchema.methods = {
         if( ! user ){ return Promise.reject(); }
 
         //Throttle sending tokens to 1 every minute
-        if(user.isThrottledToken()) {
+        //Debounce sending an email to 1 every 5 seconds in memory
+        if(user.isThrottledToken() || debounceEmailInMemory(this.email)) {
           return Promise.resolve(user);
         }
         else {

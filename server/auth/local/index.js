@@ -4,10 +4,35 @@ import express from 'express';
 import passport from 'passport';
 import {signToken} from '../auth.service';
 
-var router = express.Router();
+let router = express.Router();
+
+//50 attempts every 10mins
+const AUTHENTICATION_ATTEMPT_LIMIT = 50;
+const AUTHENTICATION_ATTEMPT_TIME = 1000 * 60 * 10; // 10mins
+
+//Only allow the 50 attempts to enter a pin by a user every 10mins
+let throttleEmailAttempts = (() => {
+  let authenticationAttemptsEmailMap = {};
+  return email => {
+    authenticationAttemptsEmailMap[email] = authenticationAttemptsEmailMap[email] + 1 || 0;
+
+    setTimeout(() => {
+      authenticationAttemptsEmailMap[email] = Math.max(authenticationAttemptsEmailMap[email] - 1, 0);
+    }, AUTHENTICATION_ATTEMPT_TIME);
+
+    return authenticationAttemptsEmailMap[email] > AUTHENTICATION_ATTEMPT_LIMIT;
+  };
+})();
+
 
 router.post('/', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+
+  return passport.authenticate('local', function(err, user, info) {
+
+    if(throttleEmailAttempts(user.email)){
+      console.error('Invalid number of attempts for email', user.email);
+      return res.status(401).json({message: 'The email and token do not match'});
+    }
 
     var error = err || info;
     if (error) {
@@ -20,7 +45,7 @@ router.post('/', function(req, res, next) {
     var token = signToken(user._id, user.role);
     return res.json({ token, user });
 
-  })(req, res, next)
+  })(req, res, next);
 });
 
 export default router;
