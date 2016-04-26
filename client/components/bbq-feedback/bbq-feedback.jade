@@ -21,15 +21,18 @@
           div(ng-message='required') You need to enter some feedback
           div(ng-message='feedback') Looks like something went wrong trying to submit your feedback. Try again.
 
-      md-input-container.optional
-        label
-        input(name='name' ng-model='name' autocomplete='off',
-        placeholder='Name (Optional)')
 
       md-input-container.optional
         label
+        input(name='name' ng-model='name' autocomplete='off',
+        placeholder='{{namePlaceholder}}', ng-init='namePlaceholder = "Add details (Optional)"' ng-click='showDetails = namePlaceholder = "Name"')
+
+
+      md-input-container.optional(ng-if='showDetails')
+        label
         input(name='contact' ng-model='contact' autocomplete='off',
-        placeholder='Contact (Optional)')
+        placeholder='Contact')
+
 
       md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')
         span(ng-hide='submitting') Submit

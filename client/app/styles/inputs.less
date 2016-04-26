@@ -7,7 +7,8 @@ label, input, textarea {
 
 
 md-input-container {
-  margin: 25px 0 18px;
+//  margin: 25px 0 18px;
+  margin: 25px 0 0;
 
   padding-left: 0;
   padding-right: 0;
@@ -26,8 +27,6 @@ md-input-container {
   [ng-messages],
   [ng-message] {
     padding-top: 2px !important;
-//    margin-top: 0 !important;
-//    transition: margin-top 0.3s ease, opacity 0.3s ease !important;
   }
 
 
@@ -73,6 +72,8 @@ md-input-container {
         border-color: @grey;
       }
     }
+
+    margin: 8px 0;
 
     @placeholder-color: @grey;
     input:placeholder { color: @placeholder-color; }
