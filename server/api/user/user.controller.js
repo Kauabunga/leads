@@ -39,7 +39,7 @@ export function index(req, res) {
  */
 export function create(req, res, next) {
 
-  let email = req.body.email.toLowerCase();
+  let email = req.body && req.body.email && req.body.email.toLowerCase();
 
   if( ! email){ return res.status(400).send(); }
 
