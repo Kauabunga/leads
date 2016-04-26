@@ -63,9 +63,6 @@ angular.module('bbqApp')
               scope.submitting = false;
               scope.authenticated = false;
               form.registerToken.$error.token = true;
-            })
-            .finally(() => {
-
               scope.submittingFirstToken = false;
             });
           }
