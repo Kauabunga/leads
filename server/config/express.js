@@ -70,7 +70,7 @@ export default function(app) {
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
-    app.use(express.static(app.get('appPath')));
+    app.use(express.static(app.get('appPath'), {setHeaders: setStaticHeaders}));
     app.use(morgan('dev'));
   }
 
@@ -81,7 +81,31 @@ export default function(app) {
   if ('development' === env || 'test' === env) {
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(app.get('appPath')));
+
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
+}
+
+
+function setStaticHeaders(res, path, stat){
+
+  if(path){
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!! NEVER cache the service worker !!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if(path.indexOf('service-worker.js') !== -1){ return; }
+
+    if(path.indexOf('.ttf') !== -1 ||
+      path.indexOf('.css') !== -1 ||
+      path.indexOf('.js') !== -1 ||
+      path.indexOf('.png') !== -1){
+      res.setHeader('Cache-Control', `public, max-age=${getStaticAge()}`);
+    }
+  }
+
+}
+
+function getStaticAge(){
+  return config.staticCacheAge || 86400000; // 1day
 }

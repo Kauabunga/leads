@@ -16,6 +16,7 @@ export default function(app) {
 
   app.get('/cordova.js', (req, res, next) => {
     res.header('content-type', 'text/javascript; charset=UTF-8');
+    res.header('Cache-Control', `public, max-age=86400000`);
     res.status(200).send('window.isNotCordovaInstance = true;');
   });
 

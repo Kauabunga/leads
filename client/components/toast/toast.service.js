@@ -3,6 +3,7 @@
 angular.module('bbqApp')
   .service('toastService', function ($mdToast, $log) {
 
+
     this.updateToast = () => {
       $log.debug('Update toast');
       return this.showActionToast({
