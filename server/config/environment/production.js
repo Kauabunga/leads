@@ -23,6 +23,8 @@ module.exports = {
           'mongodb://localhost/bbq'
   },
 
+  forceHttps: getVarAsBool('FORCE_HTTPS') || false,
+
   defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAILS || '',
   validEmailDomains: process.env.VALID_EMAIL_DOMAINS || '',
   invalidEmailDomainMessage: process.env.INVALID_EMAIL_DOMAIN_MESSAGE || '',
@@ -37,6 +39,12 @@ module.exports = {
 
 };
 
+
+console.log(`Mongo db uri:`);
+console.log(`MONGODB_URI=${process.env.MONGODB_URI}`);
+
+console.log(`Force https:`);
+console.log(`FORCE_HTTPS=${process.env.FORCE_HTTPS}`);
 
 console.log(`Comma delimited default admin emails:`);
 console.log(`DEFAULT_ADMIN_EMAIL=${process.env.DEFAULT_ADMIN_EMAILS}`);

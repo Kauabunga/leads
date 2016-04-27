@@ -24,6 +24,10 @@ var MongoStore = connectMongo(session);
 export default function(app) {
   var env = app.get('env');
 
+  if('production' === env && config.forceHttps){
+    app.use(forceSsl);
+  }
+
   app.set('views', config.root + '/server/views');
   app.set('view engine', 'jade');
   app.use(compression());
@@ -87,6 +91,12 @@ export default function(app) {
   }
 }
 
+function forceSsl(req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+}
 
 function setStaticHeaders(res, path, stat){
 
