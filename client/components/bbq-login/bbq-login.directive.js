@@ -18,8 +18,6 @@ angular.module('bbqApp')
           scope.reset = reset;
           scope.edit =  edit;
 
-          scope.emailPattern = /^(.+)@(.+)$/;
-
           //TODO would this be better for both the app and web platforms if it was two routes?
           //     email address should ideally not be cached in url / storage
           document.addEventListener('backbutton', onBackKeyDown, false);
@@ -120,7 +118,7 @@ angular.module('bbqApp')
             toastService.errorToast('You need to be online to login');
           }
           else if(response.status !== 401) {
-            toastService.errorToast('There was a problem trying to connect. Please try again.');
+            toastService.errorToast((response.data && response.data.message) || 'Something went wrong. Please try again.');
           }
 
         }

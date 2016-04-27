@@ -10,6 +10,13 @@ module.exports = {
   },
 
   // Seed database on startup
-  seedDB: true
+  seedDB: true,
+
+  validEmailDomains: 'acc.co.nz, gmail.com, solnet.co.nz, solnetsolutions.co.nz',
+
+  email: {
+    endpointEmailAddress: '',
+    attachSenderEmailAddress: true
+  }
 
 };

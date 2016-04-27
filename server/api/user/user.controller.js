@@ -41,7 +41,11 @@ export function create(req, res, next) {
 
   let email = req.body && req.body.email && req.body.email.toLowerCase();
 
-  if( ! email){ return res.status(400).send(); }
+  if( ! email ){ return res.status(400).send(); }
+  if( ! isValidDomain(email) ) {
+    console.log('Invalid email domain', email);
+    return res.status(400).json({message: getInvalidDomainErrorMessage()});
+  }
 
   var newUser = new User({ email });
 
@@ -86,21 +90,37 @@ export function create(req, res, next) {
     });
 }
 
-function handleCreate(res, email){
-  return function(){
-    return User.findOne({ email }).exec()
-      .then(user => {
+let logValidEmailDomains = _.once(() => { console.log('No valid email domains set - environment variable = VALID_EMAIL_DOMAINS'); });
 
+function isValidDomain(email){
 
-      });
+  if( ! config.validEmailDomains ){
+    logValidEmailDomains();
+    return true;
   }
+
+  let emailDomain = email.split('@')[1] || '';
+  let validEmailDomains = getValidEmailDomains();
+
+  console.log('Valid email domains', validEmailDomains, emailDomain);
+
+  return validEmailDomains.indexOf(emailDomain) >= 0;
+}
+
+function getInvalidDomainErrorMessage(){
+  return config.invalidEmailAddressMessage || `We need an email address from one of ${getValidEmailDomains().length === 1 ? getValidEmailDomains()[1] : getValidEmailDomains().join(', ')}`;
+}
+
+function getValidEmailDomains(){
+  return _((config.validEmailDomains || '').split(','))
+    .map((email = '') => email.trim())
+    .filter()
+    .value();
 }
 
 function isDefaultAdminEmail(email){
 
-  let defaultAdminEmails = config.defaultAdminEmail || '';
-
-  let adminEmails = _(defaultAdminEmails.split(','))
+  let adminEmails = _((config.defaultAdminEmail || '').split(','))
     .map((email = '') => email.trim())
     .filter()
     .value();

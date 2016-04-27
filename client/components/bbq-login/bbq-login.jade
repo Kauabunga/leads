@@ -21,6 +21,7 @@
         ng-messages="emailRegisterForm.email.$error")
           div(ng-message='email') That email doesn't look quite right
           div(ng-message='required') We need your email address
+          div(ng-message='domain') {{emailRegisterForm.email.$error.domain}}
 
 
       md-button(type='submit', ng-class='{"bold-button": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required}')

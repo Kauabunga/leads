@@ -7,14 +7,11 @@ module.exports = {
   mongo: {
     uri: 'mongodb://localhost/bbq-test'
   },
-  sequelize: {
-    uri: 'sqlite://',
-    options: {
-      logging: false,
-      storage: 'test.sqlite',
-      define: {
-        timestamps: false
-      }
-    }
+
+  email: {
+    endpointEmailAddress: '',
+    attachSenderEmailAddress: true
   }
+
+
 };

@@ -14,10 +14,9 @@ export function sendTokenEmail({email, token}) {
     console.log(`Sending token email ${email}, ${token}`);
 
     let mailOptions = {
-      from: 'bbq@feedback.com', // sender address
-      to: email, // list of receivers
-      subject: 'Your BBQ token', // Subject line
-      //html: ''
+      from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
+      to: email,
+      subject: config.email.tokenSubject || 'Your BBQ token', // Subject line
       text: `Your token is: ${token}` // plaintext body
     };
 
@@ -36,15 +35,15 @@ export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'e
     console.log(`Sending feedback email ${email} ${feedback}`);
 
     let mailOptions = {
-      from: 'bbq@feedback.com', // sender address
-      to: email, // list of receivers
-      subject: 'BBQ Feedback Received', // Subject line
-      //html: ''
+      from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
+      to: config.email.endpointEmailAddress || email,
+      subject: config.email.feedbackSubject || 'BBQ Feedback Received',
+
       text: `
       Name: ${name}
       Contact: ${contact}
       Feedback: ${feedback}
-      ` // plaintext body
+      `
     };
 
     // send mail with defined transport object
