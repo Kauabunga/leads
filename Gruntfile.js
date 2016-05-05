@@ -703,6 +703,32 @@ module.exports = function (grunt) {
     },
 
 
+    manifest: {
+      generate: {
+        options: {
+          basePath: './dist/client/',
+          cache: [],
+          network: ['http://*', 'https://*'],
+          fallback: ['/ /offline.html'],
+          preferOnline: true,
+          headcomment: ' <%= pkg.name %> v<%= pkg.version %>',
+          verbose: true,
+          timestamp: true,
+          hash: true,
+          master: ['index.html'],
+          //process: function(path) {
+          //  return path.substring('build/'.length);
+          //}
+        },
+        src: [
+          'app/*.*',
+          'assets/fonts/*.*'
+        ],
+        dest: '<%= yeoman.dist %>/client/manifest.appcache'
+      }
+    }
+
+
 
   });
 
@@ -874,6 +900,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'copy:www',
+    'manifest:generate',
     'swPrecache:dist'
   ]);
 
