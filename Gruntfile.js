@@ -335,6 +335,15 @@ module.exports = function (grunt) {
       app: {
         constants: function() {
           return {
+            dist: false,
+            appConfig: require('./' + grunt.config.get('ngconstant.options.configPath'))
+          };
+        }
+      },
+      dist: {
+        constants: function() {
+          return {
+            dist: true,
             appConfig: require('./' + grunt.config.get('ngconstant.options.configPath'))
           };
         }
@@ -447,18 +456,19 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       pre: [
-        'injector:less',
-        'ngconstant'
+        'injector:less'
       ],
       server: [
         'newer:babel:client',
         'jade',
         'less',
+        'ngconstant:app'
       ],
       test: [
         'newer:babel:client',
         'jade',
         'less',
+        'ngconstant:app'
       ],
       debug: {
         tasks: [
@@ -473,7 +483,8 @@ module.exports = function (grunt) {
         'newer:babel:client',
         'jade',
         'less',
-        'imagemin'
+        'imagemin',
+        'ngconstant:dist'
       ]
     },
 
@@ -708,7 +719,7 @@ module.exports = function (grunt) {
         options: {
           basePath: './dist/client/',
           cache: [],
-          network: ['http://*', 'https://*'],
+          network: ['http://*', 'https://*', 'service-worker.js', 'manifest.appcache', 'cordova.js'],
           fallback: ['/ /offline.html'],
           preferOnline: true,
           headcomment: ' <%= pkg.name %> v<%= pkg.version %>',

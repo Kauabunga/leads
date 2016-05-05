@@ -15,10 +15,15 @@
     'ngAnimate',
     'ngStorage'
   ])
-    .config(function($urlRouterProvider, $locationProvider) {
+    .config(function($urlRouterProvider, $compileProvider, $locationProvider, dist) {
       $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(false);
+
+      if(dist){
+        $compileProvider.debugInfoEnabled(false);
+        $logProvider.debugEnabled(false);
+      }
 
     })
     .run(function(toastService, $log, $timeout, $rootScope, $state){

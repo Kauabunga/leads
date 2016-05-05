@@ -204,11 +204,20 @@
 
     <script>
       (function(){
+
+        'use strict';
+
         var appCache = window.applicationCache;
-        if(appCache){
+
+
+        if(appCache && ! 'serviceWorker' in navigator){
           appCache.addEventListener('updateready', handleCacheEvent, false);
           appCache.addEventListener('obsolete', handleCacheEvent, false);
-          appCache.addEventListener('error', handleCacheEvent, false);
+          appCache.addEventListener('error', handleCacheError, false);
+        }
+
+        function handleCacheError(err){
+          console.log('Handle cache error', err);
         }
 
         function handleCacheEvent(){
@@ -222,6 +231,8 @@
 
       })();
     </script>
+
+    
     <script>
       (function(){
         /**
