@@ -719,8 +719,8 @@ module.exports = function (grunt) {
         options: {
           basePath: './dist/client/',
           cache: [],
-          network: ['http://*', 'https://*', 'service-worker.js', 'manifest.appcache', 'cordova.js'],
-          fallback: ['/ /offline.html'],
+          network: ['*'],
+          fallback: ['/'],
           preferOnline: true,
           headcomment: ' <%= pkg.name %> v<%= pkg.version %>',
           verbose: true,
