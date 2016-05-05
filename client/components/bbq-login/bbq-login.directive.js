@@ -99,7 +99,10 @@ angular.module('bbqApp')
                 $log.debug('response ', response, scope.emailRegisterForm);
                 scope.successfulResentToken = true;
                 scope.tokenTimedout = false;
-                $timeout(() => scope.tokenTimedout = true, TOKEN_TIMEOUT);
+                $timeout(() => {
+                  scope.successfulResentToken = false;
+                  scope.tokenTimedout = true;
+                }, TOKEN_TIMEOUT);
               })
               .catch(handleErrorResponse)
               .finally(() => {

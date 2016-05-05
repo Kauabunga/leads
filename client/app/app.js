@@ -25,8 +25,6 @@
         $logProvider.debugEnabled(false);
       }
 
-      console.log('Config test update appppppppp');
-
     })
     .run(function(toastService, $log, $timeout, $rootScope, $state){
 

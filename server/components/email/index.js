@@ -11,7 +11,7 @@ export function sendTokenEmail({email, token}) {
 
   return new Promise((success, failure) => {
 
-    console.log(`Sending token email ${email}, ${token}`);
+
 
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
@@ -19,6 +19,8 @@ export function sendTokenEmail({email, token}) {
       subject: config.email.tokenSubject || 'Your BBQ token', // Subject line
       text: `Your token is: ${token}` // plaintext body
     };
+
+    console.log(`Sending token email ${email}, ${token}`, mailOptions);
 
     // send mail with defined transport object
     return transporter.sendMail(mailOptions, function(error, info){
@@ -32,7 +34,7 @@ export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'e
 
   return new Promise((success, failure) => {
 
-    console.log(`Sending feedback email ${email} ${feedback}`);
+
 
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
@@ -45,6 +47,8 @@ export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'e
       Feedback: ${feedback}
       `
     };
+
+    console.log(`Sending feedback email ${email} ${feedback}`, mailOptions);
 
     // send mail with defined transport object
     return transporter.sendMail(mailOptions, function(error, info){
