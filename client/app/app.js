@@ -15,7 +15,7 @@
     'ngAnimate',
     'ngStorage'
   ])
-    .config(function($urlRouterProvider, $compileProvider, $locationProvider, dist) {
+    .config(function($urlRouterProvider, $compileProvider, $locationProvider, $logProvider, dist) {
       $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(false);
