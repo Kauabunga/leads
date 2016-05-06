@@ -8,4 +8,10 @@ angular.module('bbqApp')
         template: '<bbq-feedback></bbq-feedback>',
         authenticate: true
       });
+    $stateProvider
+      .state('info', {
+        url: '/info',
+        template: '<bbq-info></bbq-info>',
+        authenticate: false
+      });
   });

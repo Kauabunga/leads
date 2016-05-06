@@ -39,6 +39,16 @@
       return {
         templateUrl: 'components/svg/home.svg.html', restrict: 'E', replace: true
       };
+    })
+    .directive('infoSvg', function () {
+      return {
+        templateUrl: 'components/svg/info.svg.html', restrict: 'E', replace: true
+      };
+    })
+    .directive('loginSvg', function () {
+      return {
+        templateUrl: 'components/svg/login.svg.html', restrict: 'E', replace: true
+      };
     });
 
 })();

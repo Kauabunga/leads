@@ -16,11 +16,16 @@ angular.module('bbqApp')
 
           scope.showMain = _.debounce(showMain, 200);
           scope.showAdmin = _.debounce(showAdmin, 200);
+          scope.isInfoDebounce = _.debounce(isInfo, 200);
+          scope.isInfo = isInfo;
 
           scope.main = main;
           scope.reload = reload;
           scope.admin = admin;
           scope.logout = logout;
+          scope.info = info;
+          scope.login = login;
+
 
           $timeout(() => scope.fadeIn = true, 34);
         }
@@ -29,12 +34,24 @@ angular.module('bbqApp')
           $window.location.reload();
         }
 
+        function login(){
+          $state.go('login');
+        }
+
+        function isInfo(){
+          return $state.current.name === 'info';
+        }
+
+        function info(){
+          $state.go('info');
+        }
+
         function showAdmin(){
           return Auth.hasRole('admin') && $state.current.name !== 'admin';
         }
 
         function showMain(){
-          return Auth.hasRole('admin') && $state.current.name !== 'main';
+          return $state.current.name !== 'main';
         }
 
         function admin(){

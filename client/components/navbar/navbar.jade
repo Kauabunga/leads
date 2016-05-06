@@ -11,6 +11,13 @@
 
 
     .menu
+
+      .logged-out-menu(ng-if='! isLoggedIn()')
+        md-button.md-icon-button(aria-label='Open info', ng-if='! isInfo()' ng-click='info($event)', )
+          info-svg
+        md-button.md-icon-button(aria-label='Open info', ng-if='isInfo()' ng-click='login($event)', )
+          login-svg
+
       md-menu(md-position-mode='target-right target', ng-if='isLoggedIn()')
         md-button.md-icon-button(aria-label='Open menu', ng-click='$mdOpenMenu($event)')
           menu-svg
@@ -23,6 +30,10 @@
             md-button.menu-button(ng-click='admin()')
               settings-svg
               | Admin
+          md-menu-item(ng-if='! isInfoDebounce()')
+            md-button.menu-button(ng-click='info($event)')
+              info-svg
+              | Info
           md-menu-item(ng-if='showMain()')
             md-button.menu-button(ng-click='main()')
               home-svg

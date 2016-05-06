@@ -53,7 +53,7 @@ angular.module('bbqApp')
 
               $timeout(() => {
                 feedbackService.sync();
-                $timeout(() => $state.go('main'));
+                $timeout(gotoMain);
               });
             })
             .catch(err => {
@@ -64,6 +64,10 @@ angular.module('bbqApp')
               scope.submittingFirstToken = false;
             });
           }
+        }
+
+        function gotoMain(){
+          $state.go('main',{},{location:'replace'});
         }
 
         function submitEmail(form, email){
