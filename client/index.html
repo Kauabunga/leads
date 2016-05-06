@@ -226,11 +226,48 @@
 
         var appCache = window.applicationCache;
 
-
         if(appCache && ! 'serviceWorker' in navigator){
-          appCache.addEventListener('updateready', handleCacheEvent, false);
-          appCache.addEventListener('obsolete', handleCacheEvent, false);
-          appCache.addEventListener('error', handleCacheError, false);
+          window.addEventListener('load', function(e) {
+
+            appCache.addEventListener('updateready', handleCacheEvent, false);
+            appCache.addEventListener('obsolete', handleCacheEvent, false);
+            appCache.addEventListener('error', handleCacheError, false);
+            appCache.addEventListener('cached', handleCacheInstall, false);
+
+            console.log('App cache status', getAppCacheStatus());
+
+          });
+        }
+
+        function getAppCacheStatus(){
+          switch (appCache.status) {
+            case 0: // UNCACHED == 0
+              return 'UNCACHED';
+              break;
+            case 1: // IDLE == 1
+              return 'IDLE';
+              break;
+            case 2: // CHECKING == 2
+              return 'CHECKING';
+              break;
+            case 3: // DOWNLOADING == 3
+              return 'DOWNLOADING';
+              break;
+            case 4:  // UPDATEREADY == 4
+              return 'UPDATEREADY';
+              break;
+            case 5: // OBSOLETE == 5
+              return 'OBSOLETE';
+              break;
+            default:
+              return 'UKNOWN CACHE STATUS';
+              break;
+          }
+        }
+
+        function handleCacheInstall(){
+          //TODO - show message saying installing for iOS
+          console.log('TODO');
         }
 
         function handleCacheError(err){
