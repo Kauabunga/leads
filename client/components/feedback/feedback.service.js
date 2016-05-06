@@ -111,7 +111,7 @@ angular.module('bbqApp')
         .then((success) => {
           if(success && success.length > 0){
             $log.debug('Successfully synced feedback', success);
-            toastService.toast(`Synced ${success.length} feedback`);
+            toastService.toast(`Sent ${success.length} feedback`);
           }
           else {
             $log.debug('No feedback to sync', success);
