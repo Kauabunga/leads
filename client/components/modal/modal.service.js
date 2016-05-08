@@ -19,14 +19,14 @@ angular.module('bbqApp')
           .title(message || 'Are you sure?')
           //.targetEvent($event)
           .openFrom({
-            top: -200,
+            top: -250,
             width: getWindowWidth(),
-            height: 80
+            height: 150
           })
           .closeTo({
-            top: -100,
+            top: -150,
             width: getWindowWidth(),
-            height: 80
+            height: 150
           })
           .clickOutsideToClose(true)
           .ok(yes || 'Yes')

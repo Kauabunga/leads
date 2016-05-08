@@ -3,12 +3,27 @@
 
 
 .md-dialog-container {
+
   display: inline-block;
+  z-index: 120;
 
-
-
+  //TODO add class to dialog if we are using any more
 
   md-dialog {
+
+    background-color: @dark-blue;
+    h2 {
+      color: #fff;
+    }
+
+    button {
+      background-color: #fff !important;
+      border: none !important;
+      &:last-child {
+        background-color: @deep-blue !important;
+        color: #fff !important;
+      }
+    }
 
     border-radius: 0;
     box-shadow: none;
