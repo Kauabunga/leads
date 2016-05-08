@@ -6,11 +6,11 @@ angular.module('bbqApp')
     this.isModalActive = false;
 
     this.confirmLogoutModal = $event => {
-      return this.showConfirmModal($event, 'Are you sure you want to logout?', 'Yes, logout', 'No, take me back');
+      return this.showConfirmModal($event, 'Are you sure? You will need to login again', 'Yes, logout', 'No, take me back');
     };
 
     this.confirmRefreshModal = $event => {
-      return this.showConfirmModal($event, 'You will lose any feedback already entered', 'Refresh', 'Cancel');
+      return this.showConfirmModal($event, 'You will lose any feedback already entered', 'Okay, reset', 'No! Cancel');
     };
 
     this.showConfirmModal = ($event, message, yes, no) => {

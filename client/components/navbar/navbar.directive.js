@@ -31,7 +31,11 @@ angular.module('bbqApp')
         }
 
         function reload(){
-          $window.location.reload();
+
+          return modalService.confirmRefreshModal()
+            .then(() => {
+              $window.location.reload();
+            }, () => {});
         }
 
         function login(){
@@ -63,7 +67,6 @@ angular.module('bbqApp')
         }
 
         function logout(){
-
           return modalService.confirmLogoutModal()
           .then(() => {
               Auth.logout();
