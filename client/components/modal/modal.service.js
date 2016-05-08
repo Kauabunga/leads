@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('bbqApp')
-  .service('modalService', function ($http, $log, $q, $timeout, $localStorage, Util, toastService, $interval) {
+  .service('modalService', function ($http, $log, $q, $timeout, $mdDialog) {
 
     this.isModalActive = false;
 
     this.confirmLogoutModal = $event => {
-      return this.showConfirmModal($event, 'Are you sure?', 'Yes, logout', 'No, take me back');
+      return this.showConfirmModal($event, 'Are you sure you want to logout?', 'Yes, logout', 'No, take me back');
     };
 
     this.confirmRefreshModal = $event => {
@@ -14,28 +14,35 @@ angular.module('bbqApp')
     };
 
     this.showConfirmModal = ($event, message, yes, no) => {
-
       if ( ! this.isModalActive) {
         var confirm = $mdDialog.confirm()
-          .title('Would you like to delete your debt?')
-          .targetEvent($event)
-          .ok('Please do it!')
-          .cancel('Sounds like a scam');
+          .title(message || 'Are you sure?')
+          //.targetEvent($event)
+          .openFrom({
+            top: -200,
+            width: getWindowWidth(),
+            height: 80
+          })
+          .closeTo({
+            top: -100,
+            width: getWindowWidth(),
+            height: 80
+          })
+          .clickOutsideToClose(true)
+          .ok(yes || 'Yes')
+          .cancel(no || 'No');
         return $mdDialog.show(confirm);
       }
       else {
         $log.debug('Modal already active');
         return $q.reject(new Error('Modal already active'));
       }
-
-      //  .then(function() {
-      //  $scope.status = 'You decided to get rid of your debt.';
-      //}, function() {
-      //  $scope.status = 'You decided to keep your debt.';
-      //});
-
-
     };
 
+    function getWindowWidth(){
+      return window.innerWidth
+      || document.documentElement.clientWidth
+      || document.body.clientWidth;
+    }
 
   });

@@ -16,7 +16,7 @@ angular.module('bbqApp')
           scope.submitEmail = submitEmail;
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
           scope.reset = reset;
-          scope.edit =  edit;
+          scope.edit = edit;
 
           //TODO would this be better for both the app and web platforms if it was two routes?
           //     email address should ideally not be cached in url / storage
@@ -40,6 +40,7 @@ angular.module('bbqApp')
         }
 
         function submitToken(form, registerToken){
+
           if( ! scope.email || ! registerToken || form.$invalid ){
             form.isRegisterTokenFocused = false;
           }
