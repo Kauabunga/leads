@@ -227,7 +227,7 @@
 
         var appCache = window.applicationCache;
 
-        if(appCache && ! 'serviceWorker' in navigator){
+        if(appCache){
           window.addEventListener('load', function(e) {
 
             appCache.addEventListener('updateready', handleCacheEvent, false);
@@ -236,7 +236,6 @@
             appCache.addEventListener('cached', handleCacheInstall, false);
 
             console.log('App cache status', getAppCacheStatus());
-
           });
         }
 
@@ -267,12 +266,12 @@
         }
 
         function handleCacheInstall(){
-          //TODO - show message saying installing for iOS
-          console.log('TODO');
+          //TODO - show message saying installing for iOS -> add progress bar?
+          console.log('Handle appcahce install');
         }
 
         function handleCacheError(err){
-          console.log('Handle cache error', err);
+          console.log('Handle appcache error', err);
         }
 
         function handleCacheEvent(){

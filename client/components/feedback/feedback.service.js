@@ -33,7 +33,6 @@ angular.module('bbqApp')
       let feedbackObject = { feedback, contact, name };
       return this.encryptFeedback(feedbackObject)
         .then(encryptedFeedback => {
-
           return this.sendEncryptedFeedback(encryptedFeedback)
         });
     };
