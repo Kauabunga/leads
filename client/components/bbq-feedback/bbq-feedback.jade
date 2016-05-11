@@ -7,23 +7,32 @@
       .title-container
         h1 What lead would you like to tell us about?
 
-    form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback, contact, name)' novalidate)
+        md-button.grey-button.advance-button.md-icon-button(aria-label='Toggle advance fields' ng-click='showAdvanceDetails = ! showAdvanceDetails')
+          tune-svg
 
+    form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback, contact, name)' novalidate)
 
       md-input-container.bold
         label
-        input(name='feedbackName' ng-model='name' required='true' autocomplete='off', placeholder='Client name'
+        input(name='feedbackName' ng-model='name' required='true' autocomplete='off', placeholder='Organisation name'
         ng-focus='feedbackForm.isNameFocused = true', ng-blur='feedbackForm.isNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isNameFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
-          div(ng-message='required') You need to enter a client name
+          div(ng-message='required') You need to enter an organisation name
 
+      md-input-container.bold
+        label
+        input(name='clientName' ng-model='clientName' required='true' autocomplete='off', placeholder='Client name'
+        ng-focus='feedbackForm.isClientNameFocused = true', ng-blur='feedbackForm.isClientNameFocused = false')
+        div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isClientNameFocused'
+        ng-messages="feedbackForm.clientName.$error" md-auto-hide="true")
+          div(ng-message='required') You need to enter a client name
 
       md-input-container.bold
         label
         textarea(name='feedbackDetails' ng-model='feedback' required='true' autocomplete='off',
         ng-focus='feedbackForm.isFeedbackFocused = true', ng-blur='feedbackForm.isFeedbackFocused = false'
-        placeholder='Enter details about lead here')
+        placeholder='Details about the lead')
 
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isFeedbackFocused'
         ng-messages="feedbackForm.feedbackDetails.$error" md-auto-hide="true")
@@ -31,6 +40,13 @@
           div(ng-message='feedback') Looks like something went wrong trying to submit your lead. Try again.
 
 
+      .advance-container(ng-if='showAdvanceDetails')
+        md-input-container.optional
+          label
+          input(name='extraDetails' ng-model='extraDetails' autocomplete='off', placeholder='Extra details ...',)
+
+
+      md-checkbox I want to be anonymous
 
 
       md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')
