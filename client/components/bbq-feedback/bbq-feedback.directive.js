@@ -29,14 +29,14 @@ angular.module('bbqApp')
             return feedbackService.encryptAndSendFeedback(feedbackObject)
               .then(() => {
                 scope.successful = true;
-                scope.feedbackSuccessTitle = 'Your feedback has been sent.';
+                scope.feedbackSuccessTitle = 'Your lead has been sent.';
               })
               .catch((response) => {
 
                 // Only catch OFFLINE errors
                 if(response && response.status <= 0){
                   scope.successful = true;
-                  scope.feedbackSuccessTitle = 'Your feedback will be sent next time you are online.';
+                  scope.feedbackSuccessTitle = 'Your lead will be sent next time you are online.';
                   return feedbackService.storeFeedback(feedbackObject);
                 }
                 else {
