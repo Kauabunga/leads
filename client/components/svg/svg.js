@@ -49,6 +49,11 @@
       return {
         templateUrl: 'components/svg/login.svg.html', restrict: 'E', replace: true
       };
+    })
+    .directive('tuneSvg', function () {
+      return {
+        templateUrl: 'components/svg/tune.svg.html', restrict: 'E', replace: true
+      };
     });
 
 })();
