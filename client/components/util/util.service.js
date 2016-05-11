@@ -19,7 +19,10 @@ function UtilService($window, appConfig) {
 
 
     getBaseApiUrl(){
-      return $window.location.hostname === 'localhost' ? '/' : appConfig.baseApiUrl;
+      //TODO test if is cordova app or not -
+      let hostname = $window.location.hostname;
+      return hostname.indexOf('solnet-leads') >= 0 || hostname === 'localhost' ?
+          '/' : appConfig.baseApiUrl;
     },
 
     /**
