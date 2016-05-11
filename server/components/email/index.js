@@ -14,9 +14,9 @@ export function sendTokenEmail({email, token}) {
 
 
     let mailOptions = {
-      from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
+      from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
       to: email,
-      subject: config.email.tokenSubject || 'Your BBQ token', // Subject line
+      subject: config.email.tokenSubject || 'Leads login token', // Subject line
       text: `Your token is: ${token}` // plaintext body
     };
 
@@ -30,25 +30,25 @@ export function sendTokenEmail({email, token}) {
   });
 }
 
-export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'empty'}) {
+export function sendFeedbackEmail({email, lead, contact = 'empty', name = 'empty'}) {
 
   return new Promise((success, failure) => {
 
 
 
     let mailOptions = {
-      from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
+      from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
       to: config.email.endpointEmailAddress || email,
-      subject: config.email.feedbackSubject || 'BBQ Feedback Received',
+      subject: config.email.feedbackSubject || 'New Solnet Lead Received',
 
       text: `
       Name: ${name}
       Contact: ${contact}
-      Feedback: ${feedback}
+      Lead: ${lead}
       `
     };
 
-    console.log(`Sending feedback email ${email} ${feedback}`, mailOptions);
+    console.log(`Sending feedback email ${email} ${lead}`, mailOptions);
 
     // send mail with defined transport object
     return transporter.sendMail(mailOptions, function(error, info){

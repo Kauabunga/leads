@@ -31,7 +31,7 @@ var all = {
   secrets: {
     session: process.env.JWT_SESSION_SECRET || 'leads-secret'
   },
-
+  
   sendgridApiKey: process.env.SEND_GRID_API_KEY,
 
   staticCacheAge: process.env.STATIC_CACHE_AGE || 86400000, // 1day

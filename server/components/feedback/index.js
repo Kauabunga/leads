@@ -7,8 +7,9 @@ import * as emailService from '../email';
 
 // The passphrase used to repeatably generate this RSA key.
 // If this changes then all existing encrypted forms to sync are stuffed
-const passPhrase = 'The Moon is a Harsh Mistress.';
+const passPhrase = config.encyptionPassPhrase;
 // The length of the RSA key, in bits.
+
 const bits = 1024;
 let RSAkey = cryptico.generateRSAKey(passPhrase, bits);
 let feedbackPublicKeyString = cryptico.publicKeyString(RSAkey);

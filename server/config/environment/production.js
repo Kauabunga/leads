@@ -23,6 +23,8 @@ module.exports = {
           'mongodb://localhost/leads'
   },
 
+  encyptionPassPhrase: process.env.ENCRYPTION_PASS_PHRASE || 'The Moon is a Harsh Mistress.',
+
   forceHttps: getVarAsBool('FORCE_HTTPS') || false,
 
   defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAILS || '',
@@ -45,6 +47,9 @@ console.log(`MONGODB_URI=${process.env.MONGODB_URI}`);
 
 console.log(`Force https:`);
 console.log(`FORCE_HTTPS=${process.env.FORCE_HTTPS}`);
+
+console.log(`Encryption pass phrase:`);
+console.log(`ENCRYPTION_PASS_PHRASE=XXXXXXXX`);
 
 console.log(`Comma delimited default admin emails:`);
 console.log(`DEFAULT_ADMIN_EMAIL=${process.env.DEFAULT_ADMIN_EMAILS}`);

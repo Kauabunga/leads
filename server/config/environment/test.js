@@ -11,7 +11,8 @@ module.exports = {
   email: {
     endpointEmailAddress: '',
     attachSenderEmailAddress: true
-  }
+  },
 
+  encyptionPassPhrase: 'The Moon is a Harsh Mistress.'
 
 };
