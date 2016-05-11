@@ -5,7 +5,7 @@ angular.module('bbqApp.constants', [])
 
 .constant('dist', false)
 
-.constant('appConfig', {userRoles:['guest','user','admin'],baseApiUrl:'https://acc-bbq.herokuapp.com/'})
+.constant('appConfig', {userRoles:['guest','user','admin'],baseApiUrl:'https://solnet-leads.herokuapp.com/'})
 
 ;
 })(angular);
