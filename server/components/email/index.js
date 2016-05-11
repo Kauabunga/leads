@@ -30,7 +30,7 @@ export function sendTokenEmail({email, token}) {
   });
 }
 
-export function sendFeedbackEmail({email, lead, contact = 'empty', name = 'empty'}) {
+export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'empty'}) {
 
   return new Promise((success, failure) => {
 
@@ -42,13 +42,12 @@ export function sendFeedbackEmail({email, lead, contact = 'empty', name = 'empty
       subject: config.email.feedbackSubject || 'New Solnet Lead Received',
 
       text: `
-      Name: ${name}
-      Contact: ${contact}
-      Lead: ${lead}
+      Client: ${name}
+      Lead: ${feedback}
       `
     };
 
-    console.log(`Sending feedback email ${email} ${lead}`, mailOptions);
+    console.log(`Sending feedback email ${email} ${feedback}`, mailOptions);
 
     // send mail with defined transport object
     return transporter.sendMail(mailOptions, function(error, info){
