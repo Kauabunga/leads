@@ -29,7 +29,7 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: process.env.JWT_SESSION_SECRET || 'bbq-secret'
+    session: process.env.JWT_SESSION_SECRET || 'leads-secret'
   },
 
   sendgridApiKey: process.env.SEND_GRID_API_KEY,

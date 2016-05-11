@@ -7,7 +7,7 @@
 
 module.exports = {
   DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   'bbq-secret',
+  SESSION_SECRET:   'leads-secret',
 
   SEND_GRID_API_KEY: '',
 
