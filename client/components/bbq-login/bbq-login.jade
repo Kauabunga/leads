@@ -15,7 +15,7 @@
         label
         input(name='email' ng-model='email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
-        placeholder='Enter your solnet email')
+        placeholder='Enter your Solnet email')
 
         div(ng-show='(emailRegisterForm.$submitted) && ! emailRegisterForm.isEmailFocused'
         ng-messages="emailRegisterForm.email.$error")
