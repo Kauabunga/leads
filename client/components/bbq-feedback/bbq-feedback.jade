@@ -10,11 +10,11 @@
         md-button.grey-button.advance-button.md-icon-button(aria-label='Toggle advance fields' ng-click='showAdvanceDetails = ! showAdvanceDetails')
           tune-svg
 
-    form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback, contact, name)' novalidate)
+    form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, state)' novalidate)
 
       md-input-container.bold
         label
-        input(name='feedbackName' ng-model='name' required='true' autocomplete='off', placeholder='Organisation name'
+        input(name='feedbackName' ng-model='state.name' required='true' autocomplete='off', placeholder='Organisation name'
         ng-focus='feedbackForm.isNameFocused = true', ng-blur='feedbackForm.isNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isNameFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
@@ -22,7 +22,7 @@
 
       md-input-container.bold
         label
-        input(name='clientName' ng-model='clientName' required='true' autocomplete='off', placeholder='Client name'
+        input(name='clientName' ng-model='state.clientName' required='true' autocomplete='off', placeholder='Client name'
         ng-focus='feedbackForm.isClientNameFocused = true', ng-blur='feedbackForm.isClientNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isClientNameFocused'
         ng-messages="feedbackForm.clientName.$error" md-auto-hide="true")
@@ -30,7 +30,7 @@
 
       md-input-container.bold
         label
-        textarea(name='feedbackDetails' ng-model='feedback' required='true' autocomplete='off',
+        textarea(name='feedbackDetails' ng-model='state.feedback' required='true' autocomplete='off',
         ng-focus='feedbackForm.isFeedbackFocused = true', ng-blur='feedbackForm.isFeedbackFocused = false'
         placeholder='Details about the lead')
 
@@ -43,10 +43,10 @@
       .advance-container(ng-if='showAdvanceDetails')
         md-input-container.optional
           label
-          input(name='extraDetails' ng-model='extraDetails' autocomplete='off', placeholder='Extra details ...',)
+          input(name='extraDetails' ng-model='state.extraDetails' autocomplete='off', placeholder='Extra details ...',)
 
 
-      md-checkbox I want to be anonymous
+      md-checkbox(ng-model='state.anonymous') I want to be anonymous
 
 
       md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')

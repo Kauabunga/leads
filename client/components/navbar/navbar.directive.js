@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('navbar', function (Auth, $state, $log, $http, User, Util, feedbackService, $window, $timeout, modalService) {
+  .directive('navbar', function (Auth, $state, $log, $http, User, Util, feedbackService, $window, $timeout, modalService, $localStorage) {
     return {
       templateUrl: 'components/navbar/navbar.html',
       restrict: 'EA',
@@ -34,6 +34,8 @@ angular.module('bbqApp')
 
           return modalService.confirmRefreshModal()
             .then(() => {
+              $localStorage.loginState = {};
+              $localStorage.feedbackState = {};
               $window.location.reload();
             }, () => {});
         }

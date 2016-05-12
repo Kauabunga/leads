@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService) {
+  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService, $localStorage) {
     return {
       templateUrl: 'components/bbq-feedback/bbq-feedback.html',
       restrict: 'EA',
@@ -10,26 +10,31 @@ angular.module('bbqApp')
         return init();
 
         function init(){
+
+          scope.state = $localStorage.feedbackState = $localStorage.feedbackState || {};
+
           scope.submitFeedback = submitFeedback;
           scope.resetFeedback = resetFeedback;
         }
 
-        function submitFeedback (form, feedback, contact = 'empty', name = 'empty') {
+        function submitFeedback (form, feedbackObject) {
 
           if(form.$invalid){
             form.isFeedbackFocused = false;
           }
-          else if(form.$valid && ! scope.submitting && feedback){
+          else if(form.$valid && ! scope.submitting && feedbackObject){
 
             scope.submitting = true;
-            let feedbackObject = {feedback, contact, name};
-            $log.debug('submitting feedback', feedback);
+            $log.debug('submitting feedback', feedbackObject);
 
             //return feedbackService.sendFeedback(feedbackObject)
             return feedbackService.encryptAndSendFeedback(feedbackObject)
               .then(() => {
                 scope.successful = true;
                 scope.feedbackSuccessTitle = 'Your lead has been sent.';
+
+                scope.state = $localStorage.feedbackState = {};
+
               })
               .catch((response) => {
 
@@ -51,11 +56,9 @@ angular.module('bbqApp')
         }
 
         function resetFeedback (){
-          scope.feedback = '';
-          scope.contact = '';
-          scope.name = '';
-          scope.successful = false;
+          scope.state = $localStorage.feedbackState = {};
 
+          scope.successful = false;
         }
       }
     };

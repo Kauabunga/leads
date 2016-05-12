@@ -29,16 +29,15 @@ angular.module('bbqApp')
     });
 
 
-    this.encryptAndSendFeedback = ({ feedback, contact, name }) => {
-      let feedbackObject = { feedback, contact, name };
+    this.encryptAndSendFeedback = (feedbackObject) => {
+
       return this.encryptFeedback(feedbackObject)
         .then(encryptedFeedback => {
           return this.sendEncryptedFeedback(encryptedFeedback)
         });
     };
 
-    this.sendFeedback = ({ feedback, contact, name }) => {
-      let feedbackObject = { feedback, contact, name };
+    this.sendFeedback = feedbackObject => {
       return $http.post(FEEDBACK_API, feedbackObject);
     };
 

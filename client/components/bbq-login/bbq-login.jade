@@ -1,6 +1,6 @@
 
 
-.container.login-container(ng-if='! successfulTokenSent')
+.container.login-container(ng-if='! state.successfulTokenSent')
 
   .inner-container
 
@@ -9,11 +9,11 @@
         h1 Login
 
 
-    form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, email)' novalidate='' autocomplete='off')
+    form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, state.email)' novalidate='' autocomplete='off')
 
       md-input-container
         label
-        input(name='email' ng-model='email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
+        input(name='email' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
         placeholder='Enter your Solnet email')
 
@@ -31,7 +31,7 @@
 
 
 
-.container.login-container(ng-if='successfulTokenSent')
+.container.login-container(ng-if='state.successfulTokenSent')
 
   .inner-container
 
@@ -42,17 +42,17 @@
           | Enter the code you see in your inbox for:
     .title.email-title.small-title.small-margin.dark-grey-title
       .title-container
-        h1 {{email}}
+        h1 {{::state.email}}
         md-button.md-icon-button(aria-label='Edit email' ng-click='edit()')
           edit-svg
 
 
-    form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, registerToken)', novalidate, autocomplete='off')
+    form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, state.registerToken)', novalidate, autocomplete='off')
 
 
       md-input-container
         label
-        input.token-input(name='registerToken' ng-model='registerToken', required='true', type='number', autocomplete='off'
+        input.token-input(name='registerToken' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
           ng-minlength='5' ng-maxlength='5' maxlength='5', pattern='[0-9]*' inputmode='numeric'
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')

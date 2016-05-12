@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService) {
+  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService, $localStorage) {
     return {
       templateUrl: 'components/bbq-login/bbq-login.html',
       restrict: 'EA',
@@ -12,6 +12,9 @@ angular.module('bbqApp')
         return init();
 
         function init(){
+
+          scope.state = $localStorage.loginState = $localStorage.loginState || {};
+
           scope.submitToken = _.throttle(submitToken, 2000, true);
           scope.submitEmail = submitEmail;
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
@@ -29,30 +32,31 @@ angular.module('bbqApp')
         }
 
         function reset(){
-          scope.successfulTokenSent = false;
+          scope.state.successfulTokenSent = false;
         }
 
         function onBackKeyDown(e) {
-          if(scope.successfulTokenSent){
+          if(scope.state.successfulTokenSent){
             e.preventDefault();
-            scope.successfulTokenSent = false;
+            scope.state.successfulTokenSent = false;
           }
         }
 
         function submitToken(form, registerToken){
 
-          if( ! scope.email || ! registerToken || form.$invalid ){
+          if( ! scope.state.email || ! registerToken || form.$invalid ){
             form.isRegisterTokenFocused = false;
           }
           else if(! scope.submitting) {
             scope.submitting = true;
             scope.submittingFirstToken = true;
 
-            return Auth.login({email: scope.email, registerToken})
+            return Auth.login({email: scope.state.email, registerToken})
             .then(response => {
               $log.debug('Successfully authenticated');
 
               $timeout(() => {
+                $localStorage.loginState = {};
                 feedbackService.sync();
                 $timeout(gotoMain);
               });
@@ -81,8 +85,8 @@ angular.module('bbqApp')
             return Auth.sendTokenEmail({email})
               .then(response => {
                 $log.debug('response ', response, scope.emailRegisterForm);
-                scope.successfulTokenSent = true;
-                scope.email = email;
+                scope.state.successfulTokenSent = true;
+                scope.state.email = email;
                 $timeout(() => {
                   scope.tokenTimedout = true;
                   scope.successfulResentToken = false;
