@@ -14,7 +14,7 @@
 
       md-input-container.bold
         label
-        input(name='feedbackName' ng-model='state.name' required='true' autocomplete='off', placeholder='Organisation name'
+        input(name='feedbackName' ng-model='state.companyName' required='true' autocomplete='off', placeholder='Organisation name'
         ng-focus='feedbackForm.isNameFocused = true', ng-blur='feedbackForm.isNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isNameFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
@@ -22,7 +22,7 @@
 
       md-input-container.bold
         label
-        input(name='clientName' ng-model='state.clientName' required='true' autocomplete='off', placeholder='Client name'
+        input(name='clientName' ng-model='state.contactName' required='true' autocomplete='off', placeholder='Client name'
         ng-focus='feedbackForm.isClientNameFocused = true', ng-blur='feedbackForm.isClientNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isClientNameFocused'
         ng-messages="feedbackForm.clientName.$error" md-auto-hide="true")
@@ -30,7 +30,7 @@
 
       md-input-container.bold
         label
-        textarea(name='feedbackDetails' ng-model='state.feedback' required='true' autocomplete='off',
+        textarea(name='feedbackDetails' ng-model='state.leadDetails' required='true' autocomplete='off',
         ng-focus='feedbackForm.isFeedbackFocused = true', ng-blur='feedbackForm.isFeedbackFocused = false'
         placeholder='Details about the lead')
 
@@ -43,7 +43,15 @@
       .advance-container(ng-if='showAdvanceDetails')
         md-input-container.optional
           label
-          input(name='extraDetails' ng-model='state.extraDetails' autocomplete='off', placeholder='Extra details ...',)
+          input(name='contactEmail' type='email' ng-model='state.contactEmail' autocomplete='off', placeholder='Contact email',)
+
+        md-input-container.optional
+          label
+          input(name='contactMobile' type='tel' ng-model='state.contactMobile' autocomplete='off', placeholder='Contact mobile number',)
+
+        md-input-container.optional
+          label
+          input(name='contactPhone' type='tel' ng-model='state.contactPhone' autocomplete='off', placeholder='Contact phone number',)
 
 
       md-checkbox(ng-model='state.anonymous') I want to be anonymous

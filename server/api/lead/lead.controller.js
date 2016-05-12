@@ -10,31 +10,31 @@
 'use strict';
 
 import _ from 'lodash';
-import * as feedbackService from '../../components/feedback';
+import * as leadService from '../../components/lead';
 
 
-export function sendFeedback(req, res) {
+export function sendLead(req, res) {
 
   let email = req.user.email;
 
-  return feedbackService.sendFeedback(_.merge(req.body, { email }))
+  return leadService.sendLead(_.merge(req.body, { email }))
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-export function sendEncryptedFeedback(req, res){
+export function sendEncryptedLead(req, res){
 
   let encrypted = req.body.encrypted;
   let email = req.user.email;
 
-  return feedbackService.sendEncryptedFeedback({ email, encrypted })
+  return leadService.sendEncryptedLead({ email, encrypted })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-export function getFeedbackPublicKey(req, res){
+export function getLeadPublicKey(req, res){
 
-  return feedbackService.getFeedbackPublicKey()
+  return leadService.getLeadPublicKey()
     .then(respondWithResult(res, 200))
     .catch(handleError(res));
 
@@ -54,7 +54,7 @@ function respondWithResult(res, statusCode) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
-    console.error('Error in feedback controller', err);
+    console.error('Error in lead controller', err);
     res.status(statusCode).send(err);
   };
 }

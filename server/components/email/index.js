@@ -11,8 +11,6 @@ export function sendTokenEmail({email, token}) {
 
   return new Promise((success, failure) => {
 
-
-
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
       to: email,
@@ -30,24 +28,27 @@ export function sendTokenEmail({email, token}) {
   });
 }
 
-export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'empty'}) {
+export function sendLeadsEmail(leadObject) {
 
   return new Promise((success, failure) => {
 
-
-
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
-      to: config.email.endpointEmailAddress || email,
+      to: config.email.endpointEmailAddress || leadObject.email,
       subject: config.email.feedbackSubject || 'New Solnet Lead Received',
 
-      text: `
-      Client: ${name}
-      Lead: ${feedback}
-      `
+      text: `Contact name: ${leadObject.contactName}
+      Company name: ${leadObject.companyName}
+      
+      ${leadObject.contactEmail ? `Contact email: ${leadObject.contactEmail}` : ''}
+      ${leadObject.contactMobile ? `Contact mobile: ${leadObject.contactMobile}` : ''}
+      ${leadObject.contactPhone ? `Contact phone: ${leadObject.contactPhone}` : ''}
+      
+      Lead details: ${leadObject.leadDetails}`
     };
 
-    console.log(`Sending feedback email ${email} ${feedback}`, mailOptions);
+
+    console.log(`Sending leads email ${leadObject.email} ${leadObject.leadDetails}`, mailOptions);
 
     // send mail with defined transport object
     return transporter.sendMail(mailOptions, function(error, info){

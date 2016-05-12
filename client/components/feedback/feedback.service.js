@@ -4,9 +4,9 @@ angular.module('bbqApp')
   .service('feedbackService', function ($http, $log, $q, $timeout, $localStorage, Util, toastService, $interval) {
 
 
-    const FEEDBACK_API = `${Util.getBaseApiUrl()}api/feedbacks`;
-    const FEEDBACK_ENCRYPTED_API = `${Util.getBaseApiUrl()}api/feedbacks/encrypted`;
-    const FEEDBACK_PUBLIC_KEY_API = `${Util.getBaseApiUrl()}api/feedbacks/public`;
+    const FEEDBACK_API = `${Util.getBaseApiUrl()}api/leads`;
+    const FEEDBACK_ENCRYPTED_API = `${Util.getBaseApiUrl()}api/leads/encrypted`;
+    const FEEDBACK_PUBLIC_KEY_API = `${Util.getBaseApiUrl()}api/leads/public`;
     const FEEDBACK_STORE_KEY = 'feedbackStore';
     const FEEDBACK_PUBLIC_KEY_KEY = 'feedbackPublicKey';
 
