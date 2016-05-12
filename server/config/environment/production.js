@@ -28,8 +28,8 @@ module.exports = {
   forceHttps: getVarAsBool('FORCE_HTTPS') || false,
 
   defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAILS || '',
-  validEmailDomains: process.env.VALID_EMAIL_DOMAINS || '',
-  invalidEmailDomainMessage: process.env.INVALID_EMAIL_DOMAIN_MESSAGE || '',
+  validEmailDomains: process.env.VALID_EMAIL_DOMAINS || 'solnet.co.nz, solnetsolutions.co.nz',
+  invalidEmailDomainMessage: process.env.INVALID_EMAIL_DOMAIN_MESSAGE || `We need an email from the solnet domain`,
 
   email: {
     attachSenderEmailAddress: getVarAsBool('ATTACH_SENDER_EMAIL_ADDRESS') || true,

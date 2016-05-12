@@ -8,6 +8,8 @@ var router = express.Router();
 
 router.post('/', auth.isAuthenticated(), controller.sendFeedback);
 router.post('/encrypted', auth.isAuthenticated(), controller.sendEncryptedFeedback);
-router.get('/public', auth.isAuthenticated(), controller.getFeedbackPublicKey);
+
+// router.get('/public', auth.isAuthenticated(), controller.getFeedbackPublicKey);
+router.get('/public', controller.getFeedbackPublicKey);
 
 module.exports = router;

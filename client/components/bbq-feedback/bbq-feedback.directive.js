@@ -11,6 +11,7 @@ angular.module('bbqApp')
 
         function init(){
 
+          //TODO we want to ensure that this is not too old - i.e. from a week ago
           scope.state = $localStorage.feedbackState = $localStorage.feedbackState || {};
 
           scope.submitFeedback = submitFeedback;
