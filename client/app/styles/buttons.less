@@ -8,7 +8,7 @@ button.md-button:not(.md-icon-button):not(.menu-button) {
 
 button.md-button:not(.md-icon-button):not(.menu-button) {
 
-  border-radius: 8px;
+  border-radius: 8px !important;
   font-size: 1em;
   height: 54px;
 
@@ -17,8 +17,10 @@ button.md-button:not(.md-icon-button):not(.menu-button) {
   span {
     text-transform: none;
   }
+
+  .md-ripple,
   .md-ripple-container {
-    border-radius: 0;
+    border-radius: 8px !important;
   }
 
   border: 2px solid @button-grey;
