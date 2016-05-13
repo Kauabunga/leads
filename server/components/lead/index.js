@@ -80,7 +80,7 @@ function postLead(leadObject){
       access_token: ODOO_ACCESS_TOKEN,
       contact_name: leadObject.contactName,
       company_name: leadObject.companyName,
-      contact_email: leadObject.contactEmail || '',
+      contact_email: leadObject.contactEmail || 'unknown@email.com',
       contact_mobile: leadObject.contactMobile || '',
       contact_phone: leadObject.contactPhone || '',
       message: leadObject.leadDetails
