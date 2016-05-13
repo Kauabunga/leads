@@ -19,6 +19,10 @@ module.exports = {
     attachSenderEmailAddress: true
   },
 
-  encyptionPassPhrase: 'The Moon is a Harsh Mistress.'
+  encyptionPassPhrase: 'The Moon is a Harsh Mistress.',
+
+
+  disableLeadEmail: false,
+  disableLeadOdoo: false
 
 };

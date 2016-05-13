@@ -37,8 +37,12 @@ module.exports = {
     systemSenderEmailAddress: process.env.SYSTEM_SENDER_EMAIL_ADDRESS,
     feedbackSubject: process.env.FEEDBACK_EMAIL_SUBJECT,
     tokenSubject: process.env.TOKEN_EMAIL_SUBJECT
-  }
+  },
 
+
+  disableLeadEmail: getVarAsBool('DISABLE_LEAD_EMAIL') || false,
+  disableLeadOdoo: getVarAsBool('DISABLE_LEAD_ODOO') || false
+  
 };
 
 
@@ -74,6 +78,12 @@ console.log(`FEEDBACK_EMAIL_SUBJECT=${process.env.FEEDBACK_EMAIL_SUBJECT}`);
 
 console.log(`Token email subject:`);
 console.log(`TOKEN_EMAIL_SUBJECT=${process.env.TOKEN_EMAIL_SUBJECT}`);
+
+console.log(`Disable lead email:`);
+console.log(`DISABLE_LEAD_EMAIL=${process.env.DISABLE_LEAD_EMAIL}`);
+
+console.log(`Disable lead odoo:`);
+console.log(`DISABLE_LEAD_ODOO=${process.env.DISABLE_LEAD_ODOO}`);
 
 
 
