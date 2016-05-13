@@ -1,4 +1,5 @@
 
+@button-radius: 27px;
 
 
 button.md-button:not(.md-icon-button):not(.menu-button) {
@@ -6,9 +7,15 @@ button.md-button:not(.md-icon-button):not(.menu-button) {
 
 }
 
+button.md-button:not(.md-icon-button) {
+  .md-ripple {
+    display: none;
+  }
+}
+
 button.md-button:not(.md-icon-button):not(.menu-button) {
 
-  border-radius: 8px !important;
+  border-radius: @button-radius !important;
   font-size: 1em;
   height: 54px;
 
@@ -19,7 +26,7 @@ button.md-button:not(.md-icon-button):not(.menu-button) {
   }
 
   .md-ripple-container {
-    border-radius: 4px !important;
+    border-radius: @button-radius !important;
   }
 
   border: 2px solid @button-grey;

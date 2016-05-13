@@ -13,6 +13,9 @@ module.exports = {
 
   DEFAULT_ADMIN_EMAILS: '',
 
+  ODOO_POST_URI: '',
+  ODOO_ACCESS_TOKEN: '',
+
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };

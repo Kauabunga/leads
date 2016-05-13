@@ -69,6 +69,8 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
      * Delete access token and user info
      */
     logout() {
+      $localStorage.feedbackState = {};
+      $localStorage.loginState = {};
       $localStorage.token = undefined;
       currentUser = $localStorage.currentUser = {};
     },

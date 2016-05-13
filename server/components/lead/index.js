@@ -71,6 +71,8 @@ function decryptLead({ encrypted }){
 
 function postLead(leadObject){
 
+  console.log('Posting lead', leadObject);
+
   return request({
     method: 'POST',
     uri: POST_URI,
@@ -83,6 +85,10 @@ function postLead(leadObject){
       contact_phone: leadObject.contactPhone || '',
       message: leadObject.leadDetails
     }
-  });
+  })
+    .then(response => {
+      console.log('Post lead response', response.statusCode, response.body);
+      return response;
+    });
 }
 

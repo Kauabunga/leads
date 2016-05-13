@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService, $localStorage) {
+  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService, $localStorage, toastService) {
     return {
       templateUrl: 'components/bbq-feedback/bbq-feedback.html',
       restrict: 'EA',
@@ -45,8 +45,11 @@ angular.module('bbqApp')
                   scope.feedbackSuccessTitle = 'Your lead will be sent next time you are online.';
                   return feedbackService.storeFeedback(feedbackObject);
                 }
+                else if(response.status === 401){
+                  toastService.errorToast('You need to be logged in to submit your lead');
+                }
                 else {
-                  form.registerToken.$error.feedback = true;
+                  toastService.errorToast('Uh oh, something went wrong trying to submit your lead. Please try again shortly.');
                 }
 
               })
