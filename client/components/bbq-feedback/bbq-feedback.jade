@@ -14,7 +14,7 @@
 
       md-input-container.bold
         label
-        input(name='feedbackName' ng-model='state.companyName' required='true' autocomplete='off', placeholder='Organisation name'
+        input(name='feedbackName' ng-model='state.companyName' required='true' autocomplete='off', placeholder='Organisation name e.g. MBIE'
         ng-focus='feedbackForm.isNameFocused = true', ng-blur='feedbackForm.isNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isNameFocused'
         ng-messages="feedbackForm.feedbackName.$error" md-auto-hide="true")
@@ -22,7 +22,7 @@
 
       md-input-container.bold
         label
-        input(name='clientName' ng-model='state.contactName' required='true' autocomplete='off', placeholder='Client name'
+        input(name='clientName' ng-model='state.contactName' required='true' autocomplete='off', placeholder='Client name e.g. John Smith'
         ng-focus='feedbackForm.isClientNameFocused = true', ng-blur='feedbackForm.isClientNameFocused = false')
         div(ng-if='(feedbackForm.$submitted) && ! feedbackForm.isClientNameFocused'
         ng-messages="feedbackForm.clientName.$error" md-auto-hide="true")
