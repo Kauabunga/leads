@@ -10,6 +10,16 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
 }
 
 
-md-toast .md-toast-content {
-    padding: 30px;
+md-toast {
+    width: 100%;
+    .md-toast-content {
+        padding: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        > span {
+            display: inline-block;
+            text-align: right;
+            margin-right: 30px;
+        }
+    }
 }
