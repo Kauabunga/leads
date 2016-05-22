@@ -11,6 +11,33 @@
     box-shadow: none;
   }
 
+  md-dialog.add-to-homescreen-modal {
+    max-width: 90%;
+    min-height: 80%;
+    img {
+      width: auto;
+      max-width: 100%;
+    }
+
+    md-tabs-wrapper {
+      display: none;
+    }
+
+    md-tab-content > div {
+      margin-bottom: -4px;
+      //margin-right: -1px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-around;
+      background-color: #fff;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+
   md-dialog[aria-label="Are you sure? ..."] {
 
     align-self: baseline;

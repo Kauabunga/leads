@@ -45,8 +45,12 @@ angular.module('bbqApp')
       if ( ! this.isModalActive) {
         this.isModalActive = true;
         return $mdDialog.show({
-            controller: ['$scope', ($scope) => {
-
+            controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
+              $scope.hideModal = $mdDialog.hide;
+              $scope.maxImgHeight = getWindowHeight() * 0.8;
+              let onResize = () => $scope.maxImgHeight = getWindowHeight() * 0.8;
+              window.addEventListener('resize', onResize);
+              $scope.$on('$destroy', () => window.removeEventListener('resize', onResize));
             }],
             templateUrl: 'components/modal/addToHomescreenModal.html',
             parent: angular.element(document.body),
@@ -65,6 +69,12 @@ angular.module('bbqApp')
       return window.innerWidth
       || document.documentElement.clientWidth
       || document.body.clientWidth;
+    }
+
+    function getWindowHeight(){
+      return window.innerHeight
+      || document.documentElement.clientHeight
+      || document.body.clientHeight;
     }
 
   });
