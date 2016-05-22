@@ -15,28 +15,50 @@ angular.module('bbqApp')
 
     this.showConfirmModal = ($event, message, yes, no) => {
       if ( ! this.isModalActive) {
-        var confirm = $mdDialog.confirm()
-          .title(message || 'Are you sure?')
-          //.targetEvent($event)
-          .openFrom({
-            top: -250,
-            width: getWindowWidth(),
-            height: 150
-          })
-          .closeTo({
-            top: -150,
-            width: getWindowWidth(),
-            height: 150
-          })
-          .clickOutsideToClose(true)
-          .ok(yes || 'Yes')
-          .cancel(no || 'No');
-        return $mdDialog.show(confirm);
+        this.isModalActive = true;
+        return $mdDialog.show($mdDialog.confirm()
+            .title(message || 'Are you sure?')
+            //.targetEvent($event)
+            .fullscreen(true) //???
+            .openFrom({
+              top: -250,
+              width: getWindowWidth(),
+              height: 150
+            })
+            .closeTo({
+              top: -150,
+              width: getWindowWidth(),
+              height: 150
+            })
+            .clickOutsideToClose(true)
+            .ok(yes || 'Yes')
+            .cancel(no || 'No'))
+          .finally(() => this.isModalActive = false);
       }
       else {
         $log.debug('Modal already active');
         return $q.reject(new Error('Modal already active'));
       }
+    };
+
+    this.showAddToHomescreenModel = ($event) => {
+      if ( ! this.isModalActive) {
+        this.isModalActive = true;
+        return $mdDialog.show({
+            controller: ['$scope', ($scope) => {
+
+            }],
+            templateUrl: 'components/modal/addToHomescreenModal.html',
+            parent: angular.element(document.body),
+            targetEvent: $event,
+            clickOutsideToClose: true,
+            // fullscreen: true
+            fullscreen: false
+          })
+          .finally(() => this.isModalActive = false);
+      }
+
+
     };
 
     function getWindowWidth(){

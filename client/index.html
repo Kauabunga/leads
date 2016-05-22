@@ -17,68 +17,67 @@
     <title>Leads</title>
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="leads.png">
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/leads.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/leads.png">
-    <link rel="icon" type="image/png" sizes="194x194" href="assets/icons/leads.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/leads.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/icons/leads.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/leads.png">
 
+    <!-- http://realfavicongenerator.net/ -->
+    <link rel="shortcut icon" href="leads.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/apple/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
     <!-- https://developer.chrome.com/multidevice/android/installtohomescreen -->
     <link rel="manifest" href="manifest.json">
-
     <!-- Windows -->
     <meta name="msapplication-TileColor" content="#1A2025">
-    <meta name="msapplication-TileImage" content="assets/icons/leads.png">
+    <meta name="msapplication-TileImage" content="assets/icons/windows/mstile-144x144.png">
     <meta name="theme-color" content="#1A2025">
-
     <!-- Apple web app support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-startup-image" href="assets/icons/leads.png">
-
     <!--&lt;!&ndash; iPhone 3GS, 2011 iPod Touch &ndash;&gt;-->
     <!--<link rel="apple-touch-startup-image" href="startup-320x460.png" media="screen and (max-device-width : 320px)">-->
-
     <!--&lt;!&ndash; iPhone 4, 4S and 2011 iPod Touch &ndash;&gt;-->
     <!--<link rel="apple-touch-startup-image" href="startup-640x920.png" media="(max-device-width : 480px) and (-webkit-min-device-pixel-ratio : 2)">-->
-
     <!--&lt;!&ndash; iPhone 5 and 2012 iPod Touch &ndash;&gt;-->
     <!--<link rel="apple-touch-startup-image" href="startup-640x1096.png" media="(max-device-width : 548px) and (-webkit-min-device-pixel-ratio : 2)">-->
-
     <!--&lt;!&ndash; iPad landscape &ndash;&gt;-->
     <!--<link rel="apple-touch-startup-image" sizes="1024x748" href="startup-1024x748.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : landscape)">-->
-
     <!--&lt;!&ndash; iPad Portrait &ndash;&gt;-->
     <!--<link rel="apple-touch-startup-image" sizes="768x1004" href="startup-768x1004.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : portrait)">-->
 
-    <style>
 
+    <style>
+      
       @font-face {
-        font-family: 'PT-Sans';
-        src: url('assets/fonts/MuseoSans_500Web.woff') format('truetype');
+        font-family: 'museo';
+        src: url('assets/fonts/MuseoSans_500Web.eot'); /* IE9 Compat Modes */
+        src: url('assets/fonts/MuseoSans_500Web.eot') format('embedded-opentype'), /* IE6-IE8 */
+          url('assets/fonts/MuseoSans_500Web.woff') format('woff'), /* Pretty Modern Browsers */
+          url('assets/fonts/MuseoSans_500Web.svg') format('svg'); /* Legacy iOS */
         font-weight: 500;
         font-style: normal;
       }
 
       @font-face {
-        font-family: 'PT-Sans';
-        src: url('assets/fonts/MuseoSans_700Web.woff') format('truetype');
+        font-family: 'museo';
+        src: url('assets/fonts/MuseoSans_700Web.eot'); /* IE9 Compat Modes */
+          src: url('assets/fonts/MuseoSans_700Web.eot') format('embedded-opentype'), /* IE6-IE8 */
+          url('assets/fonts/MuseoSans_700Web.woff') format('woff'), /* Pretty Modern Browsers */
+          url('assets/fonts/MuseoSans_700Web.svg') format('svg'); /* Legacy iOS */
         font-weight: 700;
         font-style: normal;
       }
 
       div, span, button, input, textarea, li, h1, h2, h3, h4, h5, h6 {
-        font-family: 'PT-Sans' !important;
+        font-family: 'museo' !important;
       }
 
       html, body {
