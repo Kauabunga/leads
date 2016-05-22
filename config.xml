@@ -27,24 +27,25 @@
     <!--<preference name="Fullscreen" value="true" />-->
     <engine name="android" spec="~5.1.1" />
     <engine name="ios" spec="~4.1.1" />
-    <icon src="client/assets/icons/android/xxxhdpi.png" />
+    <icon src="client/assets/icons/android/android-chrome-192x192.png" />
     <platform name="android">
-        <icon density="mdpi" src="client/assets/icons/android/mdpi.png" />
-        <icon density="hdpi" src="client/assets/icons/android/hdpi.png" />
-        <icon density="xhdpi" src="client/assets/icons/android/xhdpi.png" />
-        <icon density="xxhdpi" src="client/assets/icons/android/xxhdpi.png" />
-        <icon density="xxxhdpi" src="client/assets/icons/android/xxxhdpi.png" />
+        <icon density="mdpi" src="client/assets/icons/android/android-chrome-36x36.png" />
+        <icon density="ldpi" src="client/assets/icons/android/android-chrome-48x48.png" />
+        <icon density="hdpi" src="client/assets/icons/android/android-chrome-72x72.png" />
+        <icon density="xhdpi" src="client/assets/icons/android/android-chrome-96x96.png" />
+        <icon density="xxhdpi" src="client/assets/icons/android/android-chrome-144x144.png" />
+        <icon density="xxxhdpi" src="client/assets/icons/android/android-chrome-192x192.png" />
     </platform>
     <platform name="ios">
-        <icon height="180" src="client/assets/icons/apple/apple-icon-180x180.png" width="180" />
-        <icon height="60" src="client/assets/icons/apple/apple-icon-60x60.png" width="60" />
-        <icon height="120" src="client/assets/icons/apple/apple-icon-120x120.png" width="120" />
-        <icon height="76" src="client/assets/icons/apple/apple-icon-76x76.png" width="76" />
-        <icon height="152" src="client/assets/icons/apple/apple-icon-152x152.png" width="152" />
-        <icon height="57" src="client/assets/icons/apple/apple-icon-57x57.png" width="57" />
-        <icon height="114" src="client/assets/icons/apple/apple-icon-114x114.png" width="114" />
-        <icon height="72" src="client/assets/icons/apple/apple-icon-72x72.png" width="72" />
-        <icon height="144" src="client/assets/icons/apple/apple-icon-144x144.png" width="144" />
+        <icon height="180" src="client/assets/icons/apple/apple-touch-icon-180x180.png" width="180" />
+        <icon height="60" src="client/assets/icons/apple/apple-touch-icon-60x60.png" width="60" />
+        <icon height="120" src="client/assets/icons/apple/apple-touch-icon-120x120.png" width="120" />
+        <icon height="76" src="client/assets/icons/apple/apple-touch-icon-76x76.png" width="76" />
+        <icon height="152" src="client/assets/icons/apple/apple-touch-icon-152x152.png" width="152" />
+        <icon height="57" src="client/assets/icons/apple/apple-touch-icon-57x57.png" width="57" />
+        <icon height="114" src="client/assets/icons/apple/apple-touch-icon-114x114.png" width="114" />
+        <icon height="72" src="client/assets/icons/apple/apple-touch-icon-72x72.png" width="72" />
+        <icon height="144" src="client/assets/icons/apple/apple-touch-icon-144x144.png" width="144" />
     </platform>
 
     <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
