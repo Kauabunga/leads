@@ -12,7 +12,7 @@ angular.module('bbqApp')
         function init(){
 
           scope.showAddToHomescreenModel = modalService.showAddToHomescreenModel;
-
+          scope.showUseSpeechToTextModel = modalService.showUseSpeechToTextModel;
         }
 
       }

@@ -42,21 +42,31 @@ angular.module('bbqApp')
     };
 
     this.showAddToHomescreenModel = ($event) => {
+      return this.showInfoModel($event, 'components/modal/addToHomescreenModal.html');
+    };
+
+    this.showUseSpeechToTextModel = ($event) => {
+      return this.showInfoModel($event, 'components/modal/useSpeechToTextModal.html');
+    };
+
+    this.showInfoModel = ($event, templateUrl) => {
       if ( ! this.isModalActive) {
         this.isModalActive = true;
         return $mdDialog.show({
             controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
+              $scope.isIOS = false;
+              $scope.isAndroid = true;
               $scope.hideModal = $mdDialog.hide;
               $scope.maxImgHeight = getWindowHeight() * 0.8;
               let onResize = () => $scope.maxImgHeight = getWindowHeight() * 0.8;
               window.addEventListener('resize', onResize);
               $scope.$on('$destroy', () => window.removeEventListener('resize', onResize));
             }],
-            templateUrl: 'components/modal/addToHomescreenModal.html',
+            templateUrl: templateUrl,
             parent: angular.element(document.body),
             targetEvent: $event,
             clickOutsideToClose: true,
-            // fullscreen: true
+
             fullscreen: false
           })
           .finally(() => this.isModalActive = false);
