@@ -73,7 +73,7 @@ export default function(app) {
   app.set('appPath', path.join(config.root, 'client'));
 
   if ('production' === env) {
-    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
+    // app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
     app.use(express.static(app.get('appPath'), {setHeaders: setStaticHeaders}));
     app.use(morgan('dev'));
   }
