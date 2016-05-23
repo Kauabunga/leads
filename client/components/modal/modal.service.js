@@ -21,8 +21,6 @@ angular.module('bbqApp')
         this.isModalActive = true;
         return $mdDialog.show($mdDialog.confirm()
             .title(message || 'Are you sure?')
-            //.targetEvent($event)
-            .fullscreen(true) //???
             .openFrom({
               top: -250,
               width: getWindowWidth(),
