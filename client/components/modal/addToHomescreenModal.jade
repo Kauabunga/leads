@@ -4,20 +4,23 @@ md-dialog.add-to-homescreen-modal.custom-modal.info-modal
   md-tabs(md-dynamic-height, md-center-tabs=true, md-selected='currentTab')
 
     md-tab(label='One')
-      img(style='max-height: {{maxImgHeight}}px;' src='assets/images/android-add-to-homescreen-1.png')
+      .img-container(style='height: {{maxImgHeight}}px;')
+        img(src='assets/images/android-add-to-homescreen-1.png')
       .button-container
         md-button(ng-click='hideModal($event)') Back
         md-button(ng-click='currentTab = 1') Next
 
 
     md-tab(label='Two')
-      img(style='max-height: {{maxImgHeight}}px;' src='assets/images/android-add-to-homescreen-2.png')
+      .img-container(style='height: {{maxImgHeight}}px;')
+        img(src='assets/images/android-add-to-homescreen-2.png')
       .button-container
         md-button(ng-click='currentTab = 0') Back
         md-button(ng-click='currentTab = 2') Next
 
     md-tab(label='Three')
-      img(style='max-height: {{maxImgHeight}}px;' src='assets/images/android-add-to-homescreen-3.png')
+      .img-container(style='height: {{maxImgHeight}}px;')
+        img(src='assets/images/android-add-to-homescreen-3.png')
       .button-container
         md-button(ng-click='currentTab = 1') Back
         md-button(ng-click='hideModal($event)') Done
