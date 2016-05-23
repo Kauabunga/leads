@@ -5,7 +5,7 @@ angular.module('bbqApp')
 
     this.isModalActive = false;
     let ua = navigator.userAgent.toLowerCase();
-    let isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+    let isAndroid = ua.indexOf("android") > -1;
 
 
     this.confirmLogoutModal = $event => {
