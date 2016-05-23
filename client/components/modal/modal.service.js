@@ -4,6 +4,9 @@ angular.module('bbqApp')
   .service('modalService', function ($http, $log, $q, $timeout, $mdDialog) {
 
     this.isModalActive = false;
+    let ua = navigator.userAgent.toLowerCase();
+    let isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+
 
     this.confirmLogoutModal = $event => {
       return this.showConfirmModal($event, 'Are you sure? You will need to login again', 'Yes, logout', 'No, take me back');
@@ -49,16 +52,17 @@ angular.module('bbqApp')
       return this.showInfoModel($event, 'components/modal/useSpeechToTextModal.html');
     };
 
+
     this.showInfoModel = ($event, templateUrl) => {
       if ( ! this.isModalActive) {
         this.isModalActive = true;
         return $mdDialog.show({
             controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
-              $scope.isIOS = false;
-              $scope.isAndroid = true;
+              $scope.isIOS = ! isAndroid;
+              $scope.isAndroid = isAndroid;
               $scope.hideModal = $mdDialog.hide;
-              $scope.maxImgHeight = getWindowHeight() * 0.8;
-              let onResize = () => $scope.maxImgHeight = getWindowHeight() * 0.8;
+              $scope.maxImgHeight = getWindowHeight() * getWindowHeightMultiplier();
+              let onResize = () => $scope.maxImgHeight = getWindowHeight() * getWindowHeightMultiplier();
               window.addEventListener('resize', onResize);
               $scope.$on('$destroy', () => window.removeEventListener('resize', onResize));
             }],
@@ -71,9 +75,11 @@ angular.module('bbqApp')
           })
           .finally(() => this.isModalActive = false);
       }
-
-
     };
+
+    function getWindowHeightMultiplier() {
+      return isAndroid ? 0.8 : 0.8;
+    }
 
     function getWindowWidth(){
       return window.innerWidth
