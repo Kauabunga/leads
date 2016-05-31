@@ -13,7 +13,7 @@ angular.module('bbqApp')
     };
 
     this.confirmRefreshModal = $event => {
-      return this.showConfirmModal($event, 'You will lose any feedback already entered', 'Okay, reset', 'No! Cancel');
+      return this.showConfirmModal($event, 'You will lose any information already entered', 'Ok, reset', 'No! Cancel');
     };
 
     this.showConfirmModal = ($event, message, yes, no) => {

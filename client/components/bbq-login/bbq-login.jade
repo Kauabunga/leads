@@ -14,6 +14,7 @@
       md-input-container
         label
         input(name='email' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
+        autocorrect="off" autocapitalize="off" spellcheck="false",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
         placeholder='Enter your Solnet email')
 
@@ -59,6 +60,7 @@
       md-input-container
         label
         input.token-input(name='registerToken' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
+          autocorrect="off" autocapitalize="off" spellcheck="false"
           ng-minlength='5' ng-maxlength='5' maxlength='5', pattern='[0-9]*' inputmode='numeric'
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')
