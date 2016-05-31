@@ -182,7 +182,6 @@
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-77554640-1', 'auto');
-      ga('send', 'pageview');
     </script>
 
     <script async type="text/javascript" src="cordova.js"></script>
@@ -202,6 +201,8 @@
       <script src="bower_components/angular-material/angular-material.js"></script>
       <script src="bower_components/ngstorage/ngStorage.js"></script>
       <script src="bower_components/cryptico/cryptico.js"></script>
+      <script src="bower_components/angulartics/src/angulartics.js"></script>
+      <script src="bower_components/angulartics-google-analytics/lib/angulartics-google-analytics.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js(.tmp) app/app.js -->
@@ -210,6 +211,7 @@
       <script src="components/auth/auth.module.js"></script>
       <script src="components/util/util.module.js"></script>
       <script src="components/bbq-info/bbq-info.directive.js"></script>
+      <script src="components/analytics/analytics.service.js"></script>
       <script src="app/account/account.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/interceptor.service.js"></script>

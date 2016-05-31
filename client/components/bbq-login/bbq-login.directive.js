@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService, $localStorage) {
+  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService, $localStorage, analyticsService) {
     return {
       templateUrl: 'components/bbq-login/bbq-login.html',
       restrict: 'EA',
@@ -44,16 +44,24 @@ angular.module('bbqApp')
 
         function submitToken(form, registerToken){
 
+
+
           if( ! scope.state.email || ! registerToken || form.$invalid ){
             form.isRegisterTokenFocused = false;
           }
           else if(! scope.submitting) {
+
+            let email = scope.state.email;
+
             scope.submitting = true;
             scope.submittingFirstToken = true;
 
             return Auth.login({email: scope.state.email, registerToken})
             .then(response => {
               $log.debug('Successfully authenticated');
+
+              $timeout(() => analyticsService.trackEvent('Login email success', email));
+              $timeout(() => analyticsService.trackEvent('Login email with token', email));
 
               $timeout(() => {
                 $localStorage.loginState = {};
@@ -62,6 +70,8 @@ angular.module('bbqApp')
               });
             })
             .catch(err => {
+              $timeout(() => analyticsService.trackEvent('Login email failure', email));
+
               handleErrorResponse(err);
               scope.submitting = false;
               scope.authenticated = false;
@@ -89,15 +99,20 @@ angular.module('bbqApp')
             scope.submitting = true;
             return Auth.sendTokenEmail({email})
               .then(response => {
+                $timeout(() => analyticsService.trackEvent('Login email token sent', email));
                 $log.debug('response ', response, scope.emailRegisterForm);
                 scope.state.successfulTokenSent = true;
                 scope.state.email = email;
                 $timeout(() => {
                   scope.tokenTimedout = true;
                   scope.successfulResentToken = false;
+
                 }, TOKEN_TIMEOUT);
               })
-              .catch(handleErrorResponse)
+              .catch(response => {
+                $timeout(() => analyticsService.trackEvent('Login email denied', email));
+                return handleErrorResponse(response);
+              })
               .finally(() => {
                 scope.submitting = false;
               });

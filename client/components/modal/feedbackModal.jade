@@ -1,0 +1,25 @@
+
+md-dialog.feedback-modal
+
+  .container(ng-if=' ! feedbackSubmitted')
+    .inner-container
+
+
+      form(novalidate=true name='feedbackForm' ng-submit='submitFeedback(feedback)')
+
+        md-input-container
+          label
+          textarea(placeholder='Enter feedback here', name='feedback' ng-model='feedback' required=true)
+
+        md-button(type='submit' ng-class='{"bold-button": feedback.length > 0}') Send feedback
+
+
+
+  .container(ng-if='feedbackSubmitted')
+    .inner-container
+      .title
+        .title-container
+          h1 Thank you for your feedback
+
+      form
+        md-button.bold-button(type='button', ng-click='hideModal()') Close

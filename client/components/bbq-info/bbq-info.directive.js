@@ -11,6 +11,7 @@ angular.module('bbqApp')
 
         function init(){
 
+          scope.showFeedbackModel = modalService.showFeedbackModel;
           scope.showAddToHomescreenModel = modalService.showAddToHomescreenModel;
           scope.showUseSpeechToTextModel = modalService.showUseSpeechToTextModel;
         }

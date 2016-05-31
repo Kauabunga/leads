@@ -12,19 +12,24 @@ angular.module('bbqApp')
         url: '/token/:email/:token',
         template: '<div></div>',
         controller: function($state, $stateParams, $log, Auth, $timeout, $localStorage, feedbackService){
+          let email = $stateParams.email;
           Auth.login({email: $stateParams.email, registerToken: $stateParams.token})
             .then(response => {
               $log.debug('Successfully authenticated');
 
+              $timeout(() => analyticsService.trackEvent('Login email success', email));
+              $timeout(() => analyticsService.trackEvent('Login email with link', email));
+
               $timeout(() => {
                 $localStorage.loginState = {};
                 feedbackService.sync();
+
                 if($localStorage.welcomeViewed){
                   $timeout(() => $state.go('main', {}, {location: 'replace'}));
                 }
                 else {
                   $timeout(() => $state.go('welcome', {}, {location: 'replace'}));
-                }                
+                }
               });
             });
         }

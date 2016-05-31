@@ -13,7 +13,9 @@
     'ngMaterial',
     'ngMessages',
     'ngAnimate',
-    'ngStorage'
+    'ngStorage',
+    'angulartics',
+    'angulartics.google.analytics'
   ])
     .config(function($urlRouterProvider, $compileProvider, $locationProvider, $logProvider, dist) {
       $urlRouterProvider.otherwise('/');

@@ -242,7 +242,22 @@ module.exports = function (grunt) {
         exclude: [
           '/json3/',
           '/es5-shim/',
-          /font-awesome\.css/
+          /font-awesome\.css/,
+          //Tons of angulartics crap to get rid of
+          /noframework.waypoints.min.js/,
+          /sha1.js/,
+          /angulartics-newrelic-insights.js/,
+          /angulartics-clicky.js/,
+          /angulartics-cnzz.js/,
+          /angulartics-ga-cordova.js/,
+          /angulartics-gtm.js/,
+          /angulartics-piwik.js/,
+          /angulartics-scroll.js/,
+          /angulartics-splunk.js/,
+          /angulartics-woopra.js/,
+          /angulartics-marketo.js/,
+          /angulartics-intercom.js/,
+          /angulartics-inspectlet.js/
         ]
       },
       client: {

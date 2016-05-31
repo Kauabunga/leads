@@ -42,6 +42,10 @@ angular.module('bbqApp')
       }
     };
 
+    this.showFeedbackModel = ($event) => {
+      return this.showInfoModel($event, 'components/modal/feedbackModal.html');
+    };
+
     this.showAddToHomescreenModel = ($event) => {
       return this.showInfoModel($event, 'components/modal/addToHomescreenModal.html');
     };
@@ -55,11 +59,16 @@ angular.module('bbqApp')
       if ( ! this.isModalActive) {
         this.isModalActive = true;
         return $mdDialog.show({
-            controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
+            controller: ['$scope', '$mdDialog', 'analyticsService', ($scope, $mdDialog, analyticsService) => {
               $scope.isIOS = ! isAndroid;
               $scope.isAndroid = isAndroid;
               $scope.hideModal = $mdDialog.hide;
               $scope.maxImgHeight = getWindowHeight() * getWindowHeightMultiplier();
+              $scope.submitFeedback = feedback => {
+                if(! feedback ){ return; }
+                $scope.feedbackSubmitted = true;
+                return analyticsService.trackEvent('Feedback', feedback);
+              };
               let onResize = () => $scope.maxImgHeight = getWindowHeight() * getWindowHeightMultiplier();
               window.addEventListener('resize', onResize);
               $scope.$on('$destroy', () => window.removeEventListener('resize', onResize));
