@@ -39,6 +39,8 @@ var all = {
 
   staticCacheAge: process.env.STATIC_CACHE_AGE || 86400000, // 1day
 
+  tokenLifetime: process.env.TOKEN_LIFETIME || 1000 * 60 * 60 * 2,  // 2 hours
+
   // MongoDB connection options
   mongo: {
     options: {

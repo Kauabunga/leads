@@ -9,11 +9,11 @@ angular.module('bbqApp')
         template: '<bbq-login></bbq-login>'
       })
       .state('token', {
-        url: '/token/:email/:token',
+        url: '/token/:uuid',
         template: '<div></div>',
-        controller: function($state, $stateParams, $log, Auth, $timeout, $localStorage, feedbackService){
+        controller: function($state, $stateParams, $log, Auth, $timeout, $localStorage, feedbackService, analyticsService){
           let email = $stateParams.email;
-          Auth.login({email: $stateParams.email, registerToken: $stateParams.token})
+          Auth.loginWithId({uuid: $stateParams.uuid})
             .then(response => {
               $log.debug('Successfully authenticated');
 

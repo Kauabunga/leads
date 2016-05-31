@@ -12,7 +12,7 @@ let loginTokenTemplate = fs.readFileSync(`${__dirname}/login-token.template.html
 let inlinedTemplate = inlineCss(loginTokenTemplate, {url: '/'});
 
 
-export function sendTokenEmail({baseUrl, email, token}) {
+export function sendTokenEmail({baseUrl, email, token, uuid}) {
 
   return inlinedTemplate.then((template) => {
     let mailOptions = {
@@ -20,7 +20,7 @@ export function sendTokenEmail({baseUrl, email, token}) {
       to: email,
       subject: config.email.tokenSubject || 'Solnet Leads login', // Subject line
       html: template.replace('{{{token}}}', token)
-        .replace('{{{tokenUrl}}}', getTokenUrl(baseUrl, email, token))
+        .replace('{{{tokenUrl}}}', getTokenUrl(baseUrl, uuid))
     };
 
     console.log(`Sending token email ${email}, ${token}`, mailOptions);
@@ -34,8 +34,8 @@ export function sendTokenEmail({baseUrl, email, token}) {
   });
 }
 
-function getTokenUrl(baseUrl, email, token){
-  return `${baseUrl}/#/token/${email}/${token}`;
+function getTokenUrl(baseUrl, uuid){
+  return `${baseUrl}/#/token/${uuid}`;
 }
 
 export function sendLeadsEmail(leadObject) {

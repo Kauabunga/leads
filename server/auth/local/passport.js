@@ -2,11 +2,11 @@ import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 import uuid from 'uuid';
 import moment from 'moment';
+import config from '../../config/environment';
 
-const TOKEN_LIFETIME = 1000 * 60 * 60 * 2;  // 2 hours
 
 function localAuthenticate(User, email, password, done) {
-
+  
   return User.findOne({
     email: email.toLowerCase()
   }).exec()
@@ -31,6 +31,7 @@ function localAuthenticate(User, email, password, done) {
 
           // Remove token password on successful authentication
           user.password = uuid.v4();
+          user.uuid = uuid.v4();
 
           //change the last created token date to the past so the user can go and create a new token if they logout
           user.lastTokenCreatedDate = new Date();
@@ -49,7 +50,7 @@ function localAuthenticate(User, email, password, done) {
 }
 
 function isExpiredUserToken(user){
-  return Math.abs(moment(user.lastTokenCreatedDate).diff(Date.now())) > TOKEN_LIFETIME;
+  return Math.abs(moment(user.lastTokenCreatedDate).diff(Date.now())) > config.tokenLifetime;
 }
 
 export function setup(User, config) {

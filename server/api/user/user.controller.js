@@ -149,41 +149,6 @@ export function show(req, res, next) {
 }
 
 /**
- * Deletes a user
- * restriction: 'admin'
- */
-export function destroy(req, res) {
-  return User.findByIdAndRemove(req.params.id).exec()
-    .then(function() {
-      res.status(204).end();
-    })
-    .catch(handleError(res));
-}
-
-/**
- * Change a users password
- */
-export function changePassword(req, res, next) {
-  var userId = req.user._id;
-  var oldPass = String(req.body.oldPassword);
-  var newPass = String(req.body.newPassword);
-
-  return User.findById(userId).exec()
-    .then(user => {
-      if (user.authenticate(oldPass)) {
-        user.password = newPass;
-        return user.save()
-          .then(() => {
-            res.status(204).end();
-          })
-          .catch(validationError(res));
-      } else {
-        return res.status(403).end();
-      }
-    });
-}
-
-/**
  * Get my info
  */
 export function me(req, res, next) {

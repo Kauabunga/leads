@@ -1,6 +1,7 @@
 'use strict';
 
 import crypto from 'crypto';
+import uuid from 'uuid';
 import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
@@ -23,6 +24,7 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  uuid: String,
   password: String,
   provider: String,
   salt: String,
@@ -187,15 +189,20 @@ UserSchema.methods = {
 
         let registrationToken = _.random(10000, 99999).toString();
         user.password = registrationToken;
+        user.uuid = uuid.v4();
 
         return emailService.sendTokenEmail({
           email: user.email,
           token: registrationToken,
+          uuid: user.uuid,
           baseUrl
         })
         .then(() => {
           //Update user if successful
-          return user.save();
+          return user.save()
+            .then(updatedUser => {
+              console.log('Updated user', updatedUser.toObject());
+            });
         });
       });
 
