@@ -72,7 +72,12 @@ angular.module('bbqApp')
         }
 
         function gotoMain(){
-          $state.go('main',{},{location:'replace'});
+          if($localStorage.welcomeViewed){
+            $timeout(() => $state.go('main', {}, {location: 'replace'}));
+          }
+          else {
+            $timeout(() => $state.go('welcome', {}, {location: 'replace'}));
+          }
         }
 
         function submitEmail(form, email){

@@ -45,12 +45,16 @@
         md-button.md-icon-button(aria-label='Edit email' ng-click='edit()')
           edit-svg
 
-    .title.tiny-title
+    //.title.tiny-title
       .title-container.login-title-container
         h1 Or enter the emailed token here
 
+    form(ng-if='! state.showEmailTokenInput')
+      br
+      md-button(ng-click='state.showEmailTokenInput = true') Or enter the emailed token here
 
-    form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, state.registerToken)', novalidate, autocomplete='off')
+
+    form(ng-if='state.showEmailTokenInput' name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, state.registerToken)', novalidate, autocomplete='off')
 
       md-input-container
         label

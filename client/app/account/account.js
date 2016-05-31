@@ -19,7 +19,12 @@ angular.module('bbqApp')
               $timeout(() => {
                 $localStorage.loginState = {};
                 feedbackService.sync();
-                $timeout(() => $state.go('main', {}, {location: 'replace'}));
+                if($localStorage.welcomeViewed){
+                  $timeout(() => $state.go('main', {}, {location: 'replace'}));
+                }
+                else {
+                  $timeout(() => $state.go('welcome', {}, {location: 'replace'}));
+                }                
               });
             });
         }

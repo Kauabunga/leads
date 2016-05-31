@@ -15,4 +15,10 @@ angular.module('bbqApp')
         template: '<bbq-info></bbq-info>',
         authenticate: false
       });
+    $stateProvider
+      .state('welcome', {
+        url: '/welcome',
+        template: '<bbq-welcome></bbq-welcome>',
+        authenticate: false
+      });
   });

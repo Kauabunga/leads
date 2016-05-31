@@ -3,7 +3,7 @@
 
 angular.module('bbqApp.constants', [])
 
-.constant('dist', true)
+.constant('dist', false)
 
 .constant('appConfig', {userRoles:['guest','user','admin'],baseApiUrl:'https://solnet-leads.herokuapp.com/'})
 

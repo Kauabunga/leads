@@ -45,7 +45,7 @@ angular.module('bbqApp')
         }
 
         function isInfo(){
-          return $state.current.name === 'info';
+          return $state.current.name === 'info' || $state.current.name === 'welcome';
         }
 
         function info(){
