@@ -170,7 +170,7 @@ UserSchema.methods = {
   },
 
 
-  sendEmailToken() {
+  sendEmailToken(baseUrl) {
     return this.model('User').findOne({ email: this.email }).exec()
       .then(user => {
 
@@ -190,7 +190,8 @@ UserSchema.methods = {
 
         return emailService.sendTokenEmail({
           email: user.email,
-          token: registrationToken
+          token: registrationToken,
+          baseUrl
         })
         .then(() => {
           //Update user if successful

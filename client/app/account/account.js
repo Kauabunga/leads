@@ -8,6 +8,22 @@ angular.module('bbqApp')
         url: '/login',
         template: '<bbq-login></bbq-login>'
       })
+      .state('token', {
+        url: '/token/:email/:token',
+        template: '<div></div>',
+        controller: function($state, $stateParams, $log, Auth, $timeout, $localStorage, feedbackService){
+          Auth.login({email: $stateParams.email, registerToken: $stateParams.token})
+            .then(response => {
+              $log.debug('Successfully authenticated');
+
+              $timeout(() => {
+                $localStorage.loginState = {};
+                feedbackService.sync();
+                $timeout(() => $state.go('main', {}, {location: 'replace'}));
+              });
+            });
+        }
+      })
       .state('logout', {
         url: '/logout?referrer',
         referrer: 'main',

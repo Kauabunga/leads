@@ -3,29 +3,39 @@ import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
 import config from '../../config/environment';
 import _ from 'lodash';
+import fs from 'fs';
+import inlineCss from 'inline-css';
 
 let transporter = getTransporter();
 
+let loginTokenTemplate = fs.readFileSync(`${__dirname}/login-token.template.html`, 'utf8');
+let inlinedTemplate = inlineCss(loginTokenTemplate, {url: '/'});
 
-export function sendTokenEmail({email, token}) {
 
-  return new Promise((success, failure) => {
+export function sendTokenEmail({baseUrl, email, token}) {
 
+  return inlinedTemplate.then((template) => {
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
       to: email,
-      subject: config.email.tokenSubject || 'Leads login token', // Subject line
-      text: `Your token is: ${token}` // plaintext body
+      subject: config.email.tokenSubject || 'Solnet Leads login', // Subject line
+      html: template.replace('{{{token}}}', token)
+        .replace('{{{tokenUrl}}}', getTokenUrl(baseUrl, email, token))
     };
 
     console.log(`Sending token email ${email}, ${token}`, mailOptions);
 
     // send mail with defined transport object
-    return transporter.sendMail(mailOptions, function(error, info){
-      return error ? failure(error) : success(info);
-    });
-
+    return new Promise((success, failure) => {
+      return transporter.sendMail(mailOptions, function(error, info){
+        return error ? failure(error) : success(info);
+      });
+    })
   });
+}
+
+function getTokenUrl(baseUrl, email, token){
+  return `${baseUrl}/#/token/${email}/${token}`;
 }
 
 export function sendLeadsEmail(leadObject) {

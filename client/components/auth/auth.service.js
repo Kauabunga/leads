@@ -2,7 +2,7 @@
 
 (function() {
 
-function AuthService($location, $http, $log, $q, appConfig, Util, User, $localStorage) {
+function AuthService($location, $http, $window, $q, appConfig, Util, User, $localStorage) {
 
   let safeCb = Util.safeCb;
   let currentUser = {};
@@ -24,7 +24,7 @@ function AuthService($location, $http, $log, $q, appConfig, Util, User, $localSt
 
       let emailParsed = `${email.split('@')[0]}@${email.split('@')[1].toLowerCase()}`;
 
-      return $http.post(USERS_API, { email: emailParsed })
+      return $http.post(USERS_API, { baseUrl: $window.location.origin, email: emailParsed })
         .then(res => {
           return res;
         });

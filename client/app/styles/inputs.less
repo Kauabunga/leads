@@ -6,8 +6,15 @@ label, input, textarea {
 
 
 
+form:not(.ng-submitted){
+  md-input-container.md-default-theme.md-input-invalid .md-input,
+  md-input-container.md-input-invalid .md-input{
+    border-color: @deep-blue;
+  }
+}
+
 md-input-container {
-//  margin: 25px 0 18px;
+
   margin: 25px 0 0;
 
   padding-left: 0;

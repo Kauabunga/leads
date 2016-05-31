@@ -129,7 +129,7 @@ angular.module('bbqApp')
           if(response && response.status <= 0){
             toastService.errorToast('You need to be online to login');
           }
-          else if(response.status !== 401) {
+          else if(response && response.status !== 401) {
             toastService.errorToast((response.data && response.data.message) || 'Something went wrong. Please try again.');
           }
 

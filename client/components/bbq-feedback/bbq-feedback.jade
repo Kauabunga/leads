@@ -10,7 +10,7 @@
         md-button.grey-button.advance-button.md-icon-button(aria-label='Toggle advance fields' ng-click='showAdvanceDetails = ! showAdvanceDetails')
           tune-svg
 
-    form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, state)' novalidate)
+    form(name='feedbackForm', autocomplete='off', ng-submit='submitFeedback(feedbackForm, state)' novalidate)
 
       md-input-container.bold
         label
@@ -43,15 +43,15 @@
       .advance-container(ng-if='showAdvanceDetails')
         md-input-container.optional
           label
-          input(name='contactEmail' type='email' ng-model='state.contactEmail' autocomplete='off', placeholder='Contact email',)
+          input(name='contactEmail' type='email' ng-model='state.contactEmail' autocomplete='off', placeholder='Client email',)
 
         md-input-container.optional
           label
-          input(name='contactMobile' type='tel' ng-model='state.contactMobile' autocomplete='off', placeholder='Contact mobile number',)
+          input(name='contactMobile' type='tel' ng-model='state.contactMobile' autocomplete='off', placeholder='Client mobile number',)
 
         md-input-container.optional
           label
-          input(name='contactPhone' type='tel' ng-model='state.contactPhone' autocomplete='off', placeholder='Contact phone number',)
+          input(name='contactPhone' type='tel' ng-model='state.contactPhone' autocomplete='off', placeholder='Client phone number',)
 
 
       md-checkbox(ng-model='state.anonymous') I want to be anonymous
@@ -73,7 +73,7 @@
 
     .title.small-title.small-margin.grey-title
       .title-container
-        h1 {{feedbackSuccessTitle}}
+        h1 {{::feedbackSuccessTitle}}
 
 
 

@@ -40,8 +40,10 @@ export function index(req, res) {
 export function create(req, res, next) {
 
   let email = req.body && req.body.email && req.body.email.toLowerCase();
+  let baseUrl = req.body && req.body.baseUrl && req.body.baseUrl.toLowerCase();
 
   if( ! email ){ return res.status(400).send(); }
+  if( ! baseUrl ){ return res.status(400).send(); }
   if( ! isValidDomain(email) ) {
     console.log('Invalid email domain', email);
     return res.status(400).json({message: getInvalidDomainErrorMessage()});
@@ -70,7 +72,7 @@ export function create(req, res, next) {
     .then(user => {
       if(user){
         console.log(`Got user ${user.email}`);
-        return user.sendEmailToken()
+        return user.sendEmailToken(baseUrl)
           .then(() => {
             return res.status(200).send();
           })

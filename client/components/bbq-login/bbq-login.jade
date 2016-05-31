@@ -31,24 +31,26 @@
 
 
 
+
 .container.login-container(ng-if='state.successfulTokenSent')
 
   .inner-container
 
-    .title.grey-title.tiny-title
+    .title.small-title
       .title-container.login-title-container
-        h1 We have sent you an email.
-          br
-          | Enter the code you see in your inbox for:
+        h1 We have sent you an email with a link to complete your login
     .title.email-title.small-title.small-margin.dark-grey-title
       .title-container
         h1 {{::state.email}}
         md-button.md-icon-button(aria-label='Edit email' ng-click='edit()')
           edit-svg
 
+    .title.tiny-title
+      .title-container.login-title-container
+        h1 Or enter the emailed token here
+
 
     form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, state.registerToken)', novalidate, autocomplete='off')
-
 
       md-input-container
         label
@@ -64,10 +66,10 @@
           div(ng-message='maxlength') You have entered too many digits
           div(ng-message='token') That token did not match the one we sent
 
-      md-button(type='submit', ng-class='{"bold-button": (registerToken + "").length === 5}')
+      md-button(type='submit', ng-class='{"bold-button": (state.registerToken + "").length === 5}')
         span(ng-hide='submittingFirstToken') Login
           right-arrow-svg
-        md-progress-circular(ng-show='submittingFirstToken' ng-class='{"white-progress": (registerToken + "").length === 5}' md-mode='indeterminate')
+        md-progress-circular.white-progress(ng-show='submittingFirstToken' md-mode='indeterminate')
 
 
 
