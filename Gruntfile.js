@@ -923,7 +923,7 @@ module.exports = function (grunt) {
 
   function writeServiceWorkerFile(rootDir, handleFetch, callback) {
     var config = {
-      cacheId: require('./package.json').name,
+      cacheId: require('./package.json').name + '_v' + require('./package.json').version,
       dynamicUrlToDependencies: {},
       // If handleFetch is false (i.e. because this is called from swPrecache:dev), then
       // the service worker will precache resources but won't actually serve them.
