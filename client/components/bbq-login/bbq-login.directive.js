@@ -106,7 +106,6 @@ angular.module('bbqApp')
                 $timeout(() => {
                   scope.tokenTimedout = true;
                   scope.successfulResentToken = false;
-
                 }, TOKEN_TIMEOUT);
               })
               .catch(response => {

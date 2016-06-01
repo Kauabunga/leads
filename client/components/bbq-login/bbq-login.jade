@@ -78,14 +78,14 @@
         md-progress-circular.white-progress(ng-show='submittingFirstToken' md-mode='indeterminate')
 
 
-
-      md-content(ng-if='tokenTimedout')
-        md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(email)')
+    form(ng-if='tokenTimedout')
+      md-content
+        md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(state.email)')
           span(ng-hide='submittingSecondToken') Please send me another email
           md-progress-circular(ng-show='submittingSecondToken' md-mode='indeterminate')
 
-
-      md-content(ng-if='successfulResentToken')
+    form(ng-if='successfulResentToken')
+      md-content
         label.deep-blue.second-token-sent Another email has been sent
 
 
