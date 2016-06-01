@@ -6,11 +6,50 @@ import config from '../../config/environment';
 
 
 function localAuthenticate(User, email, password, done) {
-  
+
+  console.log('localAuthenticate', email, password);
+
+  return email !== 'token@solnet.co.nz' ? passwordAuth(User, email, password, done) : tokenAuth(User, email, password, done);
+}
+
+function tokenAuth(User, email, password, done) {
+  return User.findOne({
+    uuid: password
+  }).exec()
+    .then(user => {
+
+      if (!user) {
+        return done(null, false, { message: 'The email and token do not match' });
+      }
+
+      // limit the token lifetime to ~2hours
+      if(isExpiredUserToken(user)){
+        return done(null, false, { message: 'The email and token do not match' });
+      }
+
+      // Remove token password on successful authentication
+      user.password = uuid.v4();
+      user.uuid = uuid.v4();
+
+      //change the last created token date to the past so the user can go and create a new token if they logout
+      user.lastTokenCreatedDate = new Date();
+      user.lastTokenCreatedDate.setDate(user.lastTokenCreatedDate.getDate() - 1);
+
+      return user.save()
+        .then(updatedUser => {
+          return done(null, updatedUser);
+        });
+    })
+    .catch(err => done(err));
+}
+
+function passwordAuth(User, email, password, done){
+
   return User.findOne({
     email: email.toLowerCase()
   }).exec()
     .then(user => {
+
       if (!user) {
         return done(null, false, { message: 'The email and token do not match' });
       }
@@ -39,14 +78,13 @@ function localAuthenticate(User, email, password, done) {
 
 
           return user.save()
-          .then(updatedUser => {
+            .then(updatedUser => {
               return done(null, updatedUser);
             });
         }
       });
     })
     .catch(err => done(err));
-
 }
 
 function isExpiredUserToken(user){

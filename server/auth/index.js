@@ -7,11 +7,9 @@ import User from '../api/user/user.model';
 
 // Passport Configuration
 require('./local/passport').setup(User, config);
-require('./token/passport').setup(User, config);
 
 var router = express.Router();
 
 router.use('/local', require('./local').default);
-router.use('/token', require('./token').default);
 
 export default router;

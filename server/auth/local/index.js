@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
 
   return passport.authenticate('local', function(err, user, info) {
 
-    if(throttleEmailAttempts(user.email)){
+    if(user && throttleEmailAttempts(user.email)){
       console.error('Invalid number of attempts for email', user.email);
       return res.status(401).json({message: 'The email and token do not match'});
     }

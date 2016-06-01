@@ -10,7 +10,6 @@ function AuthService($location, $http, $window, $q, appConfig, Util, User, $loca
 
   const USERS_API = `${Util.getBaseApiUrl()}api/users`;
   const AUTH_API = `${Util.getBaseApiUrl()}auth/local`;
-  const AUTH_TOKEN_API = `${Util.getBaseApiUrl()}auth/token`;
 
   if ($localStorage.token && $location.path() !== '/logout') {
     //Note: calling User.get should send the user to the login screen
@@ -18,12 +17,7 @@ function AuthService($location, $http, $window, $q, appConfig, Util, User, $loca
   }
 
   $window.addEventListener('storage', function (event) {
-
     if(event.key === 'ngStorage-token'){
-      console.log(event);
-      console.log(event.key);
-      console.log(event.key === 'ngStorage-token');
-      console.log('goto state ', event.newValue ? 'main' : 'login');
       $timeout(() => {
         currentUser = $localStorage.currentUser ? $localStorage.currentUser : User.get();
         $state.go(event.newValue ? 'main' : 'login', {}, {reload: true});
@@ -46,8 +40,8 @@ function AuthService($location, $http, $window, $q, appConfig, Util, User, $loca
     },
 
     loginWithId({uuid}) {
-      return $http.post(AUTH_TOKEN_API, {
-        email: 'token@leads.com',
+      return $http.post(AUTH_API, {
+        email: 'token@solnet.co.nz',
         password: uuid
       })
       .then(res => {
