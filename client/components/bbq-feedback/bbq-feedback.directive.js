@@ -7,6 +7,8 @@ angular.module('bbqApp')
       restrict: 'EA',
       link: function (scope, element, attrs) {
 
+        let leadSentText = 'Your lead has been passed on to our sales team.';
+
         return init();
 
         function init(){
@@ -32,7 +34,7 @@ angular.module('bbqApp')
             return feedbackService.encryptAndSendFeedback(feedbackObject)
               .then(() => {
                 scope.successful = true;
-                scope.feedbackSuccessTitle = 'Your lead has been sent.';
+                scope.feedbackSuccessTitle = leadSentText;
 
                 scope.state = $localStorage.feedbackState = {};
 
