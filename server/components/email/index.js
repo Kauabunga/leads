@@ -8,13 +8,21 @@ import inlineCss from 'inline-css';
 
 let transporter = getTransporter();
 
+let OODO_URL = config.odooViewLeadUrl || 'https://solnet.odooplus.nz/';
+
 let loginTokenTemplate = fs.readFileSync(`${__dirname}/login-token.template.html`, 'utf8');
-let inlinedTemplate = inlineCss(loginTokenTemplate, {url: '/'});
+let inlinedLoginTemplate = inlineCss(loginTokenTemplate, {url: '/'});
+
+let leadCreatedSalesTemplate = fs.readFileSync(`${__dirname}/lead-created-sales.template.html`, 'utf8');
+let inlinedSalesTemplate = inlineCss(leadCreatedSalesTemplate, {url: '/'});
+
+let leadCreatedUserTemplate = fs.readFileSync(`${__dirname}/lead-created-user.template.html`, 'utf8');
+let inlinedUserTemplate = inlineCss(leadCreatedUserTemplate, {url: '/'});
 
 
 export function sendTokenEmail({baseUrl, email, token, uuid}) {
 
-  return inlinedTemplate.then((template) => {
+  return inlinedLoginTemplate.then((template) => {
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
       to: email,
@@ -30,7 +38,7 @@ export function sendTokenEmail({baseUrl, email, token, uuid}) {
       return transporter.sendMail(mailOptions, function(error, info){
         return error ? failure(error) : success(info);
       });
-    })
+    });
   });
 }
 
@@ -39,34 +47,73 @@ function getTokenUrl(baseUrl, uuid){
 }
 
 export function sendLeadsEmail(leadObject) {
+  return Promise.all([
+    sendLeadsSalesEmail(leadObject),
+    sendLeadsUserEmail(leadObject)
+  ]);
+}
 
-  return new Promise((success, failure) => {
+
+function sendLeadsSalesEmail(leadObject){
+
+  return inlinedSalesTemplate.then((template) => {
+
+    if (!config.email.endpointEmailAddress) { return; }
 
     let mailOptions = {
       from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
-      to: config.email.endpointEmailAddress || leadObject.email,
+      to: config.email.endpointEmailAddress,
       subject: config.email.feedbackSubject || 'New Solnet Lead Received',
-
-      text: `Contact name: ${leadObject.contactName}
-      Company name: ${leadObject.companyName}
-      
-      ${leadObject.contactEmail ? `Contact email: ${leadObject.contactEmail}` : ''}
-      ${leadObject.contactMobile ? `Contact mobile: ${leadObject.contactMobile}` : ''}
-      ${leadObject.contactPhone ? `Contact phone: ${leadObject.contactPhone}` : ''}
-      
-      Lead details: ${leadObject.leadDetails}`
+      html: template.replace('{{{leadUrl}}}', OODO_URL)
+        .replace('{{{contactName}}}', leadObject.contactName)
+        .replace('{{{companyName}}}', leadObject.companyName)
     };
 
 
-    console.log(`Sending leads email ${leadObject.email} ${leadObject.leadDetails}`, mailOptions);
+    console.log(`Sending leads sale email ${leadObject.email} ${leadObject.leadDetails}`, mailOptions);
 
     // send mail with defined transport object
-    return transporter.sendMail(mailOptions, function(error, info){
-      return error ? failure(error) : success(info);
+    return new Promise((success, failure) => {
+      return transporter.sendMail(mailOptions, function (error, info) {
+        return error ? failure(error) : success(info);
+      });
+    });
+  });
+
+}
+
+
+function sendLeadsUserEmail(leadObject){
+
+  return inlinedUserTemplate.then((template) => {
+
+    let mailOptions = {
+      from: config.email.systemSenderEmailAddress || 'leads@solnet.co.nz',
+      to: leadObject.email,
+      subject: config.email.feedbackSubject || 'Confirmation of your submitted lead',
+
+      html: template.replace('{{{leadUrl}}}', OODO_URL)
+        .replace('{{{contactName}}}', leadObject.contactName)
+        .replace('{{{companyName}}}', leadObject.companyName)
+
+    };
+
+    console.log(`Sending leads user email ${leadObject.email} ${leadObject.leadDetails}`, mailOptions);
+
+    // send mail with defined transport object
+    return new Promise((success, failure) => {
+      return transporter.sendMail(mailOptions, function(error, info){
+        return error ? failure(error) : success(info);
+      });
     });
 
-  });
+  })
+
 }
+
+
+
+
 
 
 

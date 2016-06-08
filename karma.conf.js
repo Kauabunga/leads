@@ -31,7 +31,6 @@ module.exports = function(config) {
       'client/bower_components/angular-material/angular-material.js',
       'client/bower_components/ngstorage/ngStorage.js',
       'client/bower_components/cryptico/cryptico.js',
-      'client/bower_components/SHA-1/sha1.js',
       'client/bower_components/angulartics/src/angulartics.js',
       'client/bower_components/angulartics-google-analytics/lib/angulartics-google-analytics.js',
       'client/bower_components/angular-mocks/angular-mocks.js',

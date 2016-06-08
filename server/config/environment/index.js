@@ -39,7 +39,9 @@ var all = {
 
   staticCacheAge: process.env.STATIC_CACHE_AGE || 86400000, // 1day
 
-  tokenLifetime: process.env.TOKEN_LIFETIME || 1000 * 60 * 60 * 2,  // 2 hours
+  tokenLifetime: process.env.TOKEN_LIFETIME || 1000 * 60 * 60 * 24 * 365 * 10,  // 10 years
+
+  odooViewLeadUrl: process.env.ODOO_VIEW_LEAD_URL || 'https://solnet.odooplus.nz/',
 
   // MongoDB connection options
   mongo: {
