@@ -7,9 +7,6 @@
       .title-container
         h1 What lead would you like to tell us about?
 
-        md-button.grey-button.advance-button.md-icon-button(aria-label='Toggle advance fields' ng-click='showAdvanceDetails = ! showAdvanceDetails')
-          tune-svg
-
     form(name='feedbackForm', autocomplete='off', ng-submit='submitFeedback(feedbackForm, state)' novalidate)
 
       md-input-container.bold
@@ -54,8 +51,11 @@
           input(name='contactPhone' type='tel' ng-model='state.contactPhone' autocomplete='off', placeholder='Client phone number',)
 
 
-      md-checkbox(ng-model='state.anonymous') I want to be anonymous
+      .bottom-actions-container
+        md-checkbox(ng-model='state.anonymous') I want to be anonymous
 
+        md-button.grey-button.advance-button.md-icon-button(aria-label='Toggle advance fields' ng-click='showAdvanceDetails = ! showAdvanceDetails')
+          tune-svg
 
       md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')
         span(ng-hide='submitting') Submit
